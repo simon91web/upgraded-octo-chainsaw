@@ -17,7 +17,7 @@ python -m http.server 8765 --bind 127.0.0.1 --directory mockup
 ```
 
 Dann <http://127.0.0.1:8765> öffnen. Oben lassen sich Gerät, Hell/Dunkel und Zustand umschalten
-(großer Verzug, „Für mich“ ohne Plan, Dienst nicht erreichbar).
+(großer Verzug, ohne eigene Pläne, Dienst nicht erreichbar).
 
 `mockup/vendor/` enthält unveränderte Kopien von Yuvomis `tokens.css` (MIT) und Lucide (ISC), siehe
 `mockup/vendor/LICENSES.txt`.

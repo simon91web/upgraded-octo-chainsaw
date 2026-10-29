@@ -1,25 +1,29 @@
 // Mockup Bibellese: zeichnet dieselbe Seite in den Laptop- und den Handy-Rahmen und die
 // Dashboard-Kachel daneben. Zustand liegt nur im Speicher; Neuladen setzt alles zurück.
+// Angemeldet ist Paul.
 
 import {
-  BUECHER, GRUPPEN, BUCH, KAPITEL_GESAMT, KAPITEL_AT, KAPITEL_NT, PLAENE, ABOS, FAMILIE, HEUTE, PUFFER,
-  stelle, stand, mitZiel, fortschritt, aktuellesBuch, statistik, tag, plusTage, datum,
+  BUECHER, GRUPPEN, BUCH, KAPITEL_GESAMT, KAPITEL_AT, KAPITEL_NT, ABOS, FREIE, FAMILIE, PERSON, ICH, HEUTE, PUFFER,
+  LESARTEN, RHYTHMEN, WEISHEIT, stelle, stand, mitZiel, neuEinteilen, neuEinteilenVorschau, erzeuge, buecherDerAuswahl,
+  minuten, fortschritt, aktuellesBuch, statistik, tag, plusTage, datum, nterLesetag,
 } from './bibellese-daten.js';
 
 const S = {
   ansicht: 'beide', thema: 'light', szenario: 'normal',
-  tab: 'heute', abo: 'familie',
+  tab: 'heute',          // heute | plaene | fortschritt | logbuch | statistik
+  filter: 'alle',        // Fortschritt, Logbuch, Statistik: 'alle' oder eine Plan-ID
   dabei: new Set(FAMILIE.map((p) => p.id)),
   monat: { j: HEUTE.getFullYear(), m: HEUTE.getMonth() },
   tagWahl: null,
   buch: null,
-  ui: null,        // { art: 'menu'|'sheet', ort, was, wert, fehler }
-  toast: null,     // { ort, text, undo, id }
-  busy: null,      // Ort, an dem gerade gespeichert wird
-  gerade: { familie: null, ich: null },
-  einst: { ichTage: 'jeden', famTage: 'jeden', famZaehlt: true },
+  ui: null,              // { art: 'menu'|'sheet', ort, was, wert, aboId, … }
+  toast: null,           // { ort, text, undo, id }
+  busy: null,            // Plan-ID, die gerade gespeichert wird
+  gerade: {},            // je Plan: zuletzt heute abgehakt
+  einst: { gemeinsamZaehlt: true, anlegen: 'alle' },
   saved: null,
   warteschlange: 0,
+  assistent: null,       // Antworten des Assistenten „Neuer Leseplan“
 };
 
 // ------------------------------------------------------------------ Hilfen
@@ -28,6 +32,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const ic = (name) => `<i data-lucide="${name}" aria-hidden="true"></i>`;
 const NBSP = ' ';
 const zahl = (n) => n.toLocaleString('de-DE');
+const dezimal = (n) => n.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const prozent = (a, b) => `${b ? Math.round((a / b) * 100) : 0}${NBSP}%`;
 const anteil = (a, b) => (b ? Math.min(1, a / b) : 0);
 const WT = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
@@ -44,24 +49,57 @@ function tagKopf(t) {
   return `${WT[d.getDay()]}, ${d.getDate()}. ${MON[d.getMonth()]}`;
 }
 const einheiten = (n) => `${n}${NBSP}${n === 1 ? 'Einheit' : 'Einheiten'}`;
+const lesungenText = (n) => `${zahl(n)}${NBSP}${n === 1 ? 'Lesung' : 'Lesungen'}`;
+const min = (m) => `≈${NBSP}${m < 10 ? dezimal(m) : Math.round(m)}${NBSP}Min.`;
 const sortiert = (lesungen) => lesungen.filter((l) => !l.geloescht)
   .sort((a, b) => (b.datum + b.uhrzeit).localeCompare(a.datum + a.uhrzeit));
 
-/** Alles, was eine Ansicht über das gewählte Abo wissen muss. */
-function sicht(aboId = S.abo) {
-  const ohnePlan = aboId === 'ich' && S.szenario === 'ohnePlan';
-  const roh = ABOS[aboId];
+const ART = {
+  gemeinsam: { icon: 'users', name: 'Gemeinsam' },
+  privat: { icon: 'lock', name: 'Nur für mich' },
+  sichtbar: { icon: 'eye', name: 'Für mich, sichtbar' },
+};
+
+// ------------------------------------------------------------------ Pläne und Sichten
+
+/** Pläne, die Paul liest: gemeinsame und eigene. Ohne eigene Pläne im Szenario „Ohne eigene Pläne“. */
+function meinePlaene() {
+  return Object.values(ABOS)
+    .filter((a) => !a.geloescht && (a.art === 'gemeinsam' || a.besitzer === ICH.id))
+    .filter((a) => !(S.szenario === 'ohnePlan' && a.art !== 'gemeinsam' && !a.neu))
+    .sort((a, b) => (a.art === 'gemeinsam' ? 0 : 1) - (b.art === 'gemeinsam' ? 0 : 1) || a.begonnen - b.begonnen);
+}
+const vonAnderen = () => Object.values(ABOS).filter((a) => !a.geloescht && a.art === 'sichtbar' && a.besitzer !== ICH.id);
+const istUebernommen = (abo) => Object.values(ABOS).some((a) => !a.geloescht && a.kopieVon === abo.id);
+
+/** Ein Plan, wie die Ansicht ihn sieht (im Szenario „Großer Verzug“ fehlen der Familie drei Wochen). */
+function planSicht(id) {
+  const roh = ABOS[id];
   let abo = roh;
-  if (ohnePlan) abo = { ...roh, lesungen: roh.lesungen.filter((l) => l.quelle === 'frei') };
-  // Szenario „Großer Verzug“: die Familie hat drei Wochen nicht gelesen (6.–28. Oktober).
-  if (aboId === 'familie' && S.szenario === 'grossVerzug') {
+  if (id === 'familie' && S.szenario === 'grossVerzug') {
     abo = { ...roh, lesungen: roh.lesungen.filter((l) => !(l.datum >= '2026-10-06' && l.datum <= '2026-10-28')) };
   }
-  const st = stand(abo, { ohnePlan });
-  const fort = fortschritt(abo);
-  const buch = aktuellesBuch(abo, st);
-  return { abo, st, fort, buch, ohnePlan, stat: statistik(abo, { monat: S.monat.m, jahr: S.monat.j }) };
+  const st = stand(abo);
+  return { abo, st, fort: fortschritt(abo), buch: aktuellesBuch(abo, st), stat: statistik(abo, { monat: S.monat.m, jahr: S.monat.j }) };
 }
+
+/** „Alles von mir“: eigene Pläne, gemeinsame Pläne, bei denen ich dabei war, und freie Einträge. */
+function alleSicht() {
+  const lesungen = [];
+  for (const a of meinePlaene()) {
+    const { abo } = planSicht(a.id);
+    for (const l of abo.lesungen) {
+      if (a.art === 'gemeinsam' && l.quelle === 'plan' && !(S.einst.gemeinsamZaehlt && l.dabei?.includes(ICH.id))) continue;
+      lesungen.push(l);
+    }
+  }
+  lesungen.push(...FREIE);
+  const abo = { id: 'alle', name: 'Alles von mir', lesungen, begonnen: new Date(2026, 0, 1) };
+  return { abo, st: null, fort: fortschritt(abo), buch: aktuellesBuch(abo, null), stat: statistik(abo, { monat: S.monat.m, jahr: S.monat.j }), alle: true };
+}
+
+const sicht = (id = S.filter) => (id === 'alle' || !ABOS[id] ? alleSicht() : planSicht(id));
+const ersterPlan = () => meinePlaene()[0]?.id;
 
 // ------------------------------------------------------------------ Schale
 
@@ -102,26 +140,27 @@ function sidebar() {
   </nav>`;
 }
 
-function bottomNav() {
+function bottomNav(ort) {
   const items = [['Übersicht', 'layout-grid', 'dashboard'], ['Kalender', 'calendar', 'calendar'], ['Aufgaben', 'square-check', 'tasks'], ['Küche', 'utensils', 'kitchen'], ['Mehr', 'ellipsis', null]];
+  const offen = S.ui?.art === 'menu' && S.ui.was === 'neu' && S.ui.ort === ort;
   return `<nav class="bottom-nav" aria-label="Navigation">${items.map(([l, i, m]) =>
     `<button style="--nav-tone:${m ? `var(--module-${m})` : 'var(--color-text-primary)'}"${m ? '' : ' aria-current="page"'}>${ic(i)}${l}</button>`).join('')}</nav>
-    <button class="fab" data-akt="eintragen" aria-label="Eintrag">${ic('plus')}</button>`;
+    <button class="fab" data-akt="menu" data-was="neu" data-wert="" aria-label="Neu" aria-expanded="${offen}">${ic(offen ? 'x' : 'plus')}</button>
+    ${offen ? `<div class="fab-menu">${menu('neu', '')}</div>` : ''}`;
 }
 
 // ------------------------------------------------------------------ Kopf
 
 function kopf(ort) {
-  const scope = `<div class="scope" role="tablist" aria-label="Leseplan">${[['familie', 'Familie'], ['ich', 'Für mich']].map(([id, l]) =>
-    `<button class="sub-tab" role="tab" aria-selected="${S.abo === id}" data-akt="abo" data-wert="${id}">${l}</button>`).join('')}</div>`;
+  const neuOffen = S.ui?.art === 'menu' && S.ui.was === 'neu' && S.ui.ort === ort;
   const aktionen = ort === 'laptop'
     ? `<div class="page-actions">${menuAnker('kopf', '', 'Mehr')}
-        <button class="btn btn--primary" data-akt="eintragen">${ic('plus')}Eintrag</button></div>`
+        <span class="menu-anchor"><button class="btn btn--primary" data-akt="menu" data-was="neu" data-wert="" aria-expanded="${neuOffen}">${ic('plus')}Neu</button>${neuOffen ? menu('neu', '') : ''}</span></div>`
     : '';
-  return `<div class="page-head"><h1 class="page-title">Bibellese</h1>${scope}${aktionen}</div>`;
+  return `<div class="page-head"><h1 class="page-title">Bibellese</h1>${aktionen}</div>`;
 }
 
-const TABS = [['heute', 'Heute'], ['fortschritt', 'Fortschritt'], ['logbuch', 'Logbuch'], ['statistik', 'Statistik']];
+const TABS = [['heute', 'Heute'], ['plaene', 'Pläne'], ['fortschritt', 'Fortschritt'], ['logbuch', 'Logbuch'], ['statistik', 'Statistik']];
 const reiter = () => `<div class="sub-tabs" role="tablist" aria-label="Ansicht">${TABS.map(([id, l]) =>
   `<button class="sub-tab" role="tab" aria-selected="${S.tab === id}" data-akt="tab" data-wert="${id}">${l}</button>`).join('')}</div>`;
 
@@ -131,17 +170,21 @@ function menuAnker(was, wert, label, klasse = 'btn btn--secondary btn--icon') {
 }
 
 function menu(was, wert) {
-  const v = sicht();
   let items = '';
   if (was === 'einheit') {
-    items = `<button data-akt="sheet" data-was="gelesenAm">${ic('calendar-clock')}An einem anderen Tag gelesen …</button>
-      <button data-akt="sheet" data-was="plan">${ic('list')}Ganzen Plan ansehen</button>
-      ${v.st?.verzug ? `<button data-akt="sheet" data-was="aufholen">${ic('fast-forward')}Aufholen …</button>` : ''}
-      <button data-akt="sheet" data-was="ziel">${ic('calendar-range')}Ziel verschieben …</button>
+    const { st } = planSicht(wert);
+    const a = `data-abo="${esc(wert)}"`;
+    items = `<button data-akt="sheet" data-was="gelesenAm" ${a}>${ic('calendar-clock')}An einem anderen Tag gelesen …</button>
+      <button data-akt="sheet" data-was="plan" ${a}>${ic('list')}Plan ansehen</button>
+      ${st.verzug ? `<button data-akt="sheet" data-was="aufholen" ${a}>${ic('fast-forward')}Aufholen …</button>` : ''}
+      ${st.ohneRhythmus ? '' : `<button data-akt="sheet" data-was="ziel" ${a}>${ic('calendar-range')}Ziel verschieben …</button>`}
       <hr><button data-akt="sheet" data-was="einstellungen">${ic('settings')}Einstellungen</button>`;
   } else if (was === 'kopf') {
-    items = `<button data-akt="sheet" data-was="plan">${ic('list')}Ganzen Plan ansehen</button>
+    items = `<button data-akt="tab" data-wert="plaene">${ic('list')}Pläne verwalten</button>
       <button data-akt="sheet" data-was="einstellungen">${ic('settings')}Einstellungen</button>`;
+  } else if (was === 'neu') {
+    items = `<button data-akt="eintragen">${ic('pen-line')}Eintrag</button>
+      <button data-akt="assistent">${ic('list-plus')}Leseplan</button>`;
   } else if (was === 'eintrag') {
     items = `<button data-akt="bearbeiten" data-wert="${esc(wert)}">${ic('pencil')}Bearbeiten</button>
       <hr><button class="danger" data-akt="loeschen" data-wert="${esc(wert)}">${ic('trash-2')}Löschen</button>`;
@@ -152,7 +195,7 @@ function menu(was, wert) {
 // ------------------------------------------------------------------ Seite
 
 function seite(ort) {
-  const inhalt = { heute, fortschritt: fortschrittTab, logbuch, statistik: statistikTab }[S.tab](ort);
+  const inhalt = { heute, plaene, fortschritt: fortschrittTab, logbuch, statistik: statistikTab }[S.tab](ort);
   const warn = S.szenario === 'fehler'
     ? `<div class="alert" role="status">${ic('cloud-off')}<p>Bibellese-Dienst nicht erreichbar – Einträge werden nachgetragen.</p>
         <button class="btn btn--secondary btn--sm" data-akt="erneut">${ic('refresh-cw')}Erneut versuchen</button></div>`
@@ -164,62 +207,77 @@ const spalten = (ort, main, rail) => (ort === 'laptop'
   ? `<div class="columns"><div class="col">${main}</div><div class="col">${rail}</div></div>`
   : `<div class="col">${main}${rail}</div>`);
 
+/** Filter für Fortschritt, Logbuch und Statistik: alles von mir oder ein Plan. */
+function filterLeiste() {
+  const chips = [['alle', 'Alles von mir'], ...meinePlaene().map((a) => [a.id, a.name])];
+  if (!chips.some(([id]) => id === S.filter)) S.filter = 'alle';
+  return `<div class="chips" role="group" aria-label="Plan">${chips.map(([id, l]) =>
+    `<button class="chip-filter" aria-pressed="${S.filter === id}" data-akt="filter" data-wert="${id}">${esc(l)}</button>`).join('')}</div>`;
+}
+
 // ------------------------------------------------------------------ Heute
 
 function heute(ort) {
-  const v = sicht();
-  if (!v.st) {
-    const main = `<section class="carrier">${leerPlan()}</section>`;
-    return spalten(ort, main, geradeDran(v) + (ort === 'laptop' ? kalenderKarte(v, ort) : ''));
-  }
-  if (ort === 'laptop') return spalten(ort, heuteKarte(v, ort) + danach(v), geradeDran(v) + kalenderKarte(v, ort));
-  return spalten(ort, heuteKarte(v, ort) + wocheKarte(v), geradeDran(v) + danach(v));
+  const plaene = meinePlaene();
+  const karten = plaene.map((a, i) => heuteKarte(planSicht(a.id), { primaer: i === 0 })).join('');
+  const ohneEigene = !plaene.some((a) => a.art !== 'gemeinsam');
+  const leer = ohneEigene ? `<section class="carrier">${leerPlan()}</section>` : '';
+  const alle = alleSicht();
+  if (ort === 'laptop') return spalten(ort, karten + leer, geradeDran(plaene, alle) + kalenderKarte(alle, ort));
+  return spalten(ort, karten + leer + wocheKarte(alle), geradeDran(plaene, alle));
 }
 
 function leerPlan() {
   return `<div class="empty"><span class="empty__icon">${ic('book-open')}</span>
     <h3>Noch kein eigener Plan</h3>
-    <p>Wähle einen Plan oder trag ein, was du liest.</p>
-    <div class="empty__actions"><button class="btn btn--primary" data-akt="sheet" data-was="planwahl">Plan wählen</button>
+    <p>Stell dir einen Plan zusammen oder trag ein, was du liest.</p>
+    <div class="empty__actions"><button class="btn btn--secondary" data-akt="assistent">${ic('list-plus')}Plan erstellen</button>
     <button class="btn btn--secondary" data-akt="eintragen">Frei eintragen</button></div></div>`;
 }
 
-function heuteKarte(v, ort) {
+function heuteKarte(v, { primaer }) {
   const { st, abo } = v;
-  const fam = abo.id === 'familie';
+  if (!st.naechste) {
+    return `<article class="card today"><div class="today__eyebrow">${ic(ART[abo.art].icon)}${esc(abo.name)}</div>
+      <div class="today__ref">Fertig gelesen</div><div class="today__unit">${lesungenText(st.anzahl)}</div></article>`;
+  }
+  const fam = abo.art === 'gemeinsam';
   const gerade = S.gerade[abo.id];
   const busy = S.busy === abo.id;
   const aufholen = st.heuteGelesen && st.verzug > 0;
   const dabei = fam ? `<div class="today__dabei"><span class="today__dabei-label">Dabei</span><div class="avatars">${FAMILIE.map((p) =>
     `<button class="avatar" style="--av:${p.farbe}" aria-pressed="${S.dabei.has(p.id)}" data-akt="dabei" data-wert="${p.id}" aria-label="${p.name}" title="${p.name}">
       <span class="avatar__face">${p.name[0]}</span><span class="avatar__tick">${ic('check')}</span></button>`).join('')}</div></div>` : '';
-  return `<article class="card today" aria-label="Nächste Einheit">
-    <div class="today__eyebrow">${st.plan.name}
-      ${menuAnker('einheit', abo.id, 'Mehr zur Einheit', 'btn btn--ghost btn--icon')}</div>
+  const knopf = `btn ${primaer ? 'btn--primary' : 'btn--secondary'}${busy ? ' btn--busy' : ''}`;
+  return `<article class="card today${primaer ? '' : ' today--compact'}" aria-label="${esc(abo.name)}">
+    <div class="today__eyebrow">${ic(ART[abo.art].icon)}${esc(abo.name)}
+      ${menuAnker('einheit', abo.id, `Mehr zu ${esc(abo.name)}`, 'btn btn--ghost btn--icon')}</div>
     ${gerade ? `<div class="today__done"><span class="check-ring check-ring--done check-ring--sm">${ic('check')}</span>${esc(gerade.stelle)} gelesen · ${gerade.uhrzeit}</div>` : ''}
     <div class="today__ref">${stelle(st.naechste.kapitel)}</div>
-    <div class="today__unit tabnum">Einheit ${st.naechste.nr} von ${zahl(st.plan.einheiten.length)}${aufholen ? ' · zum Aufholen' : ''}</div>
-    ${zielStatus(st)}
+    <div class="today__unit tabnum">Einheit ${st.naechste.nr} von ${zahl(st.anzahl)} · ${min(st.minutenNaechste)}${aufholen ? ' · zum Aufholen' : ''}</div>
+    ${zielStatus(st, abo)}
     ${dabei}
-    <div class="today__actions"><button class="btn btn--primary${busy ? ' btn--busy' : ''}" data-akt="gelesen" data-abo="${abo.id}">${busy ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button></div>
+    <div class="today__actions"><button class="${knopf}" data-akt="gelesen" data-abo="${abo.id}">${busy ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button></div>
   </article>`;
 }
 
 /**
- * Ziel und Verzug in der Karte „Heute“. Bis PUFFER Einheiten Rückstand steht nur das Ziel da.
- * Darüber in Warnfarbe, mit den zwei Auswegen; bei großem Verzug steht „Ziel verschieben“ vorn.
+ * Ziel und Verzug. Bis PUFFER Einheiten Rückstand steht nur das Ziel da. Darüber in Warnfarbe,
+ * mit den Auswegen; bei großem Verzug steht „Ziel verschieben“ vorn.
  */
-function zielStatus(st, { kompakt = false } = {}) {
+function zielStatus(st, abo) {
+  if (st.ohneRhythmus) return `<div class="today__meta"><span class="state">${ic('infinity')}Ohne festen Rhythmus</span></div>`;
   const ziel = fmtDatum(st.ziel);
+  const a = `data-abo="${abo.id}"`;
   if (st.verzug > PUFFER) {
     const auswege = [
-      `<button class="btn btn--ghost btn--sm" data-akt="sheet" data-was="aufholen">${ic('fast-forward')}Aufholen</button>`,
-      `<button class="btn btn--ghost btn--sm" data-akt="sheet" data-was="ziel">${ic('calendar-range')}Ziel verschieben</button>`,
+      `<button class="btn btn--ghost btn--sm" data-akt="sheet" data-was="aufholen" ${a}>${ic('fast-forward')}Aufholen</button>`,
+      `<button class="btn btn--ghost btn--sm" data-akt="sheet" data-was="ziel" ${a}>${ic('calendar-range')}Ziel verschieben</button>`,
     ];
     if (st.grosserVerzug) auswege.reverse();
     return `<div class="today__meta"><span class="state state--warn">${ic('hourglass')}${einheiten(st.verzug)} im Verzug</span>
         <span>so wird es der ${fmtDatum(st.ende)}</span></div>
-      ${kompakt ? '' : `<div class="today__fix">${auswege.join('')}</div>`}`;
+      <div class="today__fix">${auswege.join('')}</div>`;
   }
   if (st.verzug > 0) return `<div class="today__meta"><span class="state">${ic('flag')}Ziel ${ziel}</span></div>`;
   if (st.vorsprung > 0) {
@@ -228,26 +286,27 @@ function zielStatus(st, { kompakt = false } = {}) {
   return `<div class="today__meta"><span class="state state--ok">${ic('check')}Im Plan</span><span>Ziel ${ziel}</span></div>`;
 }
 
-function danach(v) {
-  if (!v.st?.danach.length) return '';
-  return `<section class="section"><h2 class="section-title">Danach im Plan</h2>
-    <div class="carrier rows">${v.st.danach.map((u) => `<div class="row"><span class="row__num">${u.nr}</span>
-      <div class="row__main"><span class="row__title">${stelle(u.kapitel)}</span></div></div>`).join('')}
-      <button class="row row--link" data-akt="sheet" data-was="plan">Ganzen Plan ansehen${ic('chevron-right')}</button></div></section>`;
+function kurzStatus(st) {
+  if (st.ohneRhythmus) return ['', 'Ohne festen Rhythmus'];
+  if (st.verzug > PUFFER) return ['state--warn', `${einheiten(st.verzug)} im Verzug`];
+  if (st.verzug > 0) return ['', `Ziel ${fmtDatum(st.ziel)}`];
+  if (st.vorsprung > 0) return ['state--ok', `${einheiten(st.vorsprung)} Vorsprung`];
+  return ['state--ok', 'Im Plan'];
 }
 
-function geradeDran(v) {
-  const b = v.buch;
-  if (!b) return '';
-  const gelesen = v.fort.proBuch[b.id].size;
-  const naechstesBuch = BUECHER[b.index + 1];
-  return `<section class="carrier"><div style="padding:16px">
-      <h3 class="card-title">Gerade dran</h3>
-      <div class="meter"><div class="meter__head"><b>${b.name}</b><span>${gelesen} von ${b.kapitel} Kapiteln</span></div>
-        <div class="bar"><span style="transform:scaleX(${anteil(gelesen, b.kapitel)})"></span></div></div>
-      ${naechstesBuch && v.st ? `<div class="footnote" style="margin-top:6px">Danach ${naechstesBuch.name}</div>` : ''}
-      <div class="meter" style="margin-top:18px"><div class="meter__head"><b>Ganze Bibel</b><span>${zahl(v.fort.gesamt)} von ${zahl(KAPITEL_GESAMT)} · ${prozent(v.fort.gesamt, KAPITEL_GESAMT)}</span></div>
-        <div class="bar"><span style="transform:scaleX(${anteil(v.fort.gesamt, KAPITEL_GESAMT)})"></span></div></div>
+function geradeDran(plaene, alle) {
+  const zeilen = plaene.map((a) => {
+    const v = planSicht(a.id);
+    const b = v.buch;
+    if (!b) return '';
+    const n = v.fort.proBuch[b.id].size;
+    return `<div class="meter"><div class="meter__head"><b>${b.name}</b><span>${n} von ${b.kapitel}</span></div>
+      <div class="bar"><span style="transform:scaleX(${anteil(n, b.kapitel)})"></span></div><div class="footnote">${esc(a.name)}</div></div>`;
+  }).join('');
+  return `<section class="carrier"><div class="stack">
+      <h3 class="card-title" style="margin:0">Gerade dran</h3>${zeilen}
+      <div class="meter meter--sum"><div class="meter__head"><b>Ganze Bibel</b><span>${zahl(alle.fort.gesamt)} von ${zahl(KAPITEL_GESAMT)} · ${prozent(alle.fort.gesamt, KAPITEL_GESAMT)}</span></div>
+        <div class="bar"><span style="transform:scaleX(${anteil(alle.fort.gesamt, KAPITEL_GESAMT)})"></span></div><div class="footnote">Alles von mir</div></div>
     </div>
     <button class="row row--link row--sep" data-akt="tab" data-wert="fortschritt">Fortschritt${ic('chevron-right')}</button></section>`;
 }
@@ -263,7 +322,7 @@ function wocheKarte(v) {
     const zukunft = d > HEUTE;
     const istHeute = t === tag(HEUTE);
     if (!zukunft && (!istHeute || n)) { bisher++; if (n) gelesen++; }
-    return `<div class="week__day" data-tip="${kurzDatum(d)} · ${n ? einheiten(n) : 'nichts eingetragen'}">${WT2[d.getDay()]}
+    return `<div class="week__day" data-tip="${kurzDatum(d)} · ${n ? (n === 1 ? '1 Eintrag' : `${n} Einträge`) : 'nichts eingetragen'}">${WT2[d.getDay()]}
       <span class="week__num${istHeute ? ' week__num--today' : ''}${zukunft ? ' week__num--future' : ''}">${d.getDate()}</span>
       <span class="dots dots--sm">${'<i></i>'.repeat(Math.min(4, n))}</span></div>`;
   }).join('');
@@ -271,6 +330,41 @@ function wocheKarte(v) {
     <h3 class="card-title">Diese Woche<small>an ${gelesen} von ${bisher} Tagen gelesen</small></h3>
     <div class="week">${tage}</div></div>
     <button class="row row--link row--sep" data-akt="tab" data-wert="logbuch">Logbuch${ic('chevron-right')}</button></section>`;
+}
+
+// ------------------------------------------------------------------ Pläne
+
+function plaene(ort) {
+  const zeile = (a) => {
+    const { st } = planSicht(a.id);
+    const [cls, text] = kurzStatus(st);
+    const leute = a.art === 'gemeinsam' ? 'alle im Haushalt' : ART[a.art].name;
+    return `<button class="row" data-akt="sheet" data-was="plan" data-abo="${a.id}">
+      <span class="row__well">${ic(ART[a.art].icon)}</span>
+      <div class="row__main"><span class="row__title">${esc(a.name)}</span>
+        <span class="row__meta">${esc(a.rezept)}</span>
+        <span class="row__meta tabnum">${leute} · Einheit ${Math.min(st.gelesen + 1, st.anzahl)} von ${zahl(st.anzahl)} · <span class="state ${cls}" style="font-size:13px">${text}</span></span>
+        <div class="bar bar--thin"><span style="transform:scaleX(${anteil(st.gelesen, st.anzahl)})"></span></div></div>
+      ${ic('chevron-right')}</button>`;
+  };
+  const gemeinsam = meinePlaene().filter((a) => a.art === 'gemeinsam');
+  const eigene = meinePlaene().filter((a) => a.art !== 'gemeinsam');
+  const andere = vonAnderen();
+  const andereZeilen = andere.map((a) => {
+    const { st } = planSicht(a.id);
+    const fertig = istUebernommen(a);
+    return `<div class="row"><span class="row__well">${ic('eye')}</span>
+      <div class="row__main"><span class="row__title">${esc(a.name)}</span>
+        <span class="row__meta">${PERSON[a.besitzer].name} · ${esc(a.rezept)} · ${lesungenText(st.anzahl)}</span></div>
+      ${fertig ? `<span class="state state--ok" style="font-size:13px">${ic('check')}Übernommen</span>`
+        : `<button class="btn btn--secondary btn--sm" data-akt="uebernehmen" data-abo="${a.id}">Übernehmen</button>`}</div>`;
+  }).join('');
+  const main = `
+    <section class="section"><h2 class="section-title">Gemeinsam</h2><div class="carrier rows">${gemeinsam.map(zeile).join('')}</div></section>
+    <section class="section"><h2 class="section-title">Für mich</h2>
+      ${eigene.length ? `<div class="carrier rows">${eigene.map(zeile).join('')}</div>` : `<section class="carrier">${leerPlan()}</section>`}</section>
+    ${andere.length ? `<section class="section"><h2 class="section-title">Von anderen</h2><div class="carrier rows">${andereZeilen}</div></section>` : ''}`;
+  return ort === 'laptop' ? `<div class="columns"><div class="col">${main}</div><div class="col"></div></div>` : `<div class="col">${main}</div>`;
 }
 
 // ------------------------------------------------------------------ Kalender
@@ -288,7 +382,7 @@ function kalenderKarte(v, ort, { voll = false } = {}) {
     const n = v.stat.proTag.get(t)?.length ?? 0;
     const zukunft = dt > HEUTE;
     const cls = ['cal__day', t === tag(HEUTE) && 'cal__day--today', S.tagWahl === t && 'cal__day--sel', zukunft && 'cal__day--future'].filter(Boolean).join(' ');
-    const tip = `${kurzDatum(dt)} · ${n ? einheiten(n) : 'nichts eingetragen'}`;
+    const tip = `${kurzDatum(dt)} · ${n ? (n === 1 ? '1 Eintrag' : `${n} Einträge`) : 'nichts eingetragen'}`;
     zellen.push(zukunft
       ? `<span class="${cls}"><span class="cal__num">${d}</span></span>`
       : `<button class="${cls}" data-akt="tag" data-wert="${t}" data-tip="${tip}" aria-label="${tip}" aria-pressed="${S.tagWahl === t}">
@@ -301,7 +395,7 @@ function kalenderKarte(v, ort, { voll = false } = {}) {
       <button class="btn btn--ghost btn--icon" data-akt="monat" data-wert="-1" aria-label="Voriger Monat">${ic('chevron-left')}</button>
       <button class="btn btn--ghost btn--icon" data-akt="monat" data-wert="1" aria-label="Nächster Monat"${aktuell ? ' aria-disabled="true" title="Später als heute gibt es nichts"' : ''}>${ic('chevron-right')}</button></div>
     <div class="cal__grid">${['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map((w) => `<span class="cal__wd">${w}</span>`).join('')}${zellen.join('')}</div>
-    <div class="cal__foot"><span class="dots"><i></i></span>je gelesene Einheit<span style="margin-left:auto" class="tabnum">an ${s.lesetageImMonat} von ${s.tageImMonat} Tagen</span></div></div>
+    <div class="cal__foot"><span class="dots"><i></i></span>je Eintrag<span style="margin-left:auto" class="tabnum">an ${s.lesetageImMonat} von ${s.tageImMonat} Tagen</span></div></div>
     ${voll ? '' : `<button class="row row--link row--sep" data-akt="tab" data-wert="logbuch">Logbuch${ic('chevron-right')}</button>`}</section>`;
 }
 
@@ -310,12 +404,12 @@ function kalenderKarte(v, ort, { voll = false } = {}) {
 function fortschrittTab(ort) {
   const v = sicht();
   const { fort, st } = v;
-  const beginn = fmtDatum(v.abo.begonnen);
-  const ntOffen = fort.nt === 0 && st?.ntAb
+  const ntOffen = !v.alle && fort.nt === 0 && st?.ntAb && st.naechste
     ? `<div class="footnote">Beginnt mit Einheit ${st.ntAb} · voraussichtlich ${fmtDatum(plusTage(HEUTE, st.ntAb - st.naechste.nr + (st.heuteGelesen ? 1 : 0)))}</div>` : '';
+  const herkunft = v.alle ? 'aus deinen Plänen und freien Einträgen' : `${v.abo.durchgang}. Durchgang seit ${fmtDatum(v.abo.begonnen)}`;
   const kopfKarte = `<section class="card" style="padding:20px">
     <div class="prog__big">${prozent(fort.gesamt, KAPITEL_GESAMT)}</div>
-    <div class="prog__sub tabnum">${zahl(fort.gesamt)} von ${zahl(KAPITEL_GESAMT)} Kapiteln · ${v.ohnePlan ? 'aus freien Einträgen' : `${v.abo.durchgang}. Durchgang seit ${beginn}`}</div>
+    <div class="prog__sub tabnum">${zahl(fort.gesamt)} von ${zahl(KAPITEL_GESAMT)} Kapiteln · ${herkunft}</div>
     <div class="bar bar--lg"><span style="transform:scaleX(${anteil(fort.gesamt, KAPITEL_GESAMT)})"></span></div>
     <div class="prog__rows">
       <div class="meter"><div class="meter__head"><b>Altes Testament</b><span>${fort.at} von ${KAPITEL_AT} · ${prozent(fort.at, KAPITEL_AT)}</span></div>
@@ -332,7 +426,7 @@ function fortschrittTab(ort) {
         <div class="tiles">${BUECHER.filter((b) => b.gruppe === g.id).map((b) => kachel(b, fort, v, gewaehlt, ort)).join('')}</div></div>`;
     }).join('')}</div></section>`;
 
-  const main = kopfKarte + testament('AT') + testament('NT');
+  const main = filterLeiste() + kopfKarte + testament('AT') + testament('NT');
   if (ort === 'laptop') return spalten(ort, main, buchDetail(gewaehlt, v));
   return `<div class="col">${main}</div>`;
 }
@@ -340,7 +434,7 @@ function fortschrittTab(ort) {
 function kachel(b, fort, v, gewaehlt, ort) {
   const n = fort.proBuch[b.id].size;
   const fertig = n === b.kapitel;
-  const jetzt = v.buch?.id === b.id && v.st;
+  const jetzt = !v.alle && v.buch?.id === b.id && v.st?.naechste;
   const cls = ['tile', fertig && 'tile--done', jetzt && !fertig && 'tile--now'].filter(Boolean).join(' ');
   const tip = `${b.name} · ${n} von ${b.kapitel}${jetzt ? ' · gerade dran' : ''}`;
   return `<button class="${cls}" data-akt="buch" data-wert="${b.id}" data-tip="${tip}" aria-label="${tip}" aria-pressed="${ort === 'laptop' && gewaehlt === b.id}">
@@ -377,29 +471,29 @@ function logbuch(ort) {
   const { j, m } = S.monat;
   const prefix = `${j}-${zwei(m + 1)}`;
   const alle = sortiert(v.abo.lesungen).filter((l) => (S.tagWahl ? l.datum === S.tagWahl : l.datum.startsWith(prefix)));
-  const tage = [...new Set(alle.map((l) => l.datum))];
   const filter = S.tagWahl
     ? `<div><button class="filter-chip" data-akt="tag-alle" aria-label="Filter aufheben">${tagKopf(S.tagWahl)}${ic('x')}</button></div>` : '';
-  const liste = tage.length
+  const liste = alle.length
     ? `<section class="section"><h2 class="section-title">Einträge<small class="tabnum">${alle.length}</small></h2>
-        <div class="carrier rows">${alle.map((l, i) => zeile(l, i === 0 || alle[i - 1].datum !== l.datum)).join('')}</div></section>`
+        <div class="carrier rows">${alle.map((l, i) => zeile(l, i === 0 || alle[i - 1].datum !== l.datum, v.alle)).join('')}</div></section>`
     : `<section class="carrier"><div class="empty" style="padding:28px 20px"><span class="empty__icon">${ic('calendar-days')}</span>
         <h3>${S.tagWahl ? 'An diesem Tag nichts eingetragen' : 'In diesem Monat nichts eingetragen'}</h3>
         <div class="empty__actions"><button class="btn btn--secondary" data-akt="eintragen" data-wert="${S.tagWahl ?? ''}">Nachtragen</button></div></div></section>`;
-  const main = filter + liste;
+  const main = filterLeiste() + filter + liste;
   const kal = kalenderKarte(v, ort, { voll: true });
   if (ort === 'laptop') return spalten(ort, main, kal);
-  return `<div class="col">${kal}${main}</div>`;
+  return `<div class="col">${filterLeiste()}${kal}${filter}${liste}</div>`;
 }
 
-function zeile(l, ersterDesTages) {
-  const namen = l.dabei ? (l.dabei.length === FAMILIE.length ? 'alle' : l.dabei.map((id) => FAMILIE.find((p) => p.id === id).name).join(', ')) : '';
-  const meta = [l.quelle === 'plan' ? `Einheit ${l.einheit}` : 'Frei eingetragen', l.uhrzeit, namen].filter(Boolean).join(' · ');
+function zeile(l, ersterDesTages, mitPlan) {
+  const namen = l.dabei ? (l.dabei.length === FAMILIE.length ? 'alle' : l.dabei.map((id) => PERSON[id].name).join(', ')) : '';
+  const planName = mitPlan && l.abo ? ABOS[l.abo]?.name : null;
+  const meta = [planName, l.quelle === 'plan' ? `Einheit ${l.einheit}` : 'Frei eingetragen', l.uhrzeit, namen].filter(Boolean).join(' · ');
   const d = datum(l.datum);
   const heute = l.datum === tag(HEUTE);
   return `<div class="row${ersterDesTages ? '' : ' row--same-day'}">
     <span class="row__date${heute ? ' row__date--today' : ''}" aria-label="${tagKopf(l.datum)}">${ersterDesTages ? `<b>${d.getDate()}</b>${WT2[d.getDay()]}` : ''}</span>
-    <div class="row__main"><span class="row__title">${stelle(l.kapitel)}</span><span class="row__meta">${meta}</span>
+    <div class="row__main"><span class="row__title">${stelle(l.kapitel)}</span><span class="row__meta">${esc(meta)}</span>
       ${l.notiz ? `<span class="row__note">${esc(l.notiz)}</span>` : ''}</div>
     ${menuAnker('eintrag', l.id, 'Mehr zum Eintrag', 'btn btn--ghost btn--icon')}</div>`;
 }
@@ -411,18 +505,17 @@ function statistikTab(ort) {
   const s = statistik(v.abo);
   const gesamt = v.abo.lesungen.filter((l) => !l.geloescht).length;
   const meistName = { Früh: 'Früh', Vormittag: 'Vormittags', Mittag: 'Mittags', Nachmittag: 'Nachmittags', Abend: 'Abends', Nacht: 'Nachts' }[s.meist.name];
-  const je = s.jeWoche.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const planZahl = v.abo.lesungen.filter((l) => !l.geloescht && l.quelle === 'plan').length;
+  const je = dezimal(s.jeWoche);
   const kopf = ort === 'laptop'
     ? `<div class="metrics">
         <div class="metric"><div class="metric__label">Lesetage im ${MON[HEUTE.getMonth()]}</div><div class="metric__value">${s.lesetageImMonat}<span class="metric__unit">von ${s.tageImMonat}</span></div></div>
         <div class="metric"><div class="metric__label">Je Woche</div><div class="metric__value">${je}<span class="metric__unit">Tage</span></div><div class="metric__note">letzte 8 Wochen</div></div>
         <div class="metric"><div class="metric__label">Meist gelesen</div><div class="metric__value">${meistName}</div><div class="metric__note">${prozent(s.meist.anzahl, gesamt)} der Einträge</div></div>
-        <div class="metric"><div class="metric__label">Seit Beginn</div><div class="metric__value">${v.ohnePlan ? gesamt : planZahl}<span class="metric__unit">${v.ohnePlan ? 'Einträge' : 'Einheiten'}</span></div><div class="metric__note">seit ${fmtDatum(v.abo.begonnen)}</div></div>
+        <div class="metric"><div class="metric__label">Einträge</div><div class="metric__value">${zahl(gesamt)}</div><div class="metric__note">seit ${fmtDatum(v.abo.begonnen)}</div></div>
       </div>`
     : `<section class="carrier glance"><div class="glance__lead"><span>Lesetage im ${MON[HEUTE.getMonth()]}</span><b>${s.lesetageImMonat} <small>von ${s.tageImMonat}</small></b></div>
         <div class="glance__side"><span><b>${je}</b> Tage je Woche</span><span>Meist <b>${meistName.toLowerCase()}</b></span>
-          <span><b>${v.ohnePlan ? gesamt : planZahl}</b> ${v.ohnePlan ? 'Einträge' : 'Einheiten'} seit ${fmtDatum(v.abo.begonnen).slice(0, 6)}</span></div></section>`;
+          <span><b>${zahl(gesamt)}</b> Einträge seit ${fmtDatum(v.abo.begonnen).slice(0, 6)}</span></div></section>`;
 
   // Mobil dasselbe Jahr, nur dichter: das Raster scrollt waagrecht und steht am Ende (heute).
   const wochen = 53;
@@ -432,7 +525,7 @@ function statistikTab(ort) {
   const wt = balken(['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'], s.wochentage, (l, n) => `${l} · ${n} Lesetage`);
   const tz = balken(['Früh', 'Vorm.', 'Mittag', 'Nachm.', 'Abend', 'Nacht'], s.tageszeit.map((t) => t.anzahl),
     (l, n, i) => `${['5–9', '9–12', '12–15', '15–18', '18–22', '22–5'][i]} Uhr · ${n} Einträge`);
-  return `${kopf}
+  return `${filterLeiste()}${kopf}
     <section class="card"><h3 class="card-title">Letzte 12 Monate<small class="tabnum">${imFenster === 1 ? '1 Eintrag' : `${zahl(imFenster)} Einträge`}</small></h3>${heat}
       <div class="legend" style="margin-top:12px"><span><i style="background:var(--color-fill-well)"></i>Nichts</span><span><i style="background:var(--tone-mid)"></i>1 Eintrag</span><span><i style="background:var(--tone-fill)"></i>2 und mehr</span></div></section>
     <div class="stat-pair">
@@ -457,9 +550,9 @@ function heatmap(s, abo, wochen, ort) {
       zellen.push(`<i class="${n >= 2 ? 'h2' : n ? 'h1' : ''}" data-tip="${kurzDatum(dt)} · ${n ? (n === 1 ? '1 Eintrag' : `${n} Einträge`) : 'nichts'}"></i>`);
     }
   }
-  const spalten = `repeat(${wochen}, ${zelle}px)`;
-  return `<div class="heat-scroll" style="overflow-x:auto;scrollbar-width:thin"><div class="heat" style="grid-template-columns:${spalten};gap:${luecke}px;--z:${zelle}px">${zellen.join('')}</div>
-    <div class="heat-months" style="grid-template-columns:${spalten};column-gap:${luecke}px">${monate.map((mo) =>
+  const sp = `repeat(${wochen}, ${zelle}px)`;
+  return `<div class="heat-scroll" style="overflow-x:auto;scrollbar-width:thin"><div class="heat" style="grid-template-columns:${sp};gap:${luecke}px;--z:${zelle}px">${zellen.join('')}</div>
+    <div class="heat-months" style="grid-template-columns:${sp};column-gap:${luecke}px">${monate.map((mo) =>
       `<span style="grid-column:${mo.w + 1} / span 3">${mo.name}</span>`).join('')}</div></div>`;
 }
 
@@ -475,36 +568,45 @@ function balken(labels, werte, tipText) {
 
 function blatt(ort) {
   if (S.ui?.art !== 'sheet' || S.ui.ort !== ort) return '';
+  const abo = ABOS[S.ui.aboId];
   const inhalt = {
     eintragen: blattEintragen, plan: blattPlan, gelesenAm: blattGelesenAm, aufholen: blattAufholen, ziel: blattZiel,
     einstellungen: blattEinstellungen, buch: () => buchDetail(S.ui.wert, sicht()).replace('class="card"', 'class=""'),
-    planwahl: blattPlanwahl,
+    assistent: () => blattAssistent(ort),
   }[S.ui.was]();
   const titel = {
-    eintragen: S.ui.edit ? 'Eintrag bearbeiten' : 'Eintrag', plan: sicht().st?.plan.name ?? 'Plan', gelesenAm: 'An einem anderen Tag gelesen',
-    aufholen: 'Aufholen', ziel: 'Ziel verschieben', einstellungen: 'Bibellese', buch: BUCH[S.ui.wert]?.name ?? '', planwahl: 'Plan wählen',
+    eintragen: S.ui.edit ? 'Eintrag bearbeiten' : 'Eintrag', plan: abo?.name ?? 'Plan', gelesenAm: 'An einem anderen Tag gelesen',
+    aufholen: 'Aufholen', ziel: 'Ziel verschieben', einstellungen: 'Bibellese', buch: BUCH[S.ui.wert]?.name ?? '',
+    assistent: 'Neuer Leseplan',
   }[S.ui.was];
-  return `<div class="sheet-layer"><div class="sheet-backdrop" data-akt="schliessen"></div>
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(titel)}"><div class="sheet__grip"></div>
-      <div class="sheet__head"><h2>${esc(titel)}</h2><button class="btn btn--ghost btn--icon" data-akt="schliessen" aria-label="Schließen">${ic('x')}</button></div>
+  const extra = S.ui.was === 'assistent' ? `<span class="sheet__step">${S.assistent.schritt} von ${SCHRITTE.length}</span>` : '';
+  // Hereingleiten nur beim Öffnen, nicht bei jedem Neuzeichnen (je Rahmen und Blatt einmal).
+  const rein = S.ui.gezeigt !== `${ort}:${S.ui.was}` ? ' is-rein' : '';
+  S.ui.gezeigt = `${ort}:${S.ui.was}`;
+  return `<div class="sheet-layer${rein}"><div class="sheet-backdrop" data-akt="schliessen"></div>
+    <div class="sheet${S.ui.was === 'assistent' ? ' sheet--wide' : ''}" role="dialog" aria-modal="true" aria-label="${esc(titel)}"><div class="sheet__grip"></div>
+      <div class="sheet__head"><h2>${esc(titel)}</h2>${extra}<button class="btn btn--ghost btn--icon" data-akt="schliessen" aria-label="Schließen">${ic('x')}</button></div>
       ${inhalt}</div></div>`;
 }
 
+const alleLesungen = () => [...Object.values(ABOS).flatMap((a) => a.lesungen), ...FREIE];
+
 function blattEintragen() {
-  const edit = S.ui.edit ? Object.values(ABOS).flatMap((a) => a.lesungen).find((l) => l.id === S.ui.edit) : null;
-  const ziel = edit?.abo ?? S.ui.ziel ?? S.abo;
-  const v = sicht(ziel);
+  const edit = S.ui.edit ? alleLesungen().find((l) => l.id === S.ui.edit) : null;
+  const gemeinsame = meinePlaene().filter((a) => a.art === 'gemeinsam');
+  const ziel = S.ui.ziel ?? (ABOS[S.filter]?.art === 'gemeinsam' ? S.filter : 'ich');
+  const v = sicht(ziel === 'ich' ? 'alle' : ziel);
   const w = S.ui.werte ?? {}; // Eingaben bleiben nach einer Fehlermeldung stehen
   const buchId = w.buch ?? edit?.kapitel[0].b ?? v.buch?.id ?? 'Gen';
   const von = w.von ?? edit?.kapitel[0].k ?? 1;
   const bis = w.bis ?? edit?.kapitel.at(-1).k ?? 1;
   const opt = (t) => BUECHER.filter((b) => b.testament === t).map((b) => `<option value="${b.id}"${b.id === buchId ? ' selected' : ''}>${b.name}</option>`).join('');
   return `<form data-form="eintrag" onsubmit="return false">
-    ${edit ? '' : `<div class="field"><label>Logbuch</label><div><div class="seg" role="group" aria-label="Logbuch">${[['familie', 'Familie'], ['ich', 'Für mich']].map(([id, l]) =>
-      `<button type="button" aria-pressed="${ziel === id}" data-akt="logbuch-wahl" data-wert="${id}">${l}</button>`).join('')}</div></div></div>`}
+    ${edit ? '' : `<div class="field"><label>Logbuch</label><div><div class="seg" role="group" aria-label="Logbuch">${[['ich', 'Für mich'], ...gemeinsame.map((a) => [a.id, a.name])].map(([id, l]) =>
+      `<button type="button" aria-pressed="${ziel === id}" data-akt="logbuch-wahl" data-wert="${id}">${esc(l)}</button>`).join('')}</div></div></div>`}
     <div class="field"><label for="f-buch">Buch</label><select id="f-buch" name="buch"><optgroup label="Altes Testament">${opt('AT')}</optgroup><optgroup label="Neues Testament">${opt('NT')}</optgroup></select></div>
-    <div class="field-row"><div class="field"><label for="f-von">Kapitel von</label><input id="f-von" name="von" type="number" inputmode="numeric" min="1" value="${von}"></div>
-      <div class="field"><label for="f-bis">bis</label><input id="f-bis" name="bis" type="number" inputmode="numeric" min="1" value="${bis}"></div></div>
+    <div class="field-row"><div class="field"><label for="f-von">Kapitel von</label><input id="f-von" name="von" type="number" inputmode="numeric" min="1" value="${esc(von)}"></div>
+      <div class="field"><label for="f-bis">bis</label><input id="f-bis" name="bis" type="number" inputmode="numeric" min="1" value="${esc(bis)}"></div></div>
     <div class="field__error" aria-live="polite">${S.ui.fehler ? `${ic('circle-alert')}${esc(S.ui.fehler)}` : ''}</div>
     <div class="field-row"><div class="field" style="margin-top:4px"><label for="f-datum">Datum</label><input id="f-datum" name="datum" type="date" max="${tag(HEUTE)}" value="${esc(w.datum ?? edit?.datum ?? S.ui.datum ?? tag(HEUTE))}"></div>
       <div class="field" style="margin-top:4px"><label for="f-zeit">Uhrzeit</label><input id="f-zeit" name="zeit" type="time" value="${esc(w.zeit ?? edit?.uhrzeit ?? '20:15')}"></div></div>
@@ -514,32 +616,51 @@ function blattEintragen() {
 }
 
 function blattPlan() {
-  const v = sicht();
-  const { st } = v;
-  const ab = Math.max(0, st.gelesen - 5);
-  const zeilen = st.plan.einheiten.slice(ab, st.gelesen + 15).map((e, i) => {
+  const abo = ABOS[S.ui.aboId];
+  const { st } = planSicht(abo.id);
+  const fremd = abo.besitzer !== ICH.id && abo.art !== 'gemeinsam';
+  const ab = Math.max(0, st.gelesen - 3);
+  const zeilen = abo.einheiten.slice(ab, st.gelesen + 12).map((e, i) => {
     const nr = ab + i + 1;
     const fertig = nr <= st.gelesen;
     const naechste = nr === st.gelesen + 1;
     return `<div class="row${naechste ? ' plan-row--next' : ''}"><span class="check-ring${fertig ? ' check-ring--done' : ''}${naechste ? ' check-ring--next' : ''}" role="img" aria-label="${fertig ? 'gelesen' : 'offen'}">${fertig ? ic('check') : ''}</span>
-      <div class="row__main"><span class="row__title">${stelle(e)}</span></div><span class="row__end">${nr}</span></div>`;
+      <div class="row__main"><span class="row__title">${stelle(e)}</span><span class="row__meta">${min(minuten(e, abo.wpm))}</span></div><span class="row__end">${nr}</span></div>`;
   }).join('');
-  const verschoben = st.zielUrspruenglich.getTime() !== st.ziel.getTime();
-  return `<p class="footnote" style="margin:0 0 12px">${zahl(st.plan.einheiten.length)} Einheiten · ${st.plan.art}</p>
-    <div class="inset rows" style="margin-bottom:12px"><button class="row" data-akt="sheet" data-was="ziel">
-      <div class="row__main"><span class="row__title">Ziel</span>${verschoben ? `<span class="row__meta">ursprünglich ${fmtDatum(st.zielUrspruenglich)}</span>` : ''}</div>
-      <span class="value-link tabnum">${fmtDatum(st.ziel)}${ic('chevron-right')}</span></button></div>
+  const verschoben = st.ziel && st.zielUrspruenglich.getTime() !== st.ziel.getTime();
+  const einteilen = fremd ? null : neuEinteilenVorschau(abo);
+  const lesart = LESARTEN.find((l) => l.wpm === abo.wpm)?.name ?? `${abo.wpm} Wörter je Min.`;
+  const rhythmus = RHYTHMEN.find((r) => String(r.tage) === String(abo.tempo.tage))?.name ?? '';
+  return `<p class="footnote" style="margin:0 0 12px">${esc(abo.rezept)}</p>
+    <div class="inset rows" style="margin-bottom:12px">
+      <div class="row"><div class="row__main"><span class="row__title">Für wen</span></div><span class="value-link">${ic(ART[abo.art].icon)}${abo.art === 'gemeinsam' ? 'Alle im Haushalt' : `${ART[abo.art].name}${fremd ? ` · ${PERSON[abo.besitzer].name}` : ''}`}</span></div>
+      ${st.ziel ? `<button class="row" data-akt="sheet" data-was="ziel" data-abo="${abo.id}"${fremd ? ' disabled' : ''}>
+        <div class="row__main"><span class="row__title">Ziel</span>${verschoben ? `<span class="row__meta">ursprünglich ${fmtDatum(st.zielUrspruenglich)}</span>` : ''}</div>
+        <span class="value-link tabnum">${fmtDatum(st.ziel)}${fremd ? '' : ic('chevron-right')}</span></button>` : ''}
+      <div class="row"><div class="row__main"><span class="row__title">Lesetage · Lesart</span></div><span class="value-link">${rhythmus} · ${lesart}</span></div>
+      <div class="row"><div class="row__main"><span class="row__title">Stand</span></div><span class="value-link tabnum">Version ${abo.version} · ${lesungenText(st.anzahl)}</span></div>
+      ${einteilen?.moeglich && st.verzug > 0 ? `<button class="row row--link" data-akt="neu-einteilen" data-abo="${abo.id}">Neu einteilen: Lesungen ${min(einteilen.nachher)} statt ${min(einteilen.vorher)}${ic('chevron-right')}</button>` : ''}
+    </div>
     <div class="inset rows">${zeilen}</div>
-    <div class="sheet__foot"><button class="btn btn--secondary" data-akt="sheet" data-was="einstellungen">Plan wechseln</button></div>`;
+    ${fremd ? `<div class="sheet__foot">${istUebernommen(abo) ? `<span class="state state--ok">${ic('check')}Übernommen</span>`
+      : `<button class="btn btn--primary" data-akt="uebernehmen" data-abo="${abo.id}">Übernehmen</button>`}</div>` : ''}`;
+}
+
+function blattGelesenAm() {
+  const { st } = planSicht(S.ui.aboId);
+  return `<p style="margin:0;font-size:17px;font-weight:600">${stelle(st.naechste.kapitel)}</p>
+    <div class="field"><label for="f-am">Gelesen am</label><input id="f-am" name="am" type="date" max="${tag(HEUTE)}" value="${tag(plusTage(HEUTE, -1))}"></div>
+    <div class="sheet__foot"><button class="btn btn--ghost" data-akt="schliessen">Abbrechen</button>
+      <button class="btn btn--primary" data-akt="gelesen-am">${ic('check')}Gelesen</button></div>`;
 }
 
 /**
  * Aufholen ist kein eigener Modus: das Blatt zeigt, was es kostet, und lässt gleich weiterlesen.
- * Die Zeilen stehen beim Öffnen fest (S.ui.start/anzahl) und werden beim Abhaken abgehakt.
+ * Dritter Weg: „Neu einteilen“ – die restlichen Lesungen werden etwas länger, das Ziel bleibt.
  */
 function blattAufholen() {
-  const aboId = S.ui.aboId ?? S.abo;
-  const { st } = sicht(aboId);
+  const aboId = S.ui.aboId;
+  const { st, abo } = planSicht(aboId);
   const sichtbar = Math.min(S.ui.anzahl, 5);
   const zeilen = Array.from({ length: sichtbar }, (_, i) => {
     const nr = S.ui.start + i + 1;
@@ -547,7 +668,7 @@ function blattAufholen() {
     const naechste = nr === st.gelesen + 1;
     const wann = i === 0 && S.ui.heuteOffen ? 'heute' : 'zum Aufholen';
     return `<div class="row${naechste ? ' plan-row--next' : ''}"><span class="check-ring${fertig ? ' check-ring--done' : ''}${naechste ? ' check-ring--next' : ''}" role="img" aria-label="${fertig ? 'gelesen' : 'offen'}">${fertig ? ic('check') : ''}</span>
-      <div class="row__main"><span class="row__title">${stelle(st.plan.einheiten[nr - 1])}</span><span class="row__meta">Einheit ${nr} · ${wann}</span></div></div>`;
+      <div class="row__main"><span class="row__title">${stelle(abo.einheiten[nr - 1])}</span><span class="row__meta">Einheit ${nr} · ${wann}</span></div></div>`;
   }).join('');
   const mehr = S.ui.anzahl > sichtbar ? `<div class="row"><span class="row__meta" style="padding-left:32px">und ${S.ui.anzahl - sichtbar} weitere</span></div>` : '';
   let satz;
@@ -562,8 +683,15 @@ function blattAufholen() {
   const haupt = st.verzug === 0
     ? '<button class="btn btn--primary" data-akt="schliessen">Fertig</button>'
     : `<button class="btn btn--primary${busy ? ' btn--busy' : ''}" data-akt="gelesen-blatt">${busy ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button>`;
-  return `${satz}<div class="inset rows">${zeilen}${mehr}</div>
-    <div class="sheet__foot"><button class="btn btn--secondary" data-akt="sheet" data-was="ziel">Ziel verschieben</button>${haupt}</div>`;
+  const e = neuEinteilenVorschau(ABOS[aboId]);
+  const dritter = st.verzug > 0 && e.moeglich
+    ? `<div class="group-label">Oder ohne Mehrlesen</div>
+      <div class="inset rows"><div class="row"><div class="row__main"><span class="row__title">Neu einteilen</span>
+        <span class="row__meta tabnum">Lesungen ${min(e.nachher)} statt ${min(e.vorher)} · Ziel bleibt ${fmtDatum(st.ziel)}</span></div>
+        <button class="btn btn--secondary btn--sm" data-akt="neu-einteilen" data-abo="${aboId}">Einteilen</button></div></div>`
+    : '';
+  return `${satz}<div class="inset rows">${zeilen}${mehr}</div>${dritter}
+    <div class="sheet__foot"><button class="btn btn--secondary" data-akt="sheet" data-was="ziel" data-abo="${aboId}">Ziel verschieben</button>${haupt}</div>`;
 }
 
 /** Was ein Ziel bewirkt: „im Plan“, „7 Einheiten Vorsprung“ oder „2 Einheiten im Verzug“. */
@@ -576,8 +704,7 @@ function zielVorschau(abo, d) {
 }
 
 function blattZiel() {
-  const aboId = S.ui.aboId ?? S.abo;
-  const { st, abo } = sicht(aboId);
+  const { st, abo } = planSicht(S.ui.aboId);
   const mitVerzug = st.verzug > 0;
   const art = S.ui.zielArt ?? (mitVerzug ? 'verzug' : 'datum');
   const datumWert = S.ui.datumWert ?? tag(mitVerzug ? st.ende : plusTage(st.ziel, 7));
@@ -588,6 +715,7 @@ function blattZiel() {
         `<div class="row"><div class="row__main"><span class="row__title tabnum">${fmtDatum(z.von)} → ${fmtDatum(z.nach)}</span><span class="row__meta">am ${fmtDatum(datum(z.am))}</span></div></div>`).join('')}</div>`
     : '';
   return `<form data-form="ziel" onsubmit="return false">
+    <p class="footnote" style="margin:0 0 12px">${esc(abo.name)}</p>
     <div class="inset rows">
       <div class="row"><div class="row__main"><span class="row__title">Jetziges Ziel</span>${st.zielUrspruenglich.getTime() !== st.ziel.getTime() ? `<span class="row__meta">ursprünglich ${fmtDatum(st.zielUrspruenglich)}</span>` : ''}</div>
         <span class="value-link tabnum">${fmtDatum(st.ziel)}</span></div>
@@ -606,43 +734,169 @@ function blattZiel() {
       <button type="button" class="btn btn--primary" data-akt="ziel-setzen">Ziel verschieben</button></div></form>`;
 }
 
-function blattGelesenAm() {
-  const st = sicht().st;
-  return `<p style="margin:0;font-size:17px;font-weight:600">${stelle(st.naechste.kapitel)}</p>
-    <div class="field"><label for="f-am">Gelesen am</label><input id="f-am" name="am" type="date" max="${tag(HEUTE)}" value="${tag(plusTage(HEUTE, -1))}"></div>
-    <div class="sheet__foot"><button class="btn btn--ghost" data-akt="schliessen">Abbrechen</button>
-      <button class="btn btn--primary" data-akt="gelesen-am">${ic('check')}Gelesen</button></div>`;
-}
-
-function blattPlanwahl() {
-  return `<div class="inset rows">${Object.entries(PLAENE).map(([id, p]) => `<button class="row" data-akt="plan-waehlen" data-wert="${id}">
-      <div class="row__main"><span class="row__title">${p.name}</span><span class="row__meta">${p.art} · ${zahl(p.einheiten.length)} Einheiten</span></div>${ic('chevron-right')}</button>`).join('')}</div>`;
-}
-
 function blattEinstellungen() {
-  const v = sicht();
   const seg = (key, optionen) => `<div class="seg" role="group">${optionen.map(([w, l]) =>
     `<button type="button" aria-pressed="${S.einst[key] === w}" data-akt="einst" data-was="${key}" data-wert="${w}">${l}</button>`).join('')}</div>`;
   const ok = (key) => `<span class="saved${S.saved === key ? ' saved--on' : ''}">${ic('check')}Gespeichert</span>`;
-  const zielZeile = (aboId) => `<button class="row" data-akt="sheet" data-was="ziel" data-abo="${aboId}"><div class="row__main"><span class="row__title">Ziel</span></div>
-        <span class="value-link tabnum">${fmtDatum(ABOS[aboId].ziel)}${ic('chevron-right')}</span></button>`;
   return `<div class="group-label">Für mich</div>
     <div class="inset rows">
-      <button class="row" data-akt="sheet" data-was="planwahl"><div class="row__main"><span class="row__title">Eigener Plan</span></div>
-        <span class="value-link">${S.szenario === 'ohnePlan' ? 'Keiner' : PLAENE[ABOS.ich.plan].name}${ic('chevron-right')}</span></button>
-      ${S.szenario === 'ohnePlan' ? '' : zielZeile('ich')}
-      <div class="row"><div class="row__main"><span class="row__title">Lesetage</span></div>${ok('ichTage')}${seg('ichTage', [['jeden', 'Jeden Tag'], ['werktags', 'Mo–Fr']])}</div>
-      <div class="row"><div class="row__main"><span class="row__title">Familienandacht zählt für mich</span></div>${ok('famZaehlt')}
-        <button class="switch" role="switch" aria-checked="${S.einst.famZaehlt}" data-akt="einst" data-was="famZaehlt" aria-label="Familienandacht zählt für mich"></button></div>
+      <button class="row" data-akt="tab" data-wert="plaene"><div class="row__main"><span class="row__title">Meine Pläne</span></div>
+        <span class="value-link">${meinePlaene().filter((a) => a.art !== 'gemeinsam').length}${ic('chevron-right')}</span></button>
+      <div class="row"><div class="row__main"><span class="row__title">Gemeinsame Pläne zählen für mich, wenn ich dabei war</span></div>${ok('gemeinsamZaehlt')}
+        <button class="switch" role="switch" aria-checked="${S.einst.gemeinsamZaehlt}" data-akt="einst" data-was="gemeinsamZaehlt" aria-label="Gemeinsame Pläne zählen für mich"></button></div>
     </div>
     <div class="group-label">Für den Haushalt</div>
     <div class="inset rows">
-      <button class="row"><div class="row__main"><span class="row__title">Familienplan</span></div><span class="value-link">${PLAENE[ABOS.familie.plan].name}${ic('chevron-right')}</span></button>
-      <div class="row"><div class="row__main"><span class="row__title">Lesetage</span></div>${ok('famTage')}${seg('famTage', [['jeden', 'Jeden Tag'], ['werktags', 'Mo–Fr']])}</div>
-      <div class="row"><div class="row__main"><span class="row__title">Begonnen am</span></div><span class="value-link tabnum">${fmtDatum(ABOS.familie.begonnen)}</span></div>
-      ${zielZeile('familie')}
+      <div class="row"><div class="row__main"><span class="row__title">Gemeinsame Pläne anlegen</span></div>${ok('anlegen')}${seg('anlegen', [['alle', 'Alle'], ['admins', 'Nur Admins']])}</div>
     </div>
     <div class="inset rows" style="margin-top:16px"><button class="row row--link">In den Yuvomi-Einstellungen öffnen${ic('chevron-right')}</button></div>`;
+}
+
+// ------------------------------------------------------------------ Assistent „Neuer Leseplan“
+// Antworten → Bücher wählen → ordnen → Ring drehen → Parallelen bündeln → einteilen (LESEPLAN.md).
+// Die Vorschau rechnet live mit dem vereinfachten Erzeuger aus bibellese-daten.js.
+
+const SCHRITTE = ['Was', 'Wo anfangen', 'Parallelen', 'Wie viel', 'Für wen'];
+
+function neuerAssistent() {
+  return {
+    schritt: 1, auswahl: 'bibel', gruppe: 'evang', buecher: ['John'], weisheit: false, reihenfolge: 'kanonisch',
+    startArt: 'anfang', start: null, parallelen: { geschichte: true, lieder: true, gesetz: false },
+    modus: 'datum', bis: tag(plusTage(HEUTE, 364)), minuten: 10, rhythmus: 'taeglich', lesart: 'still',
+    name: '', art: 'privat', beginn: tag(HEUTE),
+  };
+}
+
+function rezeptAus(a) {
+  return {
+    auswahl: a.auswahl, gruppe: a.gruppe, buecher: a.buecher, weisheit: a.weisheit,
+    start: a.startArt === 'buch' ? a.start : null,
+    modus: a.rhythmus === 'frei' ? 'minuten' : a.modus, bis: datum(a.bis), minuten: a.minuten,
+    rhythmus: a.rhythmus, wpm: LESARTEN.find((l) => l.id === a.lesart).wpm, beginn: datum(a.beginn),
+  };
+}
+
+function nameVorschlag(a) {
+  if (a.auswahl === 'bibel') return a.weisheit ? 'Bibel mit Weisheit' : 'Ganze Bibel';
+  if (a.auswahl === 'at') return 'Altes Testament';
+  if (a.auswahl === 'nt') return 'Neues Testament';
+  if (a.auswahl === 'gruppe') return GRUPPEN.find((g) => g.id === a.gruppe).name;
+  const b = buecherDerAuswahl(a);
+  return b.length <= 2 ? b.map((x) => x.name).join(' und ') : `${b[0].name} und ${b.length - 1} weitere`;
+}
+
+function rezeptText(a, e) {
+  const was = nameVorschlag(a);
+  const start = a.startArt === 'buch' && a.start ? ` · ab ${BUCH[a.start].name}` : '';
+  const rhythmus = RHYTHMEN.find((r) => r.id === a.rhythmus).name;
+  const wie = e.ende ? `bis ${fmtDatum(e.ende)}` : `${a.minuten} Min. je Lesung`;
+  return `${was}${start} · ${wie} · ${rhythmus}`;
+}
+
+const radioZeile = (name, wert, aktiv, titel, meta = '', extra = '') => `<label class="row choice">
+  <input type="radio" name="${name}" value="${wert}"${aktiv ? ' checked' : ''}>
+  <div class="row__main"><span class="row__title">${titel}</span>${meta ? `<span class="row__meta">${meta}</span>` : ''}</div>${extra}</label>`;
+
+const schalterZeile = (key, an, titel, meta = '', gesperrt = '') => `<div class="row">
+  <div class="row__main"><span class="row__title">${titel}</span>${meta ? `<span class="row__meta">${meta}</span>` : ''}</div>
+  <button type="button" class="switch" role="switch" aria-checked="${an}" data-akt="assistent-schalter" data-was="${key}" aria-label="${titel}"${gesperrt ? ` disabled title="${gesperrt}"` : ''}></button></div>`;
+
+const segAssistent = (key, optionen) => `<div class="seg" role="group">${optionen.map(([w, l, gesperrt]) =>
+  `<button type="button" aria-pressed="${S.assistent[key] === w}" data-akt="assistent-wert" data-was="${key}" data-wert="${w}"${gesperrt ? ` disabled title="${gesperrt}"` : ''}>${l}</button>`).join('')}</div>`;
+
+function schrittInhalt() {
+  const a = S.assistent;
+  const auswahl = buecherDerAuswahl(a);
+  if (a.schritt === 1) {
+    const verse = (bs) => `${zahl(bs.length)} ${bs.length === 1 ? 'Buch' : 'Bücher'}`;
+    const buecherWahl = a.auswahl === 'buecher' ? `<div class="tiles tiles--pick">${BUECHER.map((b) =>
+      `<button type="button" class="tile" aria-pressed="${a.buecher.includes(b.id)}" data-akt="assistent-buch" data-wert="${b.id}" title="${b.name}">${b.kurz}</button>`).join('')}</div>` : '';
+    return `<h3 class="wizard__q">Was möchtest du lesen?</h3>
+      <div class="inset rows">
+        ${radioZeile('auswahl', 'bibel', a.auswahl === 'bibel', 'Ganze Bibel', verse(BUECHER))}
+        ${radioZeile('auswahl', 'at', a.auswahl === 'at', 'Altes Testament', verse(BUECHER.filter((b) => b.testament === 'AT')))}
+        ${radioZeile('auswahl', 'nt', a.auswahl === 'nt', 'Neues Testament', verse(BUECHER.filter((b) => b.testament === 'NT')))}
+        ${radioZeile('auswahl', 'gruppe', a.auswahl === 'gruppe', 'Eine Buchgruppe', '',
+          `<select name="gruppe" class="choice__date" aria-label="Buchgruppe">${GRUPPEN.map((g) => `<option value="${g.id}"${a.gruppe === g.id ? ' selected' : ''}>${g.name}</option>`).join('')}</select>`)}
+        ${radioZeile('auswahl', 'buecher', a.auswahl === 'buecher', 'Einzelne Bücher', a.auswahl === 'buecher' ? `${a.buecher.length} gewählt` : '')}
+      </div>${buecherWahl}
+      <div class="inset rows" style="margin-top:12px">
+        ${schalterZeile('weisheit', a.weisheit && ['bibel', 'at'].includes(a.auswahl), 'Weisheitsliteratur nebenher', 'Hiob bis Hoheslied als zweiter Strang', ['bibel', 'at'].includes(a.auswahl) ? '' : 'Nur mit ganzer Bibel oder Altem Testament')}
+        <div class="row"><div class="row__main"><span class="row__title">Reihenfolge</span></div>
+          ${segAssistent('reihenfolge', [['kanonisch', 'Kanonisch'], ['chronologisch', 'Chronologisch', 'Die chronologische Reihenfolge wird noch erstellt']])}</div>
+      </div>`;
+  }
+  if (a.schritt === 2) {
+    const haupt = a.weisheit && ['bibel', 'at'].includes(a.auswahl) ? auswahl.filter((b) => !WEISHEIT.includes(b.id)) : auswahl;
+    return `<h3 class="wizard__q">Wo fängst du an?</h3>
+      <div class="inset rows">
+        ${radioZeile('startArt', 'anfang', a.startArt === 'anfang', 'Am Anfang', haupt[0]?.name ?? '')}
+        ${radioZeile('startArt', 'buch', a.startArt === 'buch', 'Bei einem Buch', 'Was davor liegt, kommt am Ende',
+          `<select name="start" class="choice__date" aria-label="Startbuch">${haupt.map((b) => `<option value="${b.id}"${a.start === b.id ? ' selected' : ''}>${b.name}</option>`).join('')}</select>`)}
+      </div>`;
+  }
+  if (a.schritt === 3) {
+    return `<h3 class="wizard__q">Parallelstellen zusammen lesen?</h3>
+      <div class="inset rows">
+        ${schalterZeile('p-geschichte', a.parallelen.geschichte, 'Geschichte', '62 Gruppen, z. B. 1Kö 8 mit 2Chr 5–7')}
+        ${schalterZeile('p-lieder', a.parallelen.lieder, 'Lieder', '3 Gruppen, z. B. 2Sam 22 mit Ps 18')}
+        ${schalterZeile('p-gesetz', a.parallelen.gesetz, 'Gesetz', '4 Gruppen, z. B. die Zehn Gebote')}
+        ${schalterZeile('p-evangelien', false, 'Evangelien', 'Kommt in einem zweiten Schritt', 'Die Synopse der Evangelien wird noch erfasst')}
+      </div>`;
+  }
+  if (a.schritt === 4) {
+    const frei = a.rhythmus === 'frei';
+    const modus = frei ? 'minuten' : a.modus;
+    return `<h3 class="wizard__q">Wie viel und wann?</h3>
+      <div class="inset rows">
+        <div class="row"><div class="row__main"><span class="row__title">Lesetage</span></div>
+          ${segAssistent('rhythmus', RHYTHMEN.map((r) => [r.id, r.id === 'frei' ? 'Frei' : r.name]))}</div>
+        <div class="row"><div class="row__main"><span class="row__title">Festlegen über</span></div>
+          ${segAssistent('modus', [['datum', 'Zieldatum', frei ? 'Ohne festen Rhythmus gibt es kein Zieldatum' : ''], ['minuten', 'Minuten']])}</div>
+        ${modus === 'datum'
+          ? `<label class="row"><div class="row__main"><span class="row__title">Fertig bis</span></div><input class="choice__date" type="date" name="bis" min="${tag(plusTage(HEUTE, 7))}" value="${esc(a.bis)}"></label>`
+          : `<div class="row"><div class="row__main"><span class="row__title">Minuten je Lesung</span></div>${segAssistent('minuten', [[5, '5'], [10, '10'], [15, '15'], [20, '20']])}</div>`}
+        <div class="row"><div class="row__main"><span class="row__title">Lesart</span></div>
+          ${segAssistent('lesart', LESARTEN.map((l) => [l.id, l.name]))}</div>
+      </div>`;
+  }
+  const vorschlag = nameVorschlag(a);
+  return `<h3 class="wizard__q">Für wen ist der Plan?</h3>
+    <div class="field" style="margin-top:0"><label for="a-name">Name</label><input id="a-name" name="name" type="text" value="${esc(a.name)}" placeholder="${esc(vorschlag)}"></div>
+    <div class="inset rows" style="margin-top:14px">
+      ${radioZeile('art', 'privat', a.art === 'privat', 'Nur für mich', 'Niemand sonst sieht ihn')}
+      ${radioZeile('art', 'sichtbar', a.art === 'sichtbar', 'Für mich, sichtbar für alle', 'Andere können ihn übernehmen')}
+      ${radioZeile('art', 'gemeinsam', a.art === 'gemeinsam', 'Gemeinsam mit allen im Haushalt', 'Ein Lesezeichen, jeder kann abhaken')}
+    </div>
+    <div class="field"><label for="a-beginn">Beginnen am</label><input id="a-beginn" name="beginn" type="date" min="${tag(HEUTE)}" value="${esc(a.beginn)}"></div>`;
+}
+
+function assistentVorschau() {
+  const a = S.assistent;
+  const e = erzeuge(rezeptAus(a));
+  const kopf = e.ende
+    ? `<b>${min(e.minutenJe)}</b> je Lesung · ${lesungenText(e.n)} · fertig etwa <b>${fmtDatum(e.ende)}</b>`
+    : `<b>${min(e.minutenJe)}</b> je Lesung · ${lesungenText(e.n)} · das Ende ergibt sich aus deinem Tempo`;
+  const erste = e.einheiten.slice(0, 3).map((u, i) => `<li><span class="tabnum">${i + 1}</span>${stelle(u)}</li>`).join('');
+  return `<div class="wizard__preview" data-vorschau-assistent aria-live="polite">
+    <div class="wizard__sum">${kopf}</div>
+    ${e.begrenzt ? `<p class="state state--warn" style="font-size:13px;margin:6px 0 0">${ic('info')}Höchstens ${lesungenText(e.n)} – ein Kapitel wird nicht geteilt.</p>` : ''}
+    <ol class="wizard__list">${erste}</ol>
+    <div class="footnote">${e.straenge === 2 ? 'Zwei Stränge · ' : ''}${zahl(e.kapitel)} Kapitel · ${Math.round(e.gesamt / 60)} Std. insgesamt</div>
+  </div>`;
+}
+
+function blattAssistent(ort) {
+  const a = S.assistent;
+  const letzter = a.schritt === SCHRITTE.length;
+  const leer = a.auswahl === 'buecher' && a.buecher.length === 0;
+  const steps = `<ol class="steps" aria-label="Schritte">${SCHRITTE.map((s, i) =>
+    `<li class="${i + 1 === a.schritt ? 'is-now' : i + 1 < a.schritt ? 'is-done' : ''}"><button type="button" data-akt="assistent-schritt" data-wert="${i + 1}">${s}</button></li>`).join('')}</ol>`;
+  const foot = `<div class="sheet__foot">
+    <button type="button" class="btn btn--ghost" data-akt="${a.schritt === 1 ? 'schliessen' : 'assistent-zurueck'}">${a.schritt === 1 ? 'Abbrechen' : 'Zurück'}</button>
+    <button type="button" class="btn btn--primary" data-akt="${letzter ? 'assistent-fertig' : 'assistent-weiter'}"${leer ? ' disabled title="Mindestens ein Buch wählen"' : ''}>${letzter ? 'Plan anlegen' : 'Weiter'}</button></div>`;
+  return `<form data-form="assistent" onsubmit="return false">${steps}
+    <div class="wizard"><div class="wizard__main">${schrittInhalt()}</div>${leer ? '' : assistentVorschau()}</div>${foot}</form>`;
 }
 
 // ------------------------------------------------------------------ Toast
@@ -652,26 +906,24 @@ function toast(ort, text, undo) {
   S.toast = { ort, text, undo, id };
   setTimeout(() => { if (S.toast?.id === id) { S.toast = null; render(); } }, 5000);
 }
-const toastHtml = (ort) => (S.toast?.ort === ort
-  ? `<div class="toast" role="status">${ic('circle-check')}<span>${esc(S.toast.text)}</span>${S.toast.undo ? '<button class="btn btn--ghost btn--sm" data-akt="undo">Rückgängig</button>' : ''}</div>` : '');
+function toastHtml(ort) {
+  if (S.toast?.ort !== ort) return '';
+  const rein = S.toast.gezeigt ? '' : ' is-rein';
+  S.toast.gezeigt = true;
+  const undo = S.toast.undo ? '<button class="btn btn--ghost btn--sm" data-akt="undo">Rückgängig</button>' : '';
+  return `<div class="toast${rein}" role="status">${ic('circle-check')}<span>${esc(S.toast.text)}</span>${undo}</div>`;
+}
 
 // ------------------------------------------------------------------ Dashboard-Kachel
 
 function kachelWidget() {
-  const zeilen = ['familie', 'ich'].map((id) => {
-    const v = sicht(id);
-    if (!v.st) {
-      return `<div class="widget__item"><div class="row__main"><span class="footnote">Mein Plan</span><span class="widget__ref">Kein eigener Plan</span></div>
-        <button class="btn btn--secondary btn--sm" data-akt="sheet" data-was="planwahl" data-ziel-ort="laptop">Wählen</button></div>`;
-    }
-    const st = v.st;
-    const [cls, text] = st.verzug > PUFFER ? ['state--warn', `${einheiten(st.verzug)} im Verzug`]
-      : st.verzug > 0 ? ['', `Ziel ${fmtDatum(st.ziel)}`]
-        : st.vorsprung > 0 ? ['state--ok', `${einheiten(st.vorsprung)} Vorsprung`] : ['state--ok', 'Im Plan'];
-    const status = `<span class="state ${cls}" style="font-size:13px">${text}</span>`;
-    return `<div class="widget__item"><div class="row__main"><span class="footnote">${id === 'familie' ? 'Familienandacht' : 'Mein Plan'}</span>
-        <span class="widget__ref">${stelle(v.st.naechste.kapitel)}</span>${status}</div>
-      <button class="btn btn--secondary btn--sm" data-akt="gelesen" data-abo="${id}">${S.busy === id ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button></div>`;
+  const zeilen = meinePlaene().slice(0, 3).map((a) => {
+    const { st } = planSicht(a.id);
+    if (!st.naechste) return '';
+    const [cls, text] = kurzStatus(st);
+    return `<div class="widget__item"><div class="row__main"><span class="footnote">${esc(a.name)}</span>
+        <span class="widget__ref">${stelle(st.naechste.kapitel)}</span><span class="state ${cls}" style="font-size:13px">${text}</span></div>
+      <button class="btn btn--secondary btn--sm" data-akt="gelesen" data-abo="${a.id}">${S.busy === a.id ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button></div>`;
   }).join('');
   return `<div class="widget"><div class="widget__head"><span class="seal">${ic('book-open')}</span><b>Bibellese</b><span class="widget__meta">Heute</span></div>${zeilen}</div>${toastHtml('kachel')}`;
 }
@@ -694,11 +946,11 @@ function render() {
     frame.replaceChildren();
     frame.insertAdjacentHTML('beforeend', `<div class="app">${sidebar()}
       <div class="content">${kopf(ort)}${reiter()}${seite(ort)}</div>
-      ${bottomNav()}${blatt(ort)}${toastHtml(ort)}</div>`);
+      ${bottomNav(ort)}${blatt(ort)}${toastHtml(ort)}</div>`);
     frame.querySelector('.content').scrollTop = scroll;
-    for (const h of frame.querySelectorAll('.heat-scroll')) h.scrollLeft = h.scrollWidth;
     const sheet = frame.querySelector('.sheet');
     if (sheet) sheet.scrollTop = sheetScroll;
+    for (const h of frame.querySelectorAll('.heat-scroll')) h.scrollLeft = h.scrollWidth;
   }
   window.lucide?.createIcons({ icons: window.lucide.icons, attrs: { 'stroke-width': 2 } });
   zoom();
@@ -713,19 +965,19 @@ function zoom() {
 // ------------------------------------------------------------------ Handlungen
 
 function lesen(ort, aboId, am = tag(HEUTE)) {
-  const v = sicht(aboId);
+  const v = planSicht(aboId);
   if (!v.st?.naechste) return;
   S.busy = aboId;
   render();
   setTimeout(() => {
     const abo = ABOS[aboId];
     const amTag = abo.lesungen.filter((l) => !l.geloescht && l.datum === am).length;
-    const basis = am === tag(HEUTE) ? (aboId === 'familie' ? [19, 42] : [6, 51]) : [20, 0];
-    const min = basis[1] + amTag * 12;
-    const uhrzeit = `${zwei(basis[0] + Math.floor(min / 60))}:${zwei(min % 60)}`;
+    const basis = am === tag(HEUTE) ? (abo.art === 'gemeinsam' ? [19, 42] : [21, 5]) : [20, 0];
+    const m = basis[1] + amTag * 12;
+    const uhrzeit = `${zwei(basis[0] + Math.floor(m / 60))}:${zwei(m % 60)}`;
     const l = {
-      id: `neu-${Date.now()}`, abo: aboId, quelle: 'plan', einheit: v.st.naechste.nr, datum: am, uhrzeit,
-      kapitel: v.st.naechste.kapitel, dabei: aboId === 'familie' ? [...S.dabei] : null, notiz: '',
+      id: `neu-${Date.now()}`, abo: aboId, person: ICH.id, quelle: 'plan', einheit: v.st.naechste.nr, datum: am, uhrzeit,
+      kapitel: v.st.naechste.kapitel, dabei: abo.art === 'gemeinsam' ? [...S.dabei] : null, notiz: '',
     };
     abo.lesungen.push(l);
     const vorher = S.gerade[aboId];
@@ -761,22 +1013,62 @@ function eintragSpeichern(frame) {
   const kapitel = Array.from({ length: bis - von + 1 }, (_, i) => ({ b: buchId, k: von + i }));
   const ort = S.ui.ort;
   if (S.ui.edit) {
-    const l = Object.values(ABOS).flatMap((a) => a.lesungen).find((x) => x.id === S.ui.edit);
+    const l = alleLesungen().find((x) => x.id === S.ui.edit);
     const alt = { ...l };
     Object.assign(l, { kapitel, datum: f.datum.value || tag(HEUTE), uhrzeit: f.zeit.value || l.uhrzeit, notiz: f.notiz.value.trim() });
     S.ui = null;
     toast(ort, 'Eintrag gespeichert', () => Object.assign(l, alt));
   } else {
-    const ziel = S.ui.ziel ?? S.abo;
+    const ziel = S.ui.ziel ?? (ABOS[S.filter]?.art === 'gemeinsam' ? S.filter : 'ich');
     const l = {
-      id: `frei-neu-${Date.now()}`, abo: ziel, quelle: 'frei', einheit: null, datum: f.datum.value || tag(HEUTE),
-      uhrzeit: f.zeit.value || '20:15', kapitel, dabei: ziel === 'familie' ? [...S.dabei] : null, notiz: f.notiz.value.trim(),
+      id: `frei-neu-${Date.now()}`, abo: ziel === 'ich' ? null : ziel, person: ICH.id, quelle: 'frei', einheit: null,
+      datum: f.datum.value || tag(HEUTE), uhrzeit: f.zeit.value || '20:15', kapitel,
+      dabei: ziel === 'ich' ? null : [...S.dabei], notiz: f.notiz.value.trim(),
     };
-    ABOS[ziel].lesungen.push(l);
+    (ziel === 'ich' ? FREIE : ABOS[ziel].lesungen).push(l);
     S.ui = null;
     toast(ort, `${stelle(kapitel)} eingetragen`, () => { l.geloescht = true; });
   }
   render();
+}
+
+function planAnlegen(ort) {
+  const a = S.assistent;
+  const e = erzeuge(rezeptAus(a));
+  const id = `neu-${Date.now()}`;
+  const name = a.name.trim() || nameVorschlag(a);
+  ABOS[id] = {
+    id, name, art: a.art, besitzer: ICH.id, neu: true, rezept: rezeptText(a, e), wpm: LESARTEN.find((l) => l.id === a.lesart).wpm,
+    begonnen: datum(a.beginn), tempo: e.tempo, einheiten: e.einheiten, ziel: e.ende,
+    durchgang: 1, version: 1, lesungen: [], zielVerlauf: [],
+  };
+  S.ui = null;
+  S.assistent = null;
+  S.tab = 'heute';
+  toast(ort, `„${name}“ angelegt`, () => { ABOS[id].geloescht = true; });
+}
+
+function uebernehmen(ort, quelleId) {
+  const q = ABOS[quelleId];
+  const id = `kopie-${Date.now()}`;
+  ABOS[id] = {
+    ...q, id, besitzer: ICH.id, art: 'privat', kopieVon: q.id, neu: true, begonnen: new Date(HEUTE), einheiten: [...q.einheiten],
+    ziel: nterLesetag(q.tempo, HEUTE, q.einheiten.length), lesungen: [], zielVerlauf: [], version: 1, durchgang: 1,
+  };
+  S.ui = null;
+  toast(ort, `„${q.name}“ übernommen`, () => { ABOS[id].geloescht = true; });
+}
+
+/** Einen Wert des Assistenten aus einem Formularfeld lesen. */
+function assistentFeld(t) {
+  const a = S.assistent;
+  if (t.name === 'name') { a.name = t.value; return false; }
+  if (['auswahl', 'gruppe', 'startArt', 'start', 'art', 'bis', 'beginn'].includes(t.name)) a[t.name] = t.value;
+  if (t.name === 'gruppe') a.auswahl = 'gruppe';
+  if (t.name === 'start') a.startArt = 'buch';
+  if (t.name === 'startArt' && t.value === 'buch' && !a.start) a.start = t.form.start?.value ?? null;
+  if (t.name === 'auswahl') { a.startArt = 'anfang'; a.start = null; }
+  return true;
 }
 
 document.addEventListener('click', (e) => {
@@ -784,49 +1076,74 @@ document.addEventListener('click', (e) => {
   if (mk) {
     const key = mk.parentElement.dataset.mk;
     S[key] = mk.dataset.wert;
-    if (key === 'szenario') { S.ui = null; S.gerade = { familie: null, ich: null }; }
+    if (key === 'szenario') { S.ui = null; S.gerade = {}; }
     render();
     return;
   }
   const el = e.target.closest('[data-akt]');
   const frame = e.target.closest('[data-frame]');
   const ort = frame?.dataset.frame;
-  if (!el) {
+  if (!el || el.disabled) {
     if (S.ui?.art === 'menu' && !e.target.closest('.menu')) { S.ui = null; render(); }
     return;
   }
   const { akt, wert, was } = el.dataset;
-  const v = sicht();
   if (S.ui?.art === 'menu' && akt !== 'menu' && !el.closest('.menu')) S.ui = null;
   switch (akt) {
-    case 'tab': S.tab = wert; S.ui = null; break;
-    case 'abo': S.abo = wert; S.buch = null; S.tagWahl = null; S.ui = null; break;
+    case 'tab': S.tab = wert; S.ui = null; S.tagWahl = null; break;
+    case 'filter': S.filter = wert; S.buch = null; S.tagWahl = null; break;
     case 'dabei':
       if (S.dabei.has(wert) && S.dabei.size > 1) S.dabei.delete(wert); else S.dabei.add(wert);
       break;
-    case 'gelesen': S.ui = null; lesen(ort === 'kachel' ? 'kachel' : ort, el.dataset.abo ?? S.abo); return;
+    case 'gelesen': S.ui = null; lesen(ort === 'kachel' ? 'kachel' : ort, el.dataset.abo ?? ersterPlan()); return;
     case 'menu':
-      S.ui = S.ui?.art === 'menu' && S.ui.was === was && S.ui.wert === wert ? null : { art: 'menu', ort, was, wert };
+      S.ui = S.ui?.art === 'menu' && S.ui.was === was && S.ui.wert === wert && S.ui.ort === ort ? null : { art: 'menu', ort, was, wert };
       break;
     case 'sheet': {
       // Ein Blatt ersetzt das andere (nie Blatt auf Blatt); das Abo kommt aus data-abo oder bleibt.
-      const aboId = el.dataset.abo ?? S.ui?.aboId ?? S.abo;
+      const aboId = el.dataset.abo ?? S.ui?.aboId ?? ersterPlan();
       S.ui = { art: 'sheet', ort: ort === 'kachel' ? 'laptop' : ort, was, wert, aboId };
       if (was === 'aufholen') {
-        const st = sicht(aboId).st;
+        const { st } = planSicht(aboId);
         Object.assign(S.ui, { start: st.gelesen, heuteOffen: !st.heuteGelesen, anzahl: st.verzug + (st.heuteGelesen ? 0 : 1) });
       }
       break;
     }
-    case 'schliessen': S.ui = null; break;
+    case 'schliessen': S.ui = null; if (S.assistent) S.assistent = null; break;
     case 'eintragen': S.ui = { art: 'sheet', ort, was: 'eintragen', datum: wert || null }; break;
+    case 'assistent': S.assistent = neuerAssistent(); S.ui = { art: 'sheet', ort, was: 'assistent' }; break;
+    case 'assistent-weiter': S.assistent.schritt = Math.min(SCHRITTE.length, S.assistent.schritt + 1); break;
+    case 'assistent-zurueck': S.assistent.schritt = Math.max(1, S.assistent.schritt - 1); break;
+    case 'assistent-schritt': S.assistent.schritt = Number(wert); break;
+    case 'assistent-wert': S.assistent[was] = was === 'minuten' ? Number(wert) : wert; break;
+    case 'assistent-schalter': {
+      const a = S.assistent;
+      if (was === 'weisheit') a.weisheit = !a.weisheit;
+      else a.parallelen[was.slice(2)] = !a.parallelen[was.slice(2)];
+      break;
+    }
+    case 'assistent-buch': {
+      const set = new Set(S.assistent.buecher);
+      if (set.has(wert)) set.delete(wert); else set.add(wert);
+      S.assistent.buecher = BUECHER.filter((b) => set.has(b.id)).map((b) => b.id);
+      break;
+    }
+    case 'assistent-fertig': planAnlegen(ort); break;
+    case 'uebernehmen': uebernehmen(ort, el.dataset.abo); break;
     case 'logbuch-wahl': S.ui.ziel = wert; break;
-    case 'gelesen-blatt': lesen(ort, S.ui.aboId ?? S.abo); return;
+    case 'gelesen-blatt': lesen(ort, S.ui.aboId); return;
+    case 'neu-einteilen': {
+      const abo = ABOS[el.dataset.abo];
+      const undo = neuEinteilen(abo);
+      if (!undo) break;
+      S.ui = null;
+      toast(ort, `„${abo.name}“ neu eingeteilt`, undo);
+      break;
+    }
     case 'ziel-setzen': {
       const f = frame.querySelector('[data-form="ziel"]');
-      const aboId = S.ui.aboId ?? S.abo;
-      const abo = ABOS[aboId];
-      const st = sicht(aboId).st;
+      const abo = ABOS[S.ui.aboId];
+      const { st } = planSicht(abo.id);
       const neu = f.art.value === 'verzug' ? st.ende : (f.datum.value ? datum(f.datum.value) : null);
       if (!neu || neu <= HEUTE) { f.datum.focus(); return; }
       const eintrag = { am: tag(HEUTE), von: abo.ziel, nach: neu };
@@ -842,7 +1159,7 @@ document.addEventListener('click', (e) => {
     case 'eintrag-speichern': eintragSpeichern(frame); return;
     case 'bearbeiten': S.ui = { art: 'sheet', ort, was: 'eintragen', edit: wert }; break;
     case 'loeschen': {
-      const l = ABOS[S.abo].lesungen.find((x) => x.id === wert);
+      const l = alleLesungen().find((x) => x.id === wert);
       l.geloescht = true;
       S.ui = null;
       toast(ort, 'Eintrag gelöscht', () => { l.geloescht = false; });
@@ -850,8 +1167,9 @@ document.addEventListener('click', (e) => {
     }
     case 'gelesen-am': {
       const am = frame.querySelector('#f-am').value || tag(plusTage(HEUTE, -1));
+      const aboId = S.ui.aboId;
       S.ui = null;
-      lesen(ort, S.abo, am);
+      lesen(ort, aboId, am);
       return;
     }
     case 'monat': {
@@ -868,16 +1186,11 @@ document.addEventListener('click', (e) => {
       if (ort === 'handy') S.ui = { art: 'sheet', ort, was: 'buch', wert };
       break;
     case 'einst': {
-      if (was === 'famZaehlt') S.einst.famZaehlt = !S.einst.famZaehlt; else S.einst[was] = wert;
+      if (was === 'gemeinsamZaehlt') S.einst.gemeinsamZaehlt = !S.einst.gemeinsamZaehlt; else S.einst[was] = wert;
       S.saved = was;
       setTimeout(() => { if (S.saved === was) { S.saved = null; render(); } }, 2000);
       break;
     }
-    case 'plan-waehlen':
-      S.szenario = 'normal';
-      S.ui = null;
-      toast(ort === 'kachel' ? 'laptop' : ort, `Plan gewählt: ${PLAENE[wert].name}`);
-      break;
     case 'erneut': {
       const n = S.warteschlange;
       S.szenario = 'normal';
@@ -892,19 +1205,27 @@ document.addEventListener('click', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && S.ui) { S.ui = null; render(); }
+  if (e.key === 'Escape' && S.ui) { S.ui = null; S.assistent = null; render(); }
 });
 
-// „Ziel verschieben“: Vorschau am Ort aktualisieren, ohne neu zu zeichnen (der Fokus bleibt im Feld).
+// Formularfelder: „Ziel verschieben“ aktualisiert seine Vorschau am Ort (der Fokus bleibt im Feld),
+// der Assistent übernimmt Auswahlfelder sofort und den Namen ohne neu zu zeichnen.
 document.addEventListener('input', (e) => {
-  const f = e.target.closest('[data-form="ziel"]');
-  if (!f || S.ui?.was !== 'ziel') return;
-  if (e.target.name === 'datum') f.querySelector('input[value="datum"]').checked = true;
-  S.ui.zielArt = f.art.value;
-  S.ui.datumWert = f.datum.value;
-  const { st, abo } = sicht(S.ui.aboId ?? S.abo);
-  const d = S.ui.zielArt === 'verzug' ? st.ende : (f.datum.value ? datum(f.datum.value) : null);
-  f.querySelector('[data-vorschau]').textContent = zielVorschau(abo, d);
+  const zf = e.target.closest('[data-form="ziel"]');
+  if (zf && S.ui?.was === 'ziel') {
+    if (e.target.name === 'datum') zf.querySelector('input[value="datum"]').checked = true;
+    S.ui.zielArt = zf.art.value;
+    S.ui.datumWert = zf.datum.value;
+    const { st, abo } = planSicht(S.ui.aboId);
+    const d = S.ui.zielArt === 'verzug' ? st.ende : (zf.datum.value ? datum(zf.datum.value) : null);
+    zf.querySelector('[data-vorschau]').textContent = zielVorschau(abo, d);
+    return;
+  }
+  if (e.target.closest('[data-form="assistent"]') && e.target.name === 'name') S.assistent.name = e.target.value;
+});
+document.addEventListener('change', (e) => {
+  if (!e.target.closest('[data-form="assistent"]') || !S.assistent) return;
+  if (assistentFeld(e.target)) render();
 });
 
 // Tooltip: eigener Hover-Layer für Kalender, Kacheln, Raster und Balken.
