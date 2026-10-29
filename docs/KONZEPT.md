@@ -31,20 +31,22 @@ Quelle: `MODULES.md` und `docs/PAGE-COMPOSITION.md` im Yuvomi-Repo (Stand v2.7x,
   (Compose-Datei und eine Proxy-Regel liefern wir mit).
 - Yuvomi prüft keine Versionen. Wir lesen `GET /api/v1/version` und schalten bei unbekannter API auf „nur lesen“.
 
-**Aufbau dieses Repos (geplant)**
+**Aufbau dieses Repos**
 
 ```text
 modules/bibellese/          Browser-Teil, wird nach Yuvomi kopiert
   module.json
-  index.js                  Seite mit den Reitern Heute, Fortschritt, Logbuch, Statistik
+  index.js                  Seite mit den Reitern Heute, Pläne, Fortschritt, Logbuch, Statistik
+  lib/                      Ansichten, Blätter, Dienst-Client
+  kern/                     Rechenkern (Einteilen, Stand, Fortschritt) – auch vom Dienst genutzt
+  daten/bibel.json          66 Bücher nach Schlachter 2000 (aus daten/, erzeugt von tools/moduldaten.mjs)
   settings.js               Einstellungsblatt (mine, household)
   widgets/heute.js          Dashboard-Kachel
   style.css
-  data/bibel.json           66 Bücher nach Schlachter 2000 (aus daten/, erzeugt von build.js)
   locales/de.json, en.json
-service/                    Sidecar: Node, Express, SQLite
-  ...
-deploy/                     docker-compose.example.yml, Traefik- und nginx-Beispiel
+service/                    Sidecar: Node ab 22.13, eingebautes SQLite, keine Fremdpakete
+deploy/                     docker-compose.example.yml (Traefik), nginx.conf.example
+dev/                        Prüfstand und Entwicklungs-Proxy
 docs/KONZEPT.md             dieses Dokument
 mockup/                     Entwurf der Oberfläche
 ```

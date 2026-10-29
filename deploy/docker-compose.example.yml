@@ -1,0 +1,59 @@
+# Bibellese neben Yuvomi, hinter Traefik.
+#
+# Yuvomi selbst läuft unverändert (offizielles Image). Dazu kommen:
+#   1. der Modulordner modules/bibellese im Modulordner von Yuvomi,
+#   2. der Bibellese-Dienst als zweiter Container,
+#   3. eine Proxy-Regel: /api/extensions/bibellese/ → Dienst, alles andere → Yuvomi.
+#
+# Die Datei ist ein Beispiel. Werte in <...> anpassen. Für nginx statt Traefik siehe nginx.conf.example.
+
+services:
+  traefik:
+    image: traefik:v3.4
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  yuvomi:
+    image: ghcr.io/ulsklyc/yuvomi:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - DB_PATH=/data/yuvomi.db
+      - MODULES_DIR=/app/modules
+    volumes:
+      - ./data:/data
+      # Enthält den Ordner bibellese/ aus modules/ dieses Repos (kopieren oder als Unterordner einbinden).
+      - ./modules:/app/modules
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.yuvomi.rule=Host(`<yuvomi.example.org>`)
+      - traefik.http.routers.yuvomi.entrypoints=web
+      - traefik.http.services.yuvomi.loadbalancer.server.port=3000
+
+  bibellese:
+    build:
+      context: ..            # Wurzel dieses Repos
+      dockerfile: service/Dockerfile
+    restart: unless-stopped
+    environment:
+      - YUVOMI_URL=http://yuvomi:3000          # intern, nur für die Prüfung der Sitzung
+      - PUBLIC_ORIGIN=http://<yuvomi.example.org>  # so, wie der Browser Yuvomi aufruft (mit https:// hinter TLS)
+      - TZ_HAUSHALT=Europe/Berlin
+    volumes:
+      - ./bibellese-daten:/data
+    depends_on:
+      - yuvomi
+    labels:
+      - traefik.enable=true
+      # Längerer Pfad gewinnt: diese Regel geht vor der allgemeinen Yuvomi-Regel.
+      - traefik.http.routers.bibellese.rule=Host(`<yuvomi.example.org>`) && PathPrefix(`/api/extensions/bibellese`)
+      - traefik.http.routers.bibellese.entrypoints=web
+      - traefik.http.routers.bibellese.priority=100
+      - traefik.http.services.bibellese.loadbalancer.server.port=3100

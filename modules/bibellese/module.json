@@ -1,0 +1,31 @@
+{
+  "manifestVersion": 1,
+  "id": "bibellese",
+  "name": "Bibellese",
+  "version": "0.1.0",
+  "description": "Familienandacht und eigene Lesepläne: abhaken, Logbuch, Kalender, Fortschritt durch die ganze Bibel. Ohne Bibeltext.",
+  "entry": "index.js",
+  "style": "style.css",
+  "settings": { "entry": "settings.js", "sections": ["mine", "household"] },
+  "icon": "book-open",
+  "accent": "#9A6B3F",
+  "menu": { "show": true, "label": "Bibellese", "labelKey": "menu", "icon": "book-open", "order": 60 },
+  "page": { "composition": "dashboard", "width": "wide", "navigation": "standard", "responsive": "standard" },
+  "i18n": { "defaultLocale": "de" },
+  "capabilities": {
+    "permissions": {
+      "module": { "label": "Bibellese", "labelKey": "module", "icon": "book-open" },
+      "widgets": [{ "id": "heute", "label": "Bibellese heute" }]
+    },
+    "widgets": [{
+      "id": "heute",
+      "entry": "widgets/heute.js",
+      "label": "Bibellese heute",
+      "labelKey": "widgets.heute",
+      "icon": "book-open",
+      "defaultSize": "1x2",
+      "defaultVisible": false
+    }],
+    "api": { "prefix": "/api/extensions/bibellese" }
+  }
+}
