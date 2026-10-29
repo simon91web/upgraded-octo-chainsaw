@@ -5,9 +5,9 @@ dazu eine inhaltliche Gliederung in Hauptteile und Sinnabschnitte (Perikopen).
 
 | | Bücher | Kapitel | Verse |
 |---|---:|---:|---:|
-| Altes Testament | 39 | 929 | 23.214 |
+| Altes Testament | 39 | 929 | 23.213 |
 | Neues Testament | 27 | 260 | 7.958 |
-| **Gesamt** | **66** | **1.189** | **31.172** |
+| **Gesamt** | **66** | **1.189** | **31.171** |
 
 Gliederung: 190 Hauptteile, 1.985 Sinnabschnitte.
 
@@ -28,7 +28,7 @@ mit Umlauten öffnet.
 ```json
 {
   "uebersetzung": "Schlachter 2000",
-  "statistik": { "buecher": 66, "kapitel": 1189, "verse": 31172, "hauptteile": 190, "perikopen": 1985 },
+  "statistik": { "buecher": 66, "kapitel": 1189, "verse": 31171, "hauptteile": 190, "perikopen": 1985 },
   "buecher": [
     {
       "nr": 8, "id": "Ruth", "name": "Ruth", "abk": "Rt", "testament": "AT", "gruppe": "Geschichtsbücher",
@@ -55,12 +55,11 @@ mit Umlauten öffnet.
 ## Woher die Zahlen kommen
 
 - **Kapitel und Verse:** SWORD-Versifikation „German“ (CrossWire), die Luther, Elberfelder und
-  Schlachter gemeinsam zugrunde liegt. Gegen die Schlachter 2000 auf bibleserver.com geprüft: alle
-  bekannten Stellen, an denen deutsche und englische Zählung auseinandergehen, alle 150 Psalmen und
-  acht Bücher vollständig (zusammen gut 500 Kapitel).
-- Dabei fanden sich vier Kapitel, in denen die Schlachter 2000 vom deutschen Schema abweicht und
-  wie die englische Zählung zählt. Sie sind korrigiert: 4Mo 25 (18 Verse), 2Chr 1 (17), 2Chr 2 (18),
-  Apg 19 (41).
+  Schlachter gemeinsam zugrunde liegt. Alle 1.189 Kapitel sind einzeln gegen die Schlachter 2000
+  auf bibleserver.com geprüft.
+- Dabei fanden sich fünf Kapitel, in denen die Schlachter 2000 vom deutschen Schema abweicht und
+  wie die englische Zählung zählt. Sie sind korrigiert: 4Mo 25 (18 Verse), 2Kö 15 (38), 2Chr 1 (17),
+  2Chr 2 (18), Apg 19 (41).
 - Im Alten Testament gilt sonst die hebräische Zählung, z. B. Joel mit 4 Kapiteln, Maleachi mit
   3 Kapiteln (3,19–24), Psalm-Überschriften als eigene Verse (Ps 51 hat 21 Verse).
 - Im Neuen Testament: 2Kor 13 hat 13 Verse, 3Joh 15 Verse, Offb 12 endet mit Vers 18.

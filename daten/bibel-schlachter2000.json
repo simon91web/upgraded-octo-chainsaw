@@ -1,9 +1,9 @@
 {
   "titel": "Die Bibel – Bücher, Kapitel, Verse und Sinnabschnitte",
   "uebersetzung": "Schlachter 2000",
-  "versifikation": "Verszählung der Schlachter 2000 (hebräische Zählung im AT wie Luther/Elberfelder, mit den Ausnahmen 4Mo 25/26, 2Chr 1/2 und Apg 19, wo die Schlachter 2000 der englischen Zählung folgt)",
+  "versifikation": "Verszählung der Schlachter 2000 (hebräische Zählung im AT wie Luther/Elberfelder, mit den Ausnahmen 4Mo 25/26, 2Kö 15, 2Chr 1/2 und Apg 19, wo die Schlachter 2000 der englischen Zählung folgt)",
   "hinweise": [
-    "Kapitel- und Verszahlen: SWORD-Versifikation „German“ (CrossWire), an allen bekannten Abweichungsstellen und allen 150 Psalmen gegen die Schlachter 2000 (bibleserver.com) geprüft und dort korrigiert, wo die Schlachter 2000 abweicht.",
+    "Kapitel- und Verszahlen: SWORD-Versifikation „German“ (CrossWire), alle 1.189 Kapitel gegen die Schlachter 2000 (bibleserver.com) geprüft und dort korrigiert, wo die Schlachter 2000 abweicht.",
     "Psalm-Überschriften zählen wie in der Schlachter 2000 als eigene Verse (z. B. Ps 51 hat 21 Verse).",
     "Hauptteile und Sinnabschnitte sind eine eigene Gliederung nach gängigen Abschnittsgrenzen; die Titel sind eigene Formulierungen und nicht die (urheberrechtlich geschützten) Zwischenüberschriften der Schlachter 2000.",
     "Jeder Abschnitt reicht lückenlos bis zum Vers vor dem nächsten Abschnitt."
@@ -11,13 +11,13 @@
   "statistik": {
     "buecher": 66,
     "kapitel": 1189,
-    "verse": 31172,
+    "verse": 31171,
     "hauptteile": 190,
     "perikopen": 1985,
     "at": {
       "buecher": 39,
       "kapitel": 929,
-      "verse": 23214
+      "verse": 23213
     },
     "nt": {
       "buecher": 27,
@@ -8610,7 +8610,7 @@
       "testament": "AT",
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 25,
-      "versanzahl": 720,
+      "versanzahl": 719,
       "perikopenanzahl": 47,
       "verse_je_kapitel": [
         18,
@@ -8627,7 +8627,7 @@
         22,
         25,
         29,
-        39,
+        38,
         20,
         41,
         37,
@@ -8934,7 +8934,7 @@
             "vers": 41
           },
           "stelle": "2Kö 11–17",
-          "verse": 196,
+          "verse": 195,
           "perikopen": [
             {
               "nr": 20,
@@ -9057,10 +9057,10 @@
               },
               "bis": {
                 "kapitel": 15,
-                "vers": 39
+                "vers": 38
               },
-              "stelle": "2Kö 15,32–39",
-              "verse": 8
+              "stelle": "2Kö 15,32–38",
+              "verse": 7
             },
             {
               "nr": 29,

@@ -153,9 +153,9 @@ const json = {
   titel: 'Die Bibel – Bücher, Kapitel, Verse und Sinnabschnitte',
   uebersetzung: 'Schlachter 2000',
   versifikation:
-    'Verszählung der Schlachter 2000 (hebräische Zählung im AT wie Luther/Elberfelder, mit den Ausnahmen 4Mo 25/26, 2Chr 1/2 und Apg 19, wo die Schlachter 2000 der englischen Zählung folgt)',
+    'Verszählung der Schlachter 2000 (hebräische Zählung im AT wie Luther/Elberfelder, mit den Ausnahmen 4Mo 25/26, 2Kö 15, 2Chr 1/2 und Apg 19, wo die Schlachter 2000 der englischen Zählung folgt)',
   hinweise: [
-    'Kapitel- und Verszahlen: SWORD-Versifikation „German“ (CrossWire), an allen bekannten Abweichungsstellen und allen 150 Psalmen gegen die Schlachter 2000 (bibleserver.com) geprüft und dort korrigiert, wo die Schlachter 2000 abweicht.',
+    'Kapitel- und Verszahlen: SWORD-Versifikation „German“ (CrossWire), alle 1.189 Kapitel gegen die Schlachter 2000 (bibleserver.com) geprüft und dort korrigiert, wo die Schlachter 2000 abweicht.',
     'Psalm-Überschriften zählen wie in der Schlachter 2000 als eigene Verse (z. B. Ps 51 hat 21 Verse).',
     'Hauptteile und Sinnabschnitte sind eine eigene Gliederung nach gängigen Abschnittsgrenzen; die Titel sind eigene Formulierungen und nicht die (urheberrechtlich geschützten) Zwischenüberschriften der Schlachter 2000.',
     'Jeder Abschnitt reicht lückenlos bis zum Vers vor dem nächsten Abschnitt.',
