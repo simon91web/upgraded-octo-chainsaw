@@ -13,7 +13,7 @@
     "kapitel": 1189,
     "verse": 31172,
     "hauptteile": 190,
-    "perikopen": 1932,
+    "perikopen": 1956,
     "at": {
       "buecher": 39,
       "kapitel": 929,
@@ -3269,7 +3269,7 @@
       "gruppe": "Gesetz (Pentateuch)",
       "kapitelanzahl": 36,
       "versanzahl": 1288,
-      "perikopenanzahl": 59,
+      "perikopenanzahl": 72,
       "verse_je_kapitel": [
         54,
         34,
@@ -3437,20 +3437,202 @@
             },
             {
               "nr": 9,
-              "titel": "Die Gaben der Stammesfürsten",
+              "titel": "Die Fürsten bringen Gaben zur Weihe der Wohnung",
               "von": {
                 "kapitel": 7,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 7,
-                "vers": 89
+                "vers": 11
               },
-              "stelle": "4Mo 7",
-              "verse": 89
+              "stelle": "4Mo 7,1–11",
+              "verse": 11
             },
             {
               "nr": 10,
+              "titel": "Erster Tag: die Gabe Judas",
+              "von": {
+                "kapitel": 7,
+                "vers": 12
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 17
+              },
+              "stelle": "4Mo 7,12–17",
+              "verse": 6
+            },
+            {
+              "nr": 11,
+              "titel": "Zweiter Tag: die Gabe Issaschars",
+              "von": {
+                "kapitel": 7,
+                "vers": 18
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 23
+              },
+              "stelle": "4Mo 7,18–23",
+              "verse": 6
+            },
+            {
+              "nr": 12,
+              "titel": "Dritter Tag: die Gabe Sebulons",
+              "von": {
+                "kapitel": 7,
+                "vers": 24
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 29
+              },
+              "stelle": "4Mo 7,24–29",
+              "verse": 6
+            },
+            {
+              "nr": 13,
+              "titel": "Vierter Tag: die Gabe Rubens",
+              "von": {
+                "kapitel": 7,
+                "vers": 30
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 35
+              },
+              "stelle": "4Mo 7,30–35",
+              "verse": 6
+            },
+            {
+              "nr": 14,
+              "titel": "Fünfter Tag: die Gabe Simeons",
+              "von": {
+                "kapitel": 7,
+                "vers": 36
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 41
+              },
+              "stelle": "4Mo 7,36–41",
+              "verse": 6
+            },
+            {
+              "nr": 15,
+              "titel": "Sechster Tag: die Gabe Gads",
+              "von": {
+                "kapitel": 7,
+                "vers": 42
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 47
+              },
+              "stelle": "4Mo 7,42–47",
+              "verse": 6
+            },
+            {
+              "nr": 16,
+              "titel": "Siebter Tag: die Gabe Ephraims",
+              "von": {
+                "kapitel": 7,
+                "vers": 48
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 53
+              },
+              "stelle": "4Mo 7,48–53",
+              "verse": 6
+            },
+            {
+              "nr": 17,
+              "titel": "Achter Tag: die Gabe Manasses",
+              "von": {
+                "kapitel": 7,
+                "vers": 54
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 59
+              },
+              "stelle": "4Mo 7,54–59",
+              "verse": 6
+            },
+            {
+              "nr": 18,
+              "titel": "Neunter Tag: die Gabe Benjamins",
+              "von": {
+                "kapitel": 7,
+                "vers": 60
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 65
+              },
+              "stelle": "4Mo 7,60–65",
+              "verse": 6
+            },
+            {
+              "nr": 19,
+              "titel": "Zehnter Tag: die Gabe Dans",
+              "von": {
+                "kapitel": 7,
+                "vers": 66
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 71
+              },
+              "stelle": "4Mo 7,66–71",
+              "verse": 6
+            },
+            {
+              "nr": 20,
+              "titel": "Elfter Tag: die Gabe Assers",
+              "von": {
+                "kapitel": 7,
+                "vers": 72
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 77
+              },
+              "stelle": "4Mo 7,72–77",
+              "verse": 6
+            },
+            {
+              "nr": 21,
+              "titel": "Zwölfter Tag: die Gabe Naphtalis",
+              "von": {
+                "kapitel": 7,
+                "vers": 78
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 83
+              },
+              "stelle": "4Mo 7,78–83",
+              "verse": 6
+            },
+            {
+              "nr": 22,
+              "titel": "Die Summe der Gaben; Gott redet mit Mose",
+              "von": {
+                "kapitel": 7,
+                "vers": 84
+              },
+              "bis": {
+                "kapitel": 7,
+                "vers": 89
+              },
+              "stelle": "4Mo 7,84–89",
+              "verse": 6
+            },
+            {
+              "nr": 23,
               "titel": "Die Lampen des Leuchters",
               "von": {
                 "kapitel": 8,
@@ -3464,7 +3646,7 @@
               "verse": 4
             },
             {
-              "nr": 11,
+              "nr": 24,
               "titel": "Die Weihe der Leviten",
               "von": {
                 "kapitel": 8,
@@ -3478,7 +3660,7 @@
               "verse": 22
             },
             {
-              "nr": 12,
+              "nr": 25,
               "titel": "Das zweite Passah",
               "von": {
                 "kapitel": 9,
@@ -3492,7 +3674,7 @@
               "verse": 14
             },
             {
-              "nr": 13,
+              "nr": 26,
               "titel": "Die Wolke über der Wohnung",
               "von": {
                 "kapitel": 9,
@@ -3506,7 +3688,7 @@
               "verse": 9
             },
             {
-              "nr": 14,
+              "nr": 27,
               "titel": "Die silbernen Trompeten",
               "von": {
                 "kapitel": 10,
@@ -3536,7 +3718,7 @@
           "verse": 377,
           "perikopen": [
             {
-              "nr": 15,
+              "nr": 28,
               "titel": "Der Aufbruch vom Sinai",
               "von": {
                 "kapitel": 10,
@@ -3550,7 +3732,7 @@
               "verse": 26
             },
             {
-              "nr": 16,
+              "nr": 29,
               "titel": "Das Feuer in Tabera",
               "von": {
                 "kapitel": 11,
@@ -3564,7 +3746,7 @@
               "verse": 3
             },
             {
-              "nr": 17,
+              "nr": 30,
               "titel": "Siebzig Älteste und die Wachteln",
               "von": {
                 "kapitel": 11,
@@ -3578,7 +3760,7 @@
               "verse": 32
             },
             {
-              "nr": 18,
+              "nr": 31,
               "titel": "Mirjam und Aaron gegen Mose",
               "von": {
                 "kapitel": 12,
@@ -3592,7 +3774,7 @@
               "verse": 16
             },
             {
-              "nr": 19,
+              "nr": 32,
               "titel": "Die Kundschafter",
               "von": {
                 "kapitel": 13,
@@ -3606,7 +3788,7 @@
               "verse": 33
             },
             {
-              "nr": 20,
+              "nr": 33,
               "titel": "Das Volk lehnt sich auf",
               "von": {
                 "kapitel": 14,
@@ -3620,7 +3802,7 @@
               "verse": 38
             },
             {
-              "nr": 21,
+              "nr": 34,
               "titel": "Die eigenmächtige Niederlage",
               "von": {
                 "kapitel": 14,
@@ -3634,7 +3816,7 @@
               "verse": 7
             },
             {
-              "nr": 22,
+              "nr": 35,
               "titel": "Opfervorschriften",
               "von": {
                 "kapitel": 15,
@@ -3648,7 +3830,7 @@
               "verse": 31
             },
             {
-              "nr": 23,
+              "nr": 36,
               "titel": "Der Sabbatschänder",
               "von": {
                 "kapitel": 15,
@@ -3662,7 +3844,7 @@
               "verse": 5
             },
             {
-              "nr": 24,
+              "nr": 37,
               "titel": "Quasten an den Kleidern",
               "von": {
                 "kapitel": 15,
@@ -3676,7 +3858,7 @@
               "verse": 5
             },
             {
-              "nr": 25,
+              "nr": 38,
               "titel": "Der Aufstand Korahs",
               "von": {
                 "kapitel": 16,
@@ -3690,7 +3872,7 @@
               "verse": 35
             },
             {
-              "nr": 26,
+              "nr": 39,
               "titel": "Die Räucherpfannen und die Plage",
               "von": {
                 "kapitel": 17,
@@ -3704,7 +3886,7 @@
               "verse": 15
             },
             {
-              "nr": 27,
+              "nr": 40,
               "titel": "Aarons grünender Stab",
               "von": {
                 "kapitel": 17,
@@ -3718,7 +3900,7 @@
               "verse": 13
             },
             {
-              "nr": 28,
+              "nr": 41,
               "titel": "Pflichten und Anteile der Priester und Leviten",
               "von": {
                 "kapitel": 18,
@@ -3732,7 +3914,7 @@
               "verse": 32
             },
             {
-              "nr": 29,
+              "nr": 42,
               "titel": "Das Reinigungswasser",
               "von": {
                 "kapitel": 19,
@@ -3746,7 +3928,7 @@
               "verse": 22
             },
             {
-              "nr": 30,
+              "nr": 43,
               "titel": "Wasser aus dem Felsen bei Meriba",
               "von": {
                 "kapitel": 20,
@@ -3760,7 +3942,7 @@
               "verse": 13
             },
             {
-              "nr": 31,
+              "nr": 44,
               "titel": "Edom verweigert den Durchzug",
               "von": {
                 "kapitel": 20,
@@ -3774,7 +3956,7 @@
               "verse": 8
             },
             {
-              "nr": 32,
+              "nr": 45,
               "titel": "Aarons Tod",
               "von": {
                 "kapitel": 20,
@@ -3788,7 +3970,7 @@
               "verse": 8
             },
             {
-              "nr": 33,
+              "nr": 46,
               "titel": "Der Sieg bei Horma",
               "von": {
                 "kapitel": 21,
@@ -3802,7 +3984,7 @@
               "verse": 3
             },
             {
-              "nr": 34,
+              "nr": 47,
               "titel": "Die eherne Schlange",
               "von": {
                 "kapitel": 21,
@@ -3816,7 +3998,7 @@
               "verse": 6
             },
             {
-              "nr": 35,
+              "nr": 48,
               "titel": "Der Zug nach Moab",
               "von": {
                 "kapitel": 21,
@@ -3830,7 +4012,7 @@
               "verse": 11
             },
             {
-              "nr": 36,
+              "nr": 49,
               "titel": "Der Sieg über Sihon und Og",
               "von": {
                 "kapitel": 21,
@@ -3860,7 +4042,7 @@
           "verse": 517,
           "perikopen": [
             {
-              "nr": 37,
+              "nr": 50,
               "titel": "Balak ruft Bileam",
               "von": {
                 "kapitel": 22,
@@ -3874,7 +4056,7 @@
               "verse": 20
             },
             {
-              "nr": 38,
+              "nr": 51,
               "titel": "Bileams Eselin",
               "von": {
                 "kapitel": 22,
@@ -3888,7 +4070,7 @@
               "verse": 15
             },
             {
-              "nr": 39,
+              "nr": 52,
               "titel": "Bileam bei Balak",
               "von": {
                 "kapitel": 22,
@@ -3902,7 +4084,7 @@
               "verse": 6
             },
             {
-              "nr": 40,
+              "nr": 53,
               "titel": "Bileams erster Spruch",
               "von": {
                 "kapitel": 23,
@@ -3916,7 +4098,7 @@
               "verse": 12
             },
             {
-              "nr": 41,
+              "nr": 54,
               "titel": "Bileams zweiter Spruch",
               "von": {
                 "kapitel": 23,
@@ -3930,7 +4112,7 @@
               "verse": 14
             },
             {
-              "nr": 42,
+              "nr": 55,
               "titel": "Bileams dritter Spruch",
               "von": {
                 "kapitel": 23,
@@ -3944,7 +4126,7 @@
               "verse": 17
             },
             {
-              "nr": 43,
+              "nr": 56,
               "titel": "Bileams letzte Sprüche",
               "von": {
                 "kapitel": 24,
@@ -3958,7 +4140,7 @@
               "verse": 12
             },
             {
-              "nr": 44,
+              "nr": 57,
               "titel": "Israels Abfall in Schittim",
               "von": {
                 "kapitel": 25,
@@ -3972,7 +4154,7 @@
               "verse": 18
             },
             {
-              "nr": 45,
+              "nr": 58,
               "titel": "Die zweite Zählung",
               "von": {
                 "kapitel": 26,
@@ -3986,7 +4168,7 @@
               "verse": 65
             },
             {
-              "nr": 46,
+              "nr": 59,
               "titel": "Das Erbrecht der Töchter Zelophchads",
               "von": {
                 "kapitel": 27,
@@ -4000,7 +4182,7 @@
               "verse": 11
             },
             {
-              "nr": 47,
+              "nr": 60,
               "titel": "Josua wird Moses Nachfolger",
               "von": {
                 "kapitel": 27,
@@ -4014,7 +4196,7 @@
               "verse": 12
             },
             {
-              "nr": 48,
+              "nr": 61,
               "titel": "Tägliche Opfer, Sabbat und Neumond",
               "von": {
                 "kapitel": 28,
@@ -4028,7 +4210,7 @@
               "verse": 15
             },
             {
-              "nr": 49,
+              "nr": 62,
               "titel": "Passah und Wochenfest",
               "von": {
                 "kapitel": 28,
@@ -4042,7 +4224,7 @@
               "verse": 16
             },
             {
-              "nr": 50,
+              "nr": 63,
               "titel": "Die Feste im siebten Monat",
               "von": {
                 "kapitel": 29,
@@ -4056,7 +4238,7 @@
               "verse": 40
             },
             {
-              "nr": 51,
+              "nr": 64,
               "titel": "Gelübde",
               "von": {
                 "kapitel": 30,
@@ -4070,7 +4252,7 @@
               "verse": 16
             },
             {
-              "nr": 52,
+              "nr": 65,
               "titel": "Der Krieg gegen Midian",
               "von": {
                 "kapitel": 31,
@@ -4084,7 +4266,7 @@
               "verse": 54
             },
             {
-              "nr": 53,
+              "nr": 66,
               "titel": "Ruben, Gad und Manasse östlich des Jordan",
               "von": {
                 "kapitel": 32,
@@ -4098,7 +4280,7 @@
               "verse": 42
             },
             {
-              "nr": 54,
+              "nr": 67,
               "titel": "Die Lagerplätze Israels",
               "von": {
                 "kapitel": 33,
@@ -4112,7 +4294,7 @@
               "verse": 49
             },
             {
-              "nr": 55,
+              "nr": 68,
               "titel": "Anweisungen für die Landnahme",
               "von": {
                 "kapitel": 33,
@@ -4126,7 +4308,7 @@
               "verse": 7
             },
             {
-              "nr": 56,
+              "nr": 69,
               "titel": "Die Grenzen des Landes",
               "von": {
                 "kapitel": 34,
@@ -4140,7 +4322,7 @@
               "verse": 29
             },
             {
-              "nr": 57,
+              "nr": 70,
               "titel": "Die Städte der Leviten",
               "von": {
                 "kapitel": 35,
@@ -4154,7 +4336,7 @@
               "verse": 8
             },
             {
-              "nr": 58,
+              "nr": 71,
               "titel": "Die Zufluchtsstädte",
               "von": {
                 "kapitel": 35,
@@ -4168,7 +4350,7 @@
               "verse": 26
             },
             {
-              "nr": 59,
+              "nr": 72,
               "titel": "Das Erbe der Erbtöchter",
               "von": {
                 "kapitel": 36,
@@ -14326,7 +14508,7 @@
       "gruppe": "Poetische Bücher",
       "kapitelanzahl": 31,
       "versanzahl": 915,
-      "perikopenanzahl": 37,
+      "perikopenanzahl": 44,
       "verse_je_kapitel": [
         33,
         22,
@@ -14787,20 +14969,118 @@
           "perikopen": [
             {
               "nr": 28,
-              "titel": "Dreißig Worte der Weisen",
+              "titel": "Neige dein Ohr: Einleitung zu den Worten der Weisen",
               "von": {
                 "kapitel": 22,
                 "vers": 17
               },
               "bis": {
-                "kapitel": 24,
-                "vers": 22
+                "kapitel": 22,
+                "vers": 21
               },
-              "stelle": "Spr 22,17–24,22",
-              "verse": 70
+              "stelle": "Spr 22,17–21",
+              "verse": 5
             },
             {
               "nr": 29,
+              "titel": "Arme, Jähzornige und Bürgschaft",
+              "von": {
+                "kapitel": 22,
+                "vers": 22
+              },
+              "bis": {
+                "kapitel": 22,
+                "vers": 29
+              },
+              "stelle": "Spr 22,22–29",
+              "verse": 8
+            },
+            {
+              "nr": 30,
+              "titel": "Bei Tisch mit Mächtigen und Geizigen",
+              "von": {
+                "kapitel": 23,
+                "vers": 1
+              },
+              "bis": {
+                "kapitel": 23,
+                "vers": 8
+              },
+              "stelle": "Spr 23,1–8",
+              "verse": 8
+            },
+            {
+              "nr": 31,
+              "titel": "Erziehung und Gottesfurcht",
+              "von": {
+                "kapitel": 23,
+                "vers": 9
+              },
+              "bis": {
+                "kapitel": 23,
+                "vers": 18
+              },
+              "stelle": "Spr 23,9–18",
+              "verse": 10
+            },
+            {
+              "nr": 32,
+              "titel": "Höre auf deinen Vater; Warnung vor Völlerei und Hurerei",
+              "von": {
+                "kapitel": 23,
+                "vers": 19
+              },
+              "bis": {
+                "kapitel": 23,
+                "vers": 28
+              },
+              "stelle": "Spr 23,19–28",
+              "verse": 10
+            },
+            {
+              "nr": 33,
+              "titel": "Die Folgen der Trunkenheit",
+              "von": {
+                "kapitel": 23,
+                "vers": 29
+              },
+              "bis": {
+                "kapitel": 23,
+                "vers": 35
+              },
+              "stelle": "Spr 23,29–35",
+              "verse": 7
+            },
+            {
+              "nr": 34,
+              "titel": "Mit Weisheit wird ein Haus gebaut",
+              "von": {
+                "kapitel": 24,
+                "vers": 1
+              },
+              "bis": {
+                "kapitel": 24,
+                "vers": 12
+              },
+              "stelle": "Spr 24,1–12",
+              "verse": 12
+            },
+            {
+              "nr": 35,
+              "titel": "Der Gerechte steht wieder auf",
+              "von": {
+                "kapitel": 24,
+                "vers": 13
+              },
+              "bis": {
+                "kapitel": 24,
+                "vers": 22
+              },
+              "stelle": "Spr 24,13–22",
+              "verse": 10
+            },
+            {
+              "nr": 36,
               "titel": "Weitere Worte der Weisen",
               "von": {
                 "kapitel": 24,
@@ -14830,7 +15110,7 @@
           "verse": 138,
           "perikopen": [
             {
-              "nr": 30,
+              "nr": 37,
               "titel": "Vom Umgang mit Königen und Nächsten",
               "von": {
                 "kapitel": 25,
@@ -14844,7 +15124,7 @@
               "verse": 28
             },
             {
-              "nr": 31,
+              "nr": 38,
               "titel": "Über Toren und Faule",
               "von": {
                 "kapitel": 26,
@@ -14858,7 +15138,7 @@
               "verse": 28
             },
             {
-              "nr": 32,
+              "nr": 39,
               "titel": "Rühme dich nicht des morgigen Tages",
               "von": {
                 "kapitel": 27,
@@ -14872,7 +15152,7 @@
               "verse": 27
             },
             {
-              "nr": 33,
+              "nr": 40,
               "titel": "Der Gerechte ist mutig wie ein Löwe",
               "von": {
                 "kapitel": 28,
@@ -14886,7 +15166,7 @@
               "verse": 28
             },
             {
-              "nr": 34,
+              "nr": 41,
               "titel": "Zucht und Gerechtigkeit",
               "von": {
                 "kapitel": 29,
@@ -14916,7 +15196,7 @@
           "verse": 64,
           "perikopen": [
             {
-              "nr": 35,
+              "nr": 42,
               "titel": "Die Worte Agurs",
               "von": {
                 "kapitel": 30,
@@ -14930,7 +15210,7 @@
               "verse": 33
             },
             {
-              "nr": 36,
+              "nr": 43,
               "titel": "Die Worte an König Lemuel",
               "von": {
                 "kapitel": 31,
@@ -14944,7 +15224,7 @@
               "verse": 9
             },
             {
-              "nr": 37,
+              "nr": 44,
               "titel": "Lob der tüchtigen Frau",
               "von": {
                 "kapitel": 31,
@@ -18070,7 +18350,7 @@
       "gruppe": "Große Propheten",
       "kapitelanzahl": 48,
       "versanzahl": 1273,
-      "perikopenanzahl": 56,
+      "perikopenanzahl": 60,
       "verse_je_kapitel": [
         28,
         10,
@@ -18392,20 +18672,76 @@
             },
             {
               "nr": 18,
-              "titel": "Jerusalem, die untreue Frau",
+              "titel": "Gottes Liebe zum ausgesetzten Kind",
               "von": {
                 "kapitel": 16,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 16,
-                "vers": 63
+                "vers": 14
               },
-              "stelle": "Hes 16",
-              "verse": 63
+              "stelle": "Hes 16,1–14",
+              "verse": 14
             },
             {
               "nr": 19,
+              "titel": "Jerusalems Untreue",
+              "von": {
+                "kapitel": 16,
+                "vers": 15
+              },
+              "bis": {
+                "kapitel": 16,
+                "vers": 34
+              },
+              "stelle": "Hes 16,15–34",
+              "verse": 20
+            },
+            {
+              "nr": 20,
+              "titel": "Das Gericht über die Ehebrecherin",
+              "von": {
+                "kapitel": 16,
+                "vers": 35
+              },
+              "bis": {
+                "kapitel": 16,
+                "vers": 43
+              },
+              "stelle": "Hes 16,35–43",
+              "verse": 9
+            },
+            {
+              "nr": 21,
+              "titel": "Schlimmer als Samaria und Sodom",
+              "von": {
+                "kapitel": 16,
+                "vers": 44
+              },
+              "bis": {
+                "kapitel": 16,
+                "vers": 58
+              },
+              "stelle": "Hes 16,44–58",
+              "verse": 15
+            },
+            {
+              "nr": 22,
+              "titel": "Der ewige Bund",
+              "von": {
+                "kapitel": 16,
+                "vers": 59
+              },
+              "bis": {
+                "kapitel": 16,
+                "vers": 63
+              },
+              "stelle": "Hes 16,59–63",
+              "verse": 5
+            },
+            {
+              "nr": 23,
               "titel": "Die Adler und der Weinstock",
               "von": {
                 "kapitel": 17,
@@ -18419,7 +18755,7 @@
               "verse": 24
             },
             {
-              "nr": 20,
+              "nr": 24,
               "titel": "Jeder ist für seine eigene Schuld verantwortlich",
               "von": {
                 "kapitel": 18,
@@ -18433,7 +18769,7 @@
               "verse": 32
             },
             {
-              "nr": 21,
+              "nr": 25,
               "titel": "Klagelied über die Fürsten Israels",
               "von": {
                 "kapitel": 19,
@@ -18447,7 +18783,7 @@
               "verse": 14
             },
             {
-              "nr": 22,
+              "nr": 26,
               "titel": "Israels Untreue in der Geschichte",
               "von": {
                 "kapitel": 20,
@@ -18461,7 +18797,7 @@
               "verse": 44
             },
             {
-              "nr": 23,
+              "nr": 27,
               "titel": "Feuer im Süden",
               "von": {
                 "kapitel": 21,
@@ -18475,7 +18811,7 @@
               "verse": 5
             },
             {
-              "nr": 24,
+              "nr": 28,
               "titel": "Das Schwert des Herrn",
               "von": {
                 "kapitel": 21,
@@ -18489,7 +18825,7 @@
               "verse": 17
             },
             {
-              "nr": 25,
+              "nr": 29,
               "titel": "Der König von Babel am Scheideweg",
               "von": {
                 "kapitel": 21,
@@ -18503,7 +18839,7 @@
               "verse": 15
             },
             {
-              "nr": 26,
+              "nr": 30,
               "titel": "Die Sünden Jerusalems",
               "von": {
                 "kapitel": 22,
@@ -18517,7 +18853,7 @@
               "verse": 31
             },
             {
-              "nr": 27,
+              "nr": 31,
               "titel": "Ohola und Oholiba",
               "von": {
                 "kapitel": 23,
@@ -18531,7 +18867,7 @@
               "verse": 49
             },
             {
-              "nr": 28,
+              "nr": 32,
               "titel": "Der Kochtopf",
               "von": {
                 "kapitel": 24,
@@ -18545,7 +18881,7 @@
               "verse": 14
             },
             {
-              "nr": 29,
+              "nr": 33,
               "titel": "Der Tod der Frau Hesekiels",
               "von": {
                 "kapitel": 24,
@@ -18575,7 +18911,7 @@
           "verse": 197,
           "perikopen": [
             {
-              "nr": 30,
+              "nr": 34,
               "titel": "Gegen Ammon, Moab, Edom und die Philister",
               "von": {
                 "kapitel": 25,
@@ -18589,7 +18925,7 @@
               "verse": 17
             },
             {
-              "nr": 31,
+              "nr": 35,
               "titel": "Gericht über Tyrus",
               "von": {
                 "kapitel": 26,
@@ -18603,7 +18939,7 @@
               "verse": 21
             },
             {
-              "nr": 32,
+              "nr": 36,
               "titel": "Klagelied über Tyrus",
               "von": {
                 "kapitel": 27,
@@ -18617,7 +18953,7 @@
               "verse": 36
             },
             {
-              "nr": 33,
+              "nr": 37,
               "titel": "Gegen den König von Tyrus",
               "von": {
                 "kapitel": 28,
@@ -18631,7 +18967,7 @@
               "verse": 19
             },
             {
-              "nr": 34,
+              "nr": 38,
               "titel": "Gegen Sidon; Verheißung für Israel",
               "von": {
                 "kapitel": 28,
@@ -18645,7 +18981,7 @@
               "verse": 7
             },
             {
-              "nr": 35,
+              "nr": 39,
               "titel": "Gegen Ägypten",
               "von": {
                 "kapitel": 29,
@@ -18659,7 +18995,7 @@
               "verse": 21
             },
             {
-              "nr": 36,
+              "nr": 40,
               "titel": "Der Tag des Herrn über Ägypten",
               "von": {
                 "kapitel": 30,
@@ -18673,7 +19009,7 @@
               "verse": 26
             },
             {
-              "nr": 37,
+              "nr": 41,
               "titel": "Die gefällte Zeder",
               "von": {
                 "kapitel": 31,
@@ -18687,7 +19023,7 @@
               "verse": 18
             },
             {
-              "nr": 38,
+              "nr": 42,
               "titel": "Klagelied über den Pharao",
               "von": {
                 "kapitel": 32,
@@ -18717,7 +19053,7 @@
           "verse": 197,
           "perikopen": [
             {
-              "nr": 39,
+              "nr": 43,
               "titel": "Der Wächter und die Umkehr",
               "von": {
                 "kapitel": 33,
@@ -18731,7 +19067,7 @@
               "verse": 20
             },
             {
-              "nr": 40,
+              "nr": 44,
               "titel": "Die Nachricht vom Fall Jerusalems",
               "von": {
                 "kapitel": 33,
@@ -18745,7 +19081,7 @@
               "verse": 13
             },
             {
-              "nr": 41,
+              "nr": 45,
               "titel": "Die Hirten Israels und der gute Hirte",
               "von": {
                 "kapitel": 34,
@@ -18759,7 +19095,7 @@
               "verse": 31
             },
             {
-              "nr": 42,
+              "nr": 46,
               "titel": "Gegen das Gebirge Seir",
               "von": {
                 "kapitel": 35,
@@ -18773,7 +19109,7 @@
               "verse": 15
             },
             {
-              "nr": 43,
+              "nr": 47,
               "titel": "Die Erneuerung der Berge Israels",
               "von": {
                 "kapitel": 36,
@@ -18787,7 +19123,7 @@
               "verse": 15
             },
             {
-              "nr": 44,
+              "nr": 48,
               "titel": "Ein neues Herz und ein neuer Geist",
               "von": {
                 "kapitel": 36,
@@ -18801,7 +19137,7 @@
               "verse": 23
             },
             {
-              "nr": 45,
+              "nr": 49,
               "titel": "Die Totengebeine werden lebendig",
               "von": {
                 "kapitel": 37,
@@ -18815,7 +19151,7 @@
               "verse": 14
             },
             {
-              "nr": 46,
+              "nr": 50,
               "titel": "Juda und Israel werden vereint",
               "von": {
                 "kapitel": 37,
@@ -18829,7 +19165,7 @@
               "verse": 14
             },
             {
-              "nr": 47,
+              "nr": 51,
               "titel": "Gog aus Magog",
               "von": {
                 "kapitel": 38,
@@ -18859,7 +19195,7 @@
           "verse": 260,
           "perikopen": [
             {
-              "nr": 48,
+              "nr": 52,
               "titel": "Tore und Vorhöfe des neuen Tempels",
               "von": {
                 "kapitel": 40,
@@ -18873,7 +19209,7 @@
               "verse": 49
             },
             {
-              "nr": 49,
+              "nr": 53,
               "titel": "Das Tempelhaus",
               "von": {
                 "kapitel": 41,
@@ -18887,7 +19223,7 @@
               "verse": 26
             },
             {
-              "nr": 50,
+              "nr": 54,
               "titel": "Die Priesterzellen und die Außenmaße",
               "von": {
                 "kapitel": 42,
@@ -18901,7 +19237,7 @@
               "verse": 20
             },
             {
-              "nr": 51,
+              "nr": 55,
               "titel": "Die Herrlichkeit kehrt zurück",
               "von": {
                 "kapitel": 43,
@@ -18915,7 +19251,7 @@
               "verse": 12
             },
             {
-              "nr": 52,
+              "nr": 56,
               "titel": "Der Altar",
               "von": {
                 "kapitel": 43,
@@ -18929,7 +19265,7 @@
               "verse": 15
             },
             {
-              "nr": 53,
+              "nr": 57,
               "titel": "Ordnungen für den Tempeldienst",
               "von": {
                 "kapitel": 44,
@@ -18943,7 +19279,7 @@
               "verse": 31
             },
             {
-              "nr": 54,
+              "nr": 58,
               "titel": "Das heilige Land und die Opfer",
               "von": {
                 "kapitel": 45,
@@ -18957,7 +19293,7 @@
               "verse": 49
             },
             {
-              "nr": 55,
+              "nr": 59,
               "titel": "Der Tempelstrom",
               "von": {
                 "kapitel": 47,
@@ -18971,7 +19307,7 @@
               "verse": 12
             },
             {
-              "nr": 56,
+              "nr": 60,
               "titel": "Die Grenzen und die Verteilung des Landes",
               "von": {
                 "kapitel": 47,

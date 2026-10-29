@@ -254,7 +254,14 @@
 21,1 Gott lenkt das Herz des Königs
 22,1 Ein guter Name
 = 22,17 Worte der Weisen
-22,17 Dreißig Worte der Weisen
+22,17 Neige dein Ohr: Einleitung zu den Worten der Weisen
+22,22 Arme, Jähzornige und Bürgschaft
+23,1 Bei Tisch mit Mächtigen und Geizigen
+23,9 Erziehung und Gottesfurcht
+23,19 Höre auf deinen Vater; Warnung vor Völlerei und Hurerei
+23,29 Die Folgen der Trunkenheit
+24,1 Mit Weisheit wird ein Haus gebaut
+24,13 Der Gerechte steht wieder auf
 24,23 Weitere Worte der Weisen
 = 25,1 Sprüche Salomos aus der Sammlung Hiskias
 25,1 Vom Umgang mit Königen und Nächsten

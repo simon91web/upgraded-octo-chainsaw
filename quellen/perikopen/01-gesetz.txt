@@ -233,7 +233,20 @@
 5,11 Das Eifersuchtsopfer
 6,1 Das Nasiräergelübde
 6,22 Der aaronitische Segen
-7,1 Die Gaben der Stammesfürsten
+7,1 Die Fürsten bringen Gaben zur Weihe der Wohnung
+7,12 Erster Tag: die Gabe Judas
+7,18 Zweiter Tag: die Gabe Issaschars
+7,24 Dritter Tag: die Gabe Sebulons
+7,30 Vierter Tag: die Gabe Rubens
+7,36 Fünfter Tag: die Gabe Simeons
+7,42 Sechster Tag: die Gabe Gads
+7,48 Siebter Tag: die Gabe Ephraims
+7,54 Achter Tag: die Gabe Manasses
+7,60 Neunter Tag: die Gabe Benjamins
+7,66 Zehnter Tag: die Gabe Dans
+7,72 Elfter Tag: die Gabe Assers
+7,78 Zwölfter Tag: die Gabe Naphtalis
+7,84 Die Summe der Gaben; Gott redet mit Mose
 8,1 Die Lampen des Leuchters
 8,5 Die Weihe der Leviten
 9,1 Das zweite Passah
