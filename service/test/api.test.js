@@ -174,3 +174,38 @@ test('Einstellungen: jede Person für sich, der Haushalt nur durch Admins', asyn
   assert.equal((await rufe('paul', 'PUT', '/einstellungen', { haushalt: { gemeinsameAnlegen: 'admins' } })).status, 200);
   assert.equal((await rufe('maria', 'POST', '/plaene', { name: 'X', art: 'gemeinsam', rezept: familienRezept })).status, 403);
 });
+
+test('Teilweise gelesen: Herausgenommenes zählt nicht und lässt sich nachträglich ändern', async () => {
+  const WEISHEIT = ['Job', 'Ps', 'Prov', 'Eccl', 'Song'];
+  const plan = await rufe('maria', 'POST', '/plaene', {
+    name: 'Könige mit Psalmen', art: 'privat',
+    rezept: { ...familienRezept, straenge: [{ buecher: 'bibel', ohne: WEISHEIT, start: '1Kgs.8' }, { buecher: WEISHEIT }], ziel: { minuten: 20 } },
+  });
+  assert.equal(plan.status, 201);
+  const t = plan.daten.naechste.teile;
+  assert.ok(t.haupt.startsWith('1. Könige 8'), t.haupt);
+  assert.ok(t.dazu.startsWith('2. Chronik 5,2'), t.dazu);
+  assert.ok(t.zweit, 'zweiter Strang fehlt');
+  assert.ok(plan.daten.naechste.text.endsWith(`dazu ${t.dazu}`));
+
+  assert.equal((await rufe('maria', 'POST', '/lesungen', { planId: plan.daten.id, ohne: ['haupt'] })).status, 400);
+  const r = await rufe('maria', 'POST', '/lesungen', { planId: plan.daten.id, ohne: ['dazu'] });
+  assert.equal(r.status, 201);
+  assert.ok(!r.daten.text.includes('Chronik'));
+  assert.equal(r.daten.plan.stand.gelesen, 1);
+
+  const eintrag = (await rufe('maria', 'GET', `/lesungen?plan=${plan.daten.id}`)).daten.lesungen[0];
+  assert.deepEqual(eintrag.hat, ['zweit', 'dazu']);
+  assert.deepEqual(eintrag.ohne, ['dazu']);
+  assert.equal(eintrag.teile.dazu, null);
+  assert.ok(eintrag.ausgelassen.startsWith('2. Chronik 5,2'));
+  const chronik = async () => (await rufe('maria', 'GET', `/fortschritt?plan=${plan.daten.id}`)).daten.jeBuch['2Chr']?.gelesen ?? 0;
+  assert.equal(await chronik(), 0);
+
+  // Doch gelesen: wieder mitzählen. 2Chr 5,2–7,10 macht nur Kapitel 6 ganz.
+  assert.equal((await rufe('maria', 'PATCH', `/lesungen/${eintrag.id}`, { ohne: [] })).status, 200);
+  const danach = (await rufe('maria', 'GET', `/lesungen?plan=${plan.daten.id}`)).daten.lesungen[0];
+  assert.deepEqual(danach.ohne, []);
+  assert.equal(danach.ausgelassen, null);
+  assert.equal(await chronik(), 1);
+});

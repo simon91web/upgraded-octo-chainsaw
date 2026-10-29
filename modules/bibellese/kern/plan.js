@@ -15,6 +15,18 @@ import { bausteine as bausteineDesStrangs } from './bausteine.js';
 import { einteilen, hoechstens, streuen } from './einteilen.js';
 import { lesetage as zaehleLesetage, nterLesetag } from './kalender.js';
 import { verbinde } from './stellen.js';
+import { buecherDerAuswahl } from './bibel.js';
+
+/**
+ * Bücher der Nebenstränge (etwa die Weisheit neben dem Lesefaden), für einheitTeile.
+ * Was auch im ersten Strang steht, bleibt beim Lesefaden. Ein Plan mit einem Strang hat keine.
+ */
+export function nebenBuecher(bibel, rezept) {
+  const [erster, ...weitere] = rezept.straenge;
+  if (!weitere.length) return new Set();
+  const imErsten = new Set(buecherDerAuswahl(bibel, erster.buecher, erster.ohne).map((b) => b.id));
+  return new Set(weitere.flatMap((s) => buecherDerAuswahl(bibel, s.buecher, s.ohne)).map((b) => b.id).filter((id) => !imErsten.has(id)));
+}
 
 /** Bis quellen/wortzahlen.txt da ist: Wörter je Vers im Mittel (ganze Bibel still ≈ 60 Std.). */
 export const WOERTER_JE_VERS = 23;

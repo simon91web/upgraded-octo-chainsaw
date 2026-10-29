@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { bibel } from '../src/kern.js';
 import {
-  erzeugePlan, neuEinteilen, stand, fortschritt, einheitText, bausteine, kalender, WEISHEIT, minutenDerEinheit,
+  erzeugePlan, neuEinteilen, stand, fortschritt, einheitText, einheitTeile, nebenBuecher, bausteine, kalender, WEISHEIT, minutenDerEinheit,
 } from '../../modules/bibellese/kern/index.js';
 
 const rezept = (extra = {}) => ({
@@ -35,6 +35,37 @@ test('Ganze Bibel in einem Jahr: jeder Vers genau einmal, 365 Lesungen bis zum Z
   assert.equal(alleVerse(p.einheiten), 31171);
   assert.equal(einheitText(bibel, p.einheiten[0].stuecke), '1. Mose 1–3');
   assert.ok(p.minutenJe > 9 && p.minutenJe < 11);
+});
+
+test('Text einer Einheit: Parallelstücke im Wechsel nennen jedes Buch nur einmal', () => {
+  const stuecke = [
+    { b: 'Ezra', von: [2, 1], bis: [2, 35] }, { b: 'Neh', von: [7, 6], bis: [7, 38], parallel: true },
+    { b: 'Ezra', von: [2, 36], bis: [2, 58] }, { b: 'Neh', von: [7, 39], bis: [7, 60], parallel: true },
+    { b: 'Ezra', von: [2, 59], bis: [2, 70] }, { b: 'Neh', von: [7, 61], bis: [7, 73], parallel: true },
+  ];
+  assert.equal(einheitText(bibel, stuecke), 'Esra 2 · dazu Nehemia 7,6–73');
+  // Nicht Anschließendes desselben Buchs in Bibelreihenfolge, nach „;“.
+  const luecke = [
+    { b: '1Kgs', von: [10, 1], bis: [10, 13] }, { b: '2Chr', von: [9, 1], bis: [9, 12], parallel: true },
+    { b: '1Kgs', von: [10, 14], bis: [10, 29] }, { b: '2Chr', von: [1, 14], bis: [1, 17], parallel: true },
+    { b: '2Chr', von: [9, 13], bis: [9, 31], parallel: true },
+  ];
+  assert.equal(einheitText(bibel, luecke), '1. Könige 10 · dazu 2. Chronik 1,14–17; 9');
+});
+
+test('Teile einer Einheit: Lesefaden, zweiter Strang, Parallelstellen', () => {
+  const r = rezept({ straenge: [{ buecher: 'bibel', ohne: WEISHEIT, start: '1Kgs.8' }, { buecher: WEISHEIT }], parallelen: ['geschichte'], ziel: { minuten: 20 } });
+  const zweit = nebenBuecher(bibel, r);
+  assert.deepEqual([...zweit].sort(), [...WEISHEIT].sort());
+  assert.equal(nebenBuecher(bibel, rezept()).size, 0);
+  const e = erzeugePlan(bibel, r).einheiten[0];
+  const t = einheitTeile(bibel, e.stuecke, { zweit });
+  assert.ok(t.haupt.text.startsWith('1. Könige 8'));
+  assert.ok(t.dazu.text.startsWith('2. Chronik 5,2'));
+  assert.ok(WEISHEIT.includes(t.zweit.stuecke[0].b));
+  assert.equal(einheitText(bibel, e.stuecke, { zweit }), `${t.haupt.text} · ${t.zweit.text} · dazu ${t.dazu.text}`);
+  // Ohne Angabe der Nebenstränge bleibt alles außer den Parallelstellen beim Lesefaden.
+  assert.equal(einheitTeile(bibel, e.stuecke).zweit, null);
 });
 
 test('Ein Baustein wird nie geteilt: Psalm 119 bleibt eine Lesung', () => {

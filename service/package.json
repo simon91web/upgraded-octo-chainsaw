@@ -1,6 +1,6 @@
 {
   "name": "bibellese-dienst",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Dienst des Yuvomi-Moduls Bibellese: Lesepläne, Logbuch, Fortschritt (Node, SQLite, ohne Fremdpakete)",
   "private": true,
   "type": "module",

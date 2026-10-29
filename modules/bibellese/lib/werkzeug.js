@@ -2,6 +2,14 @@
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 export const ic = (name) => `<i data-lucide="${name}" aria-hidden="true"></i>`;
+/**
+ * Stellenangabe als HTML: umbrechen nur zwischen Stellen („ · “, „; “) und nach „dazu“, nie in
+ * „2. Chronik 36,22–23“ (geschützte Leerzeichen, Wortverbinder nach dem Strich). Passt eine Stelle
+ * allein nicht in die Zeile, bricht `overflow-wrap` am Träger sie trotzdem.
+ */
+export const stelleHtml = (text) => String(text ?? '').split(/( · |; )/)
+  .map((t, i) => (i % 2 ? esc(t) : esc(t).replace(/ /g, '&nbsp;').replace(/^dazu&nbsp;/, 'dazu ').replace(/–/g, '–&#8288;')))
+  .join('');
 export const NBSP = ' ';
 export const zahl = (n) => Number(n).toLocaleString('de-DE');
 export const dezimal = (n) => Number(n).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });

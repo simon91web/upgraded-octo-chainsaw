@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bibellese-Kachel – Prüfstand</title>
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/reset.css">
+<link rel="stylesheet" href="/styles/layout.css">
+<link rel="stylesheet" href="/styles/typography.css">
+<link rel="stylesheet" href="/styles/dashboard.css">
+<link rel="stylesheet" href="/pruefstand/pruefstand.css">
+<script src="/lucide.min.js"></script>
+<script>
+  (() => { const o = lucide.createIcons; lucide.createIcons = (opts = {}) => o({ icons: lucide.icons, ...opts }); })();
+</script>
+<style>
+  .ps-kacheln { display: flex; flex-wrap: wrap; gap: 16px; padding: 16px; align-items: flex-start; }
+  .ps-kacheln > div { width: 420px; max-width: 100%; }
+  .ps-kacheln > div + div { width: 300px; }
+</style>
+</head>
+<body>
+  <header class="ps-leiste"><strong>Prüfstand Bibellese · Dashboard-Kachel</strong>
+    <span><select id="ps-thema" aria-label="Erscheinungsbild"><option value="">System</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></span>
+  </header>
+  <!-- Wie Yuvomis renderWidgetBody(): der Rahmen ist .widget, das Modul füllt ihn. -->
+  <main class="ps-kacheln">
+    <div><div class="widget extension-widget-mount" data-extension-widget-mount="1"></div></div>
+    <div><div class="widget extension-widget-mount" data-extension-widget-mount="1"></div></div>
+  </main>
+  <script type="module">
+    const thema = document.getElementById('ps-thema');
+    thema.value = localStorage.getItem('ps-thema') ?? '';
+    const setze = () => { if (thema.value) document.documentElement.dataset.theme = thema.value; else delete document.documentElement.dataset.theme; };
+    setze();
+    thema.addEventListener('change', () => { localStorage.setItem('ps-thema', thema.value); setze(); });
+    const { renderWidget } = await import('/modules/bibellese/widgets/heute.js');
+    for (const mount of document.querySelectorAll('[data-extension-widget-mount]')) await renderWidget(mount, { size: '1x2', options: {}, user: null });
+  </script>
+</body>
+</html>

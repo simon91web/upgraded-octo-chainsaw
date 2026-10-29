@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haupt- und Nebenstellen</title>
+<link rel="stylesheet" href="vendor/yuvomi-tokens.css">
+<link rel="stylesheet" href="mockup.css">
+<script src="vendor/lucide.min.js"></script>
+<style>
+  /* Nur für diese Mockup-Seite: Bühne mit Laptop-Spalte, Handy und Kachel. */
+  .st-stage { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 32px 40px; padding: 28px 16px 64px; }
+  .st-col { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .st-frame { background: var(--color-bg); border-radius: 12px; box-shadow: 0 0 0 1px rgb(0 0 0 / .12), 0 24px 60px rgb(0 0 0 / .18); }
+  .st-frame--laptop { width: 644px; padding: 16px; }
+  .st-frame--handy { width: 390px; padding: 16px; border-radius: 40px; box-shadow: 0 0 0 10px #1B1A18, 0 0 0 11px #3A3733, 0 24px 60px rgb(0 0 0 / .25); }
+  /* .frame misst seine Breite selbst (container), darum hier eine feste Breite. */
+  .st-frame--kachel { width: min(calc(100vw - 32px), 1124px); padding: 16px; display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+  .st-list { display: flex; flex-direction: column; gap: 16px; }
+  .st-note { max-width: 980px; margin: 0 auto; padding: 0 16px; font-size: 15px; color: var(--color-text-secondary); line-height: 1.45; }
+  .st-note b { color: var(--color-text-primary); font-weight: 600; }
+  .st-section { width: 100%; text-align: center; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-top: 8px; }
+
+  /* ---------- Vorschlag: Haupt- und Nebenstellen ---------- */
+  .today__ref { overflow-wrap: break-word; }
+  .ref-zweit { font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+  .today--compact .ref-zweit { font-size: var(--text-2xl); }
+  /* Variante B: der zweite Strang als eigene Titelzeile, eine Stufe leiser in der Farbe. */
+  .ref-zweit { color: var(--color-text-secondary); }
+  .neben { display: flex; flex-direction: column; gap: 4px; margin-top: -4px; }
+  .neben__zeile { display: flex; align-items: flex-start; gap: 8px; font-size: 17px; line-height: 1.35; overflow-wrap: break-word; min-width: 0; }
+  .neben__zeile svg { width: 17px; height: 17px; flex: none; margin-top: 2px; color: var(--color-text-secondary); }
+  .neben__zeile--dazu { color: var(--color-text-secondary); }
+  .neben__zeile--zweit { color: var(--color-text-primary); font-weight: 500; }
+  .today--compact .neben__zeile { font-size: 15px; }
+  /* Titel und Nebenstellen bilden einen Block; die Einheit steht danach mit normalem Abstand. */
+  .neben + .today__unit { margin-top: 0; }
+  .today--compact .neben__zeile svg { width: 15px; height: 15px; }
+
+  /* Nebenstellen als Schalter wie „Dabei“: vorausgewählt, ein Tipp nimmt die Stelle heraus.
+     Der Haken behält seinen Platz in beiden Zuständen, damit nichts springt. */
+  .neben { gap: 0; margin-top: -8px; }
+  button.neben__zeile, button.ref-zweit { width: 100%; border: 0; background: none; padding: 6px 0; text-align: left; border-radius: var(--radius-sm); display: flex; align-items: flex-start; gap: 8px; }
+  button.ref-zweit { padding: 0; align-items: center; }
+  .neben__text { flex: 1; min-width: 0; }
+  .haken { width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--color-success); color: var(--color-success); }
+  .neben__zeile .haken svg, .ref-zweit .haken svg { width: 14px; height: 14px; margin: 0; stroke-width: 3; color: inherit; }
+  [aria-pressed="false"] > .haken { box-shadow: inset 0 0 0 1.5px var(--color-border-control); }
+  [aria-pressed="false"] > .haken svg { visibility: hidden; }
+  button[aria-pressed="false"].neben__zeile, button[aria-pressed="false"].ref-zweit { color: var(--color-text-tertiary); font-weight: 400; }
+  button[aria-pressed="false"].neben__zeile > svg:first-child { color: var(--color-text-tertiary); }
+  .row__neben--aus { color: var(--color-text-tertiary); }
+
+  .widget { width: 380px; }
+  .widget--schmal { width: 300px; }
+  .widget__ref { line-height: 1.3; overflow-wrap: break-word; }
+  .w-neben { display: flex; align-items: flex-start; gap: 6px; font-size: 13px; line-height: 1.35; overflow-wrap: break-word; }
+  .w-neben svg { width: 13px; height: 13px; flex: none; margin-top: 2px; color: var(--color-text-secondary); }
+  .w-neben--dazu { color: var(--color-text-secondary); }
+  .w-neben--zweit { color: var(--color-text-primary); font-weight: 500; }
+
+  .carrier .row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; }
+  .row__title { overflow-wrap: break-word; }
+  .row__neben { font-size: 15px; color: var(--color-text-secondary); overflow-wrap: break-word; }
+</style>
+</head>
+<body>
+  <header class="mk-bar" aria-label="Mockup-Steuerung">
+    <div class="mk-bar__title">
+      <strong>Haupt- und Nebenstellen</strong>
+      <span>Mockup · Bibellese · Karte „Heute“, Dashboard-Kachel, Logbuch-Zeile</span>
+    </div>
+    <div class="mk-bar__controls">
+      <div class="mk-seg" role="group" aria-label="Variante" data-mk="variante">
+        <button data-wert="bisher">Bisher (0.1.2)</button><button data-wert="a">A · Leiser darunter</button><button data-wert="b">B · Zwei Lesungen</button>
+      </div>
+      <div class="mk-seg" role="group" aria-label="Erscheinungsbild" data-mk="thema">
+        <button data-wert="light">Hell</button><button data-wert="dark">Dunkel</button>
+      </div>
+    </div>
+  </header>
+
+  <p class="st-note" id="st-note"></p>
+
+  <main class="st-stage">
+    <section class="st-col" aria-label="Laptop">
+      <div class="mk-device__label">Laptop · Spalte „Heute“, 612 px</div>
+      <div class="st-frame st-frame--laptop frame"><div class="st-list" data-ort="laptop"></div></div>
+    </section>
+    <section class="st-col" aria-label="Handy">
+      <div class="mk-device__label">Handy · 390 px</div>
+      <div class="st-frame st-frame--handy frame"><div class="st-list" data-ort="handy"></div></div>
+    </section>
+    <div class="st-section">Dashboard-Kachel in zwei Breiten · Logbuch nach dem Abhaken</div>
+    <section class="st-col" aria-label="Kachel und Logbuch">
+      <div class="st-frame st-frame--kachel frame" data-ort="kachel"></div>
+    </section>
+  </main>
+
+<script>
+  // Vier Pläne, die alle Fälle zeigen: beides, nur Parallelen, nur zweiter Strang, nichts.
+  // haupt = Lesefaden, dazu = Parallelstellen, zweit = zweiter Strang (Weisheit).
+  const PLAENE = [
+    { name: 'Familienandacht', icon: 'users', haupt: '1. Könige 8', dazu: ['2. Chronik 5,2–7,10'], zweit: 'Psalm 30',
+      einheit: 'Einheit 286 von 368 · ≈ 19 Min.', ziel: 'Ziel 31.12.2027', dabei: true },
+    { name: 'Ganze Bibel', icon: 'lock', haupt: 'Esra 1–2', dazu: ['2. Chronik 36,22–23', 'Nehemia 7,6–73'], zweit: null,
+      einheit: 'Einheit 2 von 828 · ≈ 16 Min.', ziel: 'Ziel 31.12.2029' },
+    { name: 'Jahresbibel', icon: 'lock', haupt: 'Jesaja 4,2–7,25', dazu: [], zweit: 'Hiob 2',
+      einheit: 'Einheit 2 von 365 · ≈ 15 Min.', ziel: 'Ziel 28.10.2027' },
+    { name: 'Neues Testament', icon: 'lock', haupt: 'Markus 4,1–34', dazu: [], zweit: null,
+      einheit: 'Einheit 12 von 120 · ≈ 9 Min.', ziel: 'Ziel 30.06.2027' },
+  ];
+  const TEILWEISE = ' Die Nebenstellen tragen einen gesetzten Haken; ein Tipp nimmt eine Stelle heraus, bevor man „Gelesen“ drückt. Herausgenommenes zählt nicht im Fortschritt und steht im Logbuch als „Ausgelassen“. Die Kachel bleibt bei einem Tipp für alles. Probier es an der ersten Karte: die erste Logbuch-Zeile zeigt, was eingetragen würde.';
+  const NOTIZ = {
+    bisher: '<b>Bisher:</b> alle Stellen in einer Titelzeile, Parallelstellen nur am Wort „dazu“ erkennbar. Abhaken zählt immer alles.',
+    a: `<b>A · Leiser darunter:</b> Groß steht nur der Lesefaden. Darunter, eine Stufe leiser, der zweite Strang (Feder, dunkle Schrift) und die Parallelstellen (Spalten, graue Schrift). <b>Vorschlag.</b>${TEILWEISE}`,
+    b: `<b>B · Zwei Lesungen:</b> Lesefaden und zweiter Strang sind beide Titel, der zweite in grauer Schrift. Die Parallelstellen stehen klein darunter.${TEILWEISE}`,
+  };
+  // Herausgenommene Nebenstellen je Plan: „0:dazu“, „0:zweit“ …
+  const S = { variante: 'a', thema: 'light', aus: new Set() };
+  const an = (i, teil) => !S.aus.has(`${i}:${teil}`);
+  const haken = `<span class="haken">${'<i data-lucide="check" aria-hidden="true"></i>'}</span>`;
+  const schalter = (i, teil, an_) => `data-teil="${i}:${teil}" aria-pressed="${an_}" title="${an_ ? 'Mitgelesen – tippen zum Herausnehmen' : 'Nicht mitgelesen – tippen zum Mitzählen'}"`;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const ic = (n) => `<i data-lucide="${n}" aria-hidden="true"></i>`;
+  // Wie stelleHtml im Modul: nur zwischen Stellen umbrechen.
+  const st = (t) => esc(t).replace(/ /g, '&nbsp;').replace(/–/g, '–&#8288;');
+  const dazuText = (p) => `dazu ${p.dazu.map(st).join(' · ')}`;
+  const bisherText = (p) => [st(p.haupt), ...(p.dazu.length ? [dazuText(p)] : []), ...(p.zweit ? [st(p.zweit)] : [])].join(' · ');
+
+  function titel(p, i) {
+    if (S.variante === 'bisher') return `<div class="today__ref">${bisherText(p)}</div>`;
+    const zweitTitel = S.variante === 'b' && p.zweit
+      ? `<button class="ref-zweit" ${schalter(i, 'zweit', an(i, 'zweit'))}><span class="neben__text">${st(p.zweit)}</span>${haken}</button>` : '';
+    const zeilen = [
+      S.variante === 'a' && p.zweit ? `<button class="neben__zeile neben__zeile--zweit" ${schalter(i, 'zweit', an(i, 'zweit'))}>${ic('feather')}<span class="neben__text">${st(p.zweit)}</span>${haken}</button>` : '',
+      p.dazu.length ? `<button class="neben__zeile neben__zeile--dazu" ${schalter(i, 'dazu', an(i, 'dazu'))}>${ic('columns-2')}<span class="neben__text">${dazuText(p)}</span>${haken}</button>` : '',
+    ].join('');
+    return `<div><div class="today__ref">${st(p.haupt)}</div>${zweitTitel}</div>${zeilen ? `<div class="neben">${zeilen}</div>` : ''}`;
+  }
+
+  function karte(p, primaer, i) {
+    const dabei = p.dabei ? `<div class="today__dabei"><span class="today__dabei-label">Dabei</span><div class="avatars">${[['P', '#2563EB'], ['M', '#CE2A63'], ['L', '#C2410C'], ['J', '#157F3D']].map(([b, c]) =>
+      `<button class="avatar" style="--av:${c}" aria-pressed="true" aria-label="${b}"><span class="avatar__face">${b}</span><span class="avatar__tick">${ic('check')}</span></button>`).join('')}</div></div>` : '';
+    return `<article class="card today${primaer ? '' : ' today--compact'}">
+      <div class="today__eyebrow">${ic(p.icon)}${esc(p.name)}<span class="menu-anchor" style="margin-left:auto"><button class="btn btn--ghost btn--icon" aria-label="Mehr">${ic('ellipsis')}</button></span></div>
+      ${titel(p, i)}
+      <div class="today__unit tabnum">${p.einheit}</div>
+      <div class="today__meta"><span class="state state--ok">${ic('check')}Im Plan</span><span>${p.ziel}</span></div>
+      ${dabei}
+      <div class="today__actions"><button class="btn ${primaer ? 'btn--primary' : 'btn--secondary'}">${ic('check')}Gelesen</button></div>
+    </article>`;
+  }
+
+  function kachelZeile(p, i) {
+    let ref = `<span class="widget__ref">${bisherText(p)}</span>`;
+    let neben = '';
+    if (S.variante !== 'bisher') {
+      ref = `<span class="widget__ref">${st(p.haupt)}${S.variante === 'b' && p.zweit ? ` · ${st(p.zweit)}` : ''}</span>`;
+      neben = [
+        S.variante === 'a' && p.zweit ? `<span class="w-neben w-neben--zweit">${ic('feather')}<span>${st(p.zweit)}</span></span>` : '',
+        p.dazu.length ? `<span class="w-neben w-neben--dazu">${ic('columns-2')}<span>${dazuText(p)}</span></span>` : '',
+      ].join('');
+    }
+    return `<div class="widget__item"${i ? '' : ' style="border-top:0"'}><div class="row__main"><span class="footnote">${esc(p.name)}</span>${ref}${neben}
+      <span class="state state--ok" style="font-size:13px">Im Plan</span></div>
+      <button class="btn btn--secondary btn--sm">${ic('check')}Gelesen</button></div>`;
+  }
+
+  function kachel(schmal) {
+    return `<div class="widget${schmal ? ' widget--schmal' : ''}"><div class="widget__head"><span class="seal">${ic('book-open')}</span><b>Bibellese</b><span class="widget__meta">Alle</span></div>
+      ${PLAENE.slice(0, 3).map(kachelZeile).join('')}</div>`;
+  }
+
+  // Logbuch: nur Gelesenes zählt, Herausgenommenes steht als „Ausgelassen“ darunter.
+  // Zeile 1 folgt den Haken der ersten Karte, Zeile 2 ist ein fester Eintrag ohne Nehemia.
+  function logbuch() {
+    const zeile = (p, uhr, aus) => {
+      if (S.variante === 'bisher') {
+        return `<div class="row"><span class="row__date"><b>30</b>Fr</span><div class="row__main"><span class="row__title">${bisherText(p)}</span>
+          <span class="row__meta">${esc(p.name)} · ${uhr}</span></div></div>`;
+      }
+      const zweitGelesen = p.zweit && !aus.zweit;
+      const dazuGelesen = p.dazu.filter((d) => !(aus.dazu ?? []).includes(d));
+      const dazuAus = p.dazu.filter((d) => (aus.dazu ?? []).includes(d));
+      const ausgelassen = [...(p.zweit && aus.zweit ? [st(p.zweit)] : []), ...dazuAus.map(st)];
+      const titelText = `${st(p.haupt)}${S.variante === 'b' && zweitGelesen ? ` · ${st(p.zweit)}` : ''}`;
+      const neben = [
+        S.variante === 'a' && zweitGelesen ? `<span class="row__neben" style="color:var(--color-text-primary)">${st(p.zweit)}</span>` : '',
+        dazuGelesen.length ? `<span class="row__neben">dazu ${dazuGelesen.map(st).join(' · ')}</span>` : '',
+        ausgelassen.length ? `<span class="row__neben row__neben--aus">Ausgelassen: ${ausgelassen.join(' · ')}</span>` : '',
+      ].join('');
+      return `<div class="row"><span class="row__date"><b>30</b>Fr</span><div class="row__main"><span class="row__title">${titelText}</span>${neben}
+        <span class="row__meta">${esc(p.name)} · ${uhr}</span></div></div>`;
+    };
+    const live = { zweit: !an(0, 'zweit'), dazu: an(0, 'dazu') ? [] : PLAENE[0].dazu };
+    return `<div class="carrier rows" style="width:380px">${zeile(PLAENE[0], '07:40 · Paul, Maria, Lea, Jonas', live)}${zeile(PLAENE[1], '21:15', { dazu: ['Nehemia 7,6–73'] })}</div>`;
+  }
+
+  function zeichne() {
+    document.documentElement.dataset.theme = S.thema;
+    for (const seg of document.querySelectorAll('[data-mk]')) {
+      for (const b of seg.querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.wert === S[seg.dataset.mk]));
+    }
+    document.getElementById('st-note').innerHTML = NOTIZ[S.variante];
+    for (const ort of ['laptop', 'handy']) {
+      document.querySelector(`[data-ort="${ort}"]`).innerHTML = PLAENE.map((p, i) => karte(p, i === 0, i)).join('');
+    }
+    document.querySelector('[data-ort="kachel"]').innerHTML = kachel(false) + kachel(true) + logbuch();
+    lucide.createIcons({ icons: lucide.icons });
+  }
+
+  document.addEventListener('click', (ev) => {
+    const teil = ev.target.closest('[data-teil]');
+    if (teil) {
+      const k = teil.dataset.teil;
+      if (S.aus.has(k)) S.aus.delete(k); else S.aus.add(k);
+      zeichne();
+      return;
+    }
+    const b = ev.target.closest('[data-mk] button');
+    if (!b) return;
+    S[b.closest('[data-mk]').dataset.mk] = b.dataset.wert;
+    zeichne();
+  });
+  zeichne();
+</script>
+</body>
+</html>

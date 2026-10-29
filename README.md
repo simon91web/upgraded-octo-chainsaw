@@ -65,6 +65,7 @@ YUVOMI_QUELLE=../yuvomi node dev/pruefstand.mjs
 ```
 
 Dann <http://localhost:8080/m/bibellese> öffnen. Oben lassen sich Testperson und Hell/Dunkel umschalten.
+Die Dashboard-Kachel steht unter <http://localhost:8080/kachel>, in Yuvomis Kachelrahmen in zwei Breiten.
 
 **Mit echtem Yuvomi:** Yuvomi auf Port 3000 starten (Modulordner eingebunden), den Dienst wie oben, dazu
 `node dev/proxy.mjs` – er führt beides unter <http://localhost:8080> zusammen, wie später der Reverse Proxy.

@@ -58,6 +58,8 @@ const SCHEMA = [
      wert TEXT NOT NULL,
      PRIMARY KEY (bereich, person_id, schluessel)
    );`,
+  // 2: Was beim Abhaken herausgenommen wurde (zweiter Strang, Parallelstellen); zählt nicht als gelesen.
+  `ALTER TABLE lesung ADD COLUMN ausgelassen TEXT;`,
 ];
 
 export function oeffneDatenbank(pfad) {

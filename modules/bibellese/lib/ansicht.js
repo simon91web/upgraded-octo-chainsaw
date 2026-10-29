@@ -2,7 +2,7 @@
 // Zustand `S` und gibt Markup zurück; Nutzerdaten gehen immer durch esc().
 
 import {
-  esc, ic, NBSP, zahl, dezimal, prozent, anteil, min, einheiten, lesungenText, eintraegeText,
+  esc, ic, stelleHtml, NBSP, zahl, dezimal, prozent, anteil, min, einheiten, lesungenText, eintraegeText,
   WT2, MON, MON3, fmtDatum, kurzDatum, tagKopf, plusTage, wochentag, statistik,
 } from './werkzeug.js';
 
@@ -81,6 +81,24 @@ export function leerPlan(S) {
     <button type="button" class="btn btn--secondary" data-akt="eintragen">Frei eintragen</button></div>` : ''}</div>`;
 }
 
+/**
+ * Zweiter Strang (Feder) und Parallelstellen (Spalten) unter der Hauptstelle, eine Stufe leiser.
+ * Mit `schalter` tragen sie einen gesetzten Haken wie „Dabei“: ein Tipp nimmt die Stelle heraus,
+ * sie zählt dann nicht als gelesen. `schalter(teil)` liefert die data-Attribute des Knopfs.
+ */
+export function nebenZeilen(teile, { schalter = null, ohne = new Set() } = {}) {
+  const zeilen = [['zweit', 'feather', teile?.zweit], ['dazu', 'columns-2', teile?.dazu && `dazu ${teile.dazu}`]]
+    .filter(([, , text]) => text)
+    .map(([teil, icon, text]) => {
+      const inhalt = `${ic(icon)}<span class="bl-neben__text">${stelleHtml(text)}</span>`;
+      if (!schalter) return `<div class="bl-neben__zeile bl-neben__zeile--${teil}">${inhalt}</div>`;
+      const an = !ohne.has(teil);
+      return `<button type="button" class="bl-neben__zeile bl-neben__zeile--${teil}" ${schalter(teil)} aria-pressed="${an}"
+        title="${an ? 'Mitgelesen – tippen zum Herausnehmen' : 'Nicht mitgelesen – tippen zum Mitzählen'}">${inhalt}<span class="bl-haken">${ic('check')}</span></button>`;
+    });
+  return zeilen.length ? `<div class="bl-neben">${zeilen.join('')}</div>` : '';
+}
+
 function heuteKarte(S, p, { primaer }) {
   const st = p.stand;
   if (!p.naechste) {
@@ -96,11 +114,13 @@ function heuteKarte(S, p, { primaer }) {
     `<button type="button" class="bl-avatar" style="--av:${esc(m.avatar_color || '#6C3AED')}" aria-pressed="${S.dabei.has(m.id)}" data-akt="dabei" data-wert="${m.id}" aria-label="${esc(m.display_name)}" title="${esc(m.display_name)}">
       <span class="bl-avatar__face">${esc((m.display_name || '?').slice(0, 1).toUpperCase())}</span><span class="bl-avatar__tick">${ic('check')}</span></button>`).join('')}</div></div>` : '';
   const knopf = `btn ${primaer ? 'btn--primary' : 'btn--secondary'}`;
+  const teile = p.naechste.teile ?? { haupt: p.naechste.text };
   return `<article class="bl-card bl-today${primaer ? '' : ' bl-today--compact'}" aria-label="${esc(p.name)}">
     <div class="bl-today__eyebrow">${ic(ART[p.art].icon)}${esc(p.name)}
       ${menuAnker(S, 'einheit', p.id, `Mehr zu ${p.name}`, 'btn btn--ghost btn--icon')}</div>
     ${gerade ? `<div class="bl-today__done"><span class="bl-ring bl-ring--done">${ic('check')}</span>${esc(gerade.text)} gelesen · ${esc(gerade.uhrzeit)}</div>` : ''}
-    <div class="bl-today__ref">${esc(p.naechste.text)}</div>
+    <div class="bl-today__ref">${stelleHtml(teile.haupt)}</div>
+    ${nebenZeilen(teile, { ohne: S.ohne[p.id], schalter: p.darfAbhaken ? (teil) => `data-akt="teil" data-plan="${p.id}" data-wert="${teil}"` : null })}
     <div class="bl-today__unit bl-tabnum">Einheit ${p.naechste.nr} von ${zahl(st.anzahl)} · ${min(p.naechste.minuten)}${aufholen ? ' · zum Aufholen' : ''}</div>
     ${zielStatus(p)}
     ${dabei}
@@ -288,8 +308,9 @@ export function fortschritt(S) {
       return `<div class="bl-group"><h3 class="bl-group__head">${esc(g.name)}<span>${prozent(gr.gelesen, gr.von)}</span></h3>
         <div class="bl-tiles">${S.bibel.buecher.filter((b) => b.gruppe === g.id).map((b) => kachel(S, b, f, p, gewaehlt)).join('')}</div></div>`;
     }).join('')}</div></section>`;
-  const main = filterLeiste(S) + kopf + testament('AT') + testament('NT');
-  return S.breit ? spalten(S, main, buchDetail(S, gewaehlt)) : `<div class="bl-col">${main}</div>`;
+  const main = kopf + testament('AT') + testament('NT');
+  // Der Filter steht über beiden Spalten, damit die Karten links und rechts auf einer Höhe beginnen.
+  return S.breit ? filterLeiste(S) + spalten(S, main, buchDetail(S, gewaehlt)) : `<div class="bl-col">${filterLeiste(S)}${main}</div>`;
 }
 
 function kachel(S, b, f, p, gewaehlt) {
@@ -338,14 +359,15 @@ export function logbuch(S) {
   const praefix = `${S.monat.jahr}-${String(S.monat.monat + 1).padStart(2, '0')}`;
   const liste = lesungen.filter((l) => (S.tagWahl ? l.datum === S.tagWahl : l.datum.startsWith(praefix)));
   const chip = S.tagWahl ? `<div><button type="button" class="bl-filter" data-akt="tag-alle" aria-label="Filter aufheben">${tagKopf(S.tagWahl, S.heute)}${ic('x')}</button></div>` : '';
+  // Titel in der Karte wie beim Kalender daneben: beide Karten beginnen auf einer Höhe.
   const eintraege = liste.length
-    ? `<section class="bl-section"><h2 class="bl-section-title">Einträge<small class="bl-tabnum">${liste.length}</small></h2>
-        <div class="bl-carrier bl-rows">${liste.map((l, i) => zeile(S, l, i === 0 || liste[i - 1].datum !== l.datum)).join('')}</div></section>`
+    ? `<section class="bl-carrier"><div class="bl-pad bl-pad--kopf"><h3 class="bl-card-title">Einträge<small class="bl-tabnum">${liste.length}</small></h3></div>
+        <div class="bl-rows bl-rows--sep">${liste.map((l, i) => zeile(S, l, i === 0 || liste[i - 1].datum !== l.datum)).join('')}</div></section>`
     : `<section class="bl-carrier"><div class="bl-empty bl-empty--klein"><span class="bl-empty__icon">${ic('calendar-days')}</span>
         <h3>${S.tagWahl ? 'An diesem Tag nichts eingetragen' : 'In diesem Monat nichts eingetragen'}</h3>
         ${S.ich.darfSchreiben ? `<div class="bl-empty__actions"><button type="button" class="btn btn--secondary" data-akt="eintragen" data-wert="${S.tagWahl ?? ''}">Nachtragen</button></div>` : ''}</div></section>`;
   const kal = kalenderKarte(S, { voll: true });
-  if (S.breit) return spalten(S, filterLeiste(S) + chip + eintraege, kal);
+  if (S.breit) return `<div class="bl-filterzeile">${filterLeiste(S)}${chip}</div>${spalten(S, eintraege, kal)}`;
   return `<div class="bl-col">${filterLeiste(S)}${kal}${chip}${eintraege}</div>`;
 }
 
@@ -358,7 +380,10 @@ function zeile(S, l, ersterDesTages) {
   const tag = Number(l.datum.slice(8, 10));
   return `<div class="bl-row${ersterDesTages ? '' : ' bl-row--same-day'}">
     <span class="bl-row__date${l.datum === S.heute ? ' bl-row__date--today' : ''}" aria-label="${tagKopf(l.datum, S.heute)}">${ersterDesTages ? `<b>${tag}</b>${WT2[wochentag(l.datum)]}` : ''}</span>
-    <div class="bl-row__main"><span class="bl-row__title">${esc(l.text)}</span><span class="bl-row__meta">${esc(meta)}</span>
+    <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(l.teile?.haupt || l.text)}</span>
+      ${l.teile ? nebenZeilen(l.teile) : ''}
+      ${l.ausgelassen ? `<span class="bl-row__aus">Ausgelassen: ${stelleHtml(l.ausgelassen)}</span>` : ''}
+      <span class="bl-row__meta">${esc(meta)}</span>
       ${l.notiz ? `<span class="bl-row__note">${esc(l.notiz)}</span>` : ''}</div>
     ${l.eigen || S.ich.admin ? menuAnker(S, 'eintrag', l.id, 'Mehr zum Eintrag', 'btn btn--ghost btn--icon') : ''}</div>`;
 }

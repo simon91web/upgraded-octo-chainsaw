@@ -18,6 +18,8 @@ export async function render(container, { signal } = {}) {
     fortschrittAlle: null, fortschrittFilter: null, planDetail: {}, einstellungen: null,
     monat: null, tagWahl: null, buch: null, ui: null, busy: null, gerade: {}, saved: null,
     dabei: new Set(), assistent: null, breit: true, fehler: null, bereit: false,
+    // Je Plan die Teile, die vor „Gelesen“ herausgenommen sind: Set('zweit', 'dazu').
+    ohne: {},
   };
 
   // Kopf einmal bauen: der FAB dockt am Laptop in seine Aktionsleiste, ein Neuzeichnen würde ihn verlieren.
@@ -159,14 +161,25 @@ export async function render(container, { signal } = {}) {
   async function abhaken(planId, datum) {
     const p = S.plaene.find((x) => x.id === Number(planId));
     if (!p?.naechste) return;
-    const text = p.naechste.text;
+    const ohne = S.ohne[p.id] ?? new Set();
     await mitBusy(p.id, async () => {
-      const r = await dienst.abhaken({ planId: p.id, ...(datum ? { datum } : {}), dabei: p.art === 'gemeinsam' ? [...S.dabei] : undefined });
+      const r = await dienst.abhaken({
+        planId: p.id, ...(datum ? { datum } : {}), dabei: p.art === 'gemeinsam' ? [...S.dabei] : undefined, ohne: [...ohne],
+      });
+      // Gemeldet wird, was gezählt hat: ohne die herausgenommenen Stellen.
+      const text = r.text ?? p.naechste.text;
       const vorher = S.gerade[p.id];
       if (!datum || datum === S.heute) S.gerade[p.id] = { text, uhrzeit: uhrzeitJetzt() };
+      delete S.ohne[p.id];
       await nachAenderung();
       showToast(`${text} gelesen`, 'success', 5000, async () => {
-        try { await dienst.lesungLoeschen(r.lesung); S.gerade[p.id] = vorher; await nachAenderung(); zeichne(); } catch (err) { meldeFehler(err); zeichne(); }
+        try {
+          await dienst.lesungLoeschen(r.lesung);
+          S.gerade[p.id] = vorher;
+          if (ohne.size) S.ohne[p.id] = ohne;
+          await nachAenderung();
+          zeichne();
+        } catch (err) { meldeFehler(err); zeichne(); }
       });
     });
   }
@@ -175,6 +188,7 @@ export async function render(container, { signal } = {}) {
     const f = wurzel.querySelector('[data-form="eintrag"]');
     const edit = S.ui.edit ? [...S.lesungenAlle, ...S.lesungenFilter].find((l) => l.id === S.ui.edit) : null;
     const daten = { datum: f.datum.value || S.heute, uhrzeit: f.zeit.value || undefined, notiz: f.notiz.value.trim() };
+    if (edit?.quelle === 'plan' && edit.hat?.length) daten.ohne = [...S.ui.ohne];
     if (!edit || edit.quelle === 'frei') {
       const b = S.bibel.buch(f.buch.value);
       const von = Number(f.von.value);
@@ -251,6 +265,14 @@ export async function render(container, { signal } = {}) {
         zeichne();
         return;
       }
+      case 'teil': {
+        // Nebenstelle vor dem Abhaken herausnehmen oder wieder mitzählen (Karte und Logbuch-Blatt).
+        const menge = planId ? (S.ohne[planId] ??= new Set()) : S.ui?.ohne;
+        if (!menge) return;
+        if (menge.has(wert)) menge.delete(wert); else menge.add(wert);
+        zeichne();
+        return;
+      }
       case 'gelesen': S.ui = null; await abhaken(planId); return;
       case 'gelesen-blatt': await abhaken(planId); return;
       case 'gelesen-am': {
@@ -266,7 +288,11 @@ export async function render(container, { signal } = {}) {
         await oeffneBlatt('eintragen', null, { datum: wert || null, ziel: p?.art === 'gemeinsam' ? String(p.id) : 'ich', buchVorschlag: S.plaene[0]?.aktuellesBuch });
         return;
       }
-      case 'bearbeiten': await oeffneBlatt('eintragen', null, { edit: Number(wert) }); return;
+      case 'bearbeiten': {
+        const l = [...S.lesungenAlle, ...S.lesungenFilter].find((x) => x.id === Number(wert));
+        await oeffneBlatt('eintragen', null, { edit: Number(wert), ohne: new Set(l?.ohne ?? []) });
+        return;
+      }
       case 'logbuch-wahl': S.ui.ziel = wert; zeichne(); return;
       case 'eintrag-speichern': await eintragSpeichern(); return;
       case 'loeschen': {

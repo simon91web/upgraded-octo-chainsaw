@@ -1,13 +1,17 @@
 // Die Schnittstelle unter /api/extensions/bibellese/ (KONZEPT.md §6).
 // Jede Anfrage: Sitzung bei Yuvomi prüfen; schreibende zusätzlich Origin und CSRF.
 
+import { readFileSync } from 'node:fs';
 import { Fehler, CSRF_COOKIE, leseCookies, neuesCsrfToken, pruefeCsrf, pruefeOrigin } from './auth.js';
 import { transaktion } from './db.js';
 import { bibel } from './kern.js';
 import {
   erzeugePlan, neuEinteilen, stand as berechneStand, fortschritt as berechneFortschritt,
-  einheitText, minutenDerEinheit, EINTEILUNGEN, WEISHEIT, kalender,
+  einheitText, einheitTeile, nebenBuecher, minutenDerEinheit, EINTEILUNGEN, WEISHEIT, kalender,
 } from '../../modules/bibellese/kern/index.js';
+
+// Version aus package.json: /status und /gesund zeigen, welcher Dienst tatsächlich läuft.
+export const VERSION = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
 
 const TAG = /^\d{4}-\d{2}-\d{2}$/;
 const UHR = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -86,6 +90,15 @@ function pruefeName(name) {
   return n;
 }
 
+/** Welche Teile beim Abhaken herausgenommen sind: höchstens „zweit“ und „dazu“, die Hauptstelle nie. */
+function pruefeOhne(ohne) {
+  if (ohne === undefined || ohne === null) return [];
+  if (!Array.isArray(ohne) || !ohne.every((t) => t === 'zweit' || t === 'dazu')) {
+    throw new Fehler(400, 'ohne', 'Herausnehmen lassen sich nur zweiter Strang und Parallelstellen.');
+  }
+  return [...new Set(ohne)];
+}
+
 const pruefeDabei = (dabei) => (Array.isArray(dabei)
   ? [...new Set(dabei.filter((x) => Number.isInteger(x) && x > 0))].slice(0, 30) : null);
 
@@ -162,9 +175,32 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
     return { ...st, zielUrspruenglich: ersteAenderung ? ersteAenderung.von : p.ziel };
   }
 
+  // Bücher der Nebenstränge je Rezept; für viele Lesungen desselben Plans nur einmal gerechnet.
+  const nebenCache = new Map();
+  const neben = (rezept) => {
+    const k = JSON.stringify(rezept.straenge);
+    if (!nebenCache.has(k)) nebenCache.set(k, nebenBuecher(bibel, rezept));
+    return nebenCache.get(k);
+  };
+  const teileText = (t) => ({ haupt: t.haupt?.text ?? '', zweit: t.zweit?.text ?? null, dazu: t.dazu?.text ?? null });
+  // „Ausgelassen: Psalm 30 · 2. Chronik 5,2–7,10“ – ohne „dazu“, es ist eine Liste.
+  const ausgelassenText = (stuecke) => einheitText(bibel, stuecke.map(({ parallel, ...s }) => s));
+
+  /** Gelesenes und Herausgenommenes einer Einheit, wenn `ohne` Teile herausnimmt. */
+  function teileTrennen(stuecke, zweit, ohne) {
+    const t = einheitTeile(bibel, stuecke, { zweit });
+    const weg = new Set(ohne.flatMap((teil) => t[teil]?.stuecke ?? []));
+    return { gelesen: stuecke.filter((s) => !weg.has(s)), ausgelassen: stuecke.filter((s) => weg.has(s)) };
+  }
+
   const einheitAus = (p, nr) => {
     const e = p.einheiten[nr - 1];
-    return e && { nr, stuecke: e.stuecke, text: einheitText(bibel, e.stuecke), minuten: minutenDerEinheit(e, p.woerter_je_minute) };
+    if (!e) return null;
+    const zweit = neben(p.rezept);
+    return {
+      nr, stuecke: e.stuecke, text: einheitText(bibel, e.stuecke, { zweit }),
+      teile: teileText(einheitTeile(bibel, e.stuecke, { zweit })), minuten: minutenDerEinheit(e, p.woerter_je_minute),
+    };
   };
 
   function ausgabe(p, wer, { mitEinheiten = false } = {}) {
@@ -186,7 +222,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
       kannNeuEinteilen: Boolean(p.einheiten_vorher) || undefined,
       uebernommen: p.besitzer !== wer.id && p.art === 'sichtbar' ? Boolean(q.kopieVon.get(p.id, wer.id)) : undefined,
       zielVerlauf: q.aenderungen.all(p.id),
-      ...(mitEinheiten ? { einheiten: p.einheiten.map((e, i) => ({ nr: i + 1, text: einheitText(bibel, e.stuecke), minuten: minutenDerEinheit(e, p.woerter_je_minute) })) } : {}),
+      ...(mitEinheiten ? { einheiten: p.einheiten.map((e, i) => ({ nr: i + 1, text: einheitText(bibel, e.stuecke, { zweit: neben(p.rezept) }), minuten: minutenDerEinheit(e, p.woerter_je_minute) })) } : {}),
     };
   }
 
@@ -201,17 +237,21 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
   /** Lesungen, die zu „Alles von mir“ zählen, oder die eines Plans (laufender Durchgang). */
   function lesungenFuer(wer, plan, { von = '0000-00-00', bis = '9999-99-99' } = {}) {
     const zeilen = plan === 'alle'
-      ? db.prepare(`SELECT l.*, p.name AS plan_name, p.art AS plan_art FROM lesung l LEFT JOIN plan p ON p.id = l.plan_id
+      ? db.prepare(`SELECT l.*, p.name AS plan_name, p.art AS plan_art, p.rezept AS plan_rezept FROM lesung l LEFT JOIN plan p ON p.id = l.plan_id
                     WHERE l.geloescht_am IS NULL AND l.gelesen_am BETWEEN ? AND ?
                       AND (p.id IS NULL OR p.geloescht_am IS NULL)
                       AND (l.person_id = ? OR (p.art = 'gemeinsam' AND l.dabei IS NOT NULL))
                     ORDER BY l.gelesen_am DESC, l.uhrzeit DESC, l.id DESC`).all(von, bis, wer.id)
-      : db.prepare(`SELECT l.*, p.name AS plan_name, p.art AS plan_art FROM lesung l JOIN plan p ON p.id = l.plan_id
+      : db.prepare(`SELECT l.*, p.name AS plan_name, p.art AS plan_art, p.rezept AS plan_rezept FROM lesung l JOIN plan p ON p.id = l.plan_id
                     WHERE l.geloescht_am IS NULL AND l.plan_id = ? AND l.gelesen_am BETWEEN ? AND ?
                     ORDER BY l.gelesen_am DESC, l.uhrzeit DESC, l.id DESC`).all(plan.id, von, bis);
     const zaehlt = gemeinsamZaehlt(wer);
     return zeilen
-      .map((l) => ({ ...l, stuecke: JSON.parse(l.stuecke), dabei: l.dabei ? JSON.parse(l.dabei) : null }))
+      .map((l) => ({
+        ...l, stuecke: JSON.parse(l.stuecke), dabei: l.dabei ? JSON.parse(l.dabei) : null,
+        ausgelassen: l.ausgelassen ? JSON.parse(l.ausgelassen) : [],
+        zweit: l.quelle === 'plan' && l.plan_rezept ? neben(JSON.parse(l.plan_rezept)) : null,
+      }))
       .filter((l) => {
         if (plan !== 'alle') return true;
         if (l.plan_art !== 'gemeinsam') return l.person_id === wer.id;
@@ -219,12 +259,20 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
         if (l.quelle === 'plan' && l.dabei) return zaehlt && l.dabei.includes(wer.id);
         return l.person_id === wer.id || (zaehlt && l.dabei?.includes(wer.id));
       })
-      .map((l) => ({
-        id: l.id, planId: l.plan_id, planName: l.plan_name ?? null, personId: l.person_id, quelle: l.quelle,
-        datum: l.gelesen_am, uhrzeit: l.uhrzeit, einheitNr: l.einheit_nr, durchgang: l.durchgang,
-        stuecke: l.stuecke, text: einheitText(bibel, l.stuecke), notiz: l.notiz, dabei: l.dabei,
-        eigen: l.person_id === wer.id,
-      }));
+      .map((l) => {
+        // Welche Teile die Einheit hatte und welche davon herausgenommen sind (für das Logbuch-Blatt).
+        const ganz = einheitTeile(bibel, [...l.stuecke, ...l.ausgelassen], { zweit: l.zweit });
+        const gelesen = einheitTeile(bibel, l.stuecke, { zweit: l.zweit });
+        const hat = ['zweit', 'dazu'].filter((t) => ganz[t]);
+        return {
+          id: l.id, planId: l.plan_id, planName: l.plan_name ?? null, personId: l.person_id, quelle: l.quelle,
+          datum: l.gelesen_am, uhrzeit: l.uhrzeit, einheitNr: l.einheit_nr, durchgang: l.durchgang,
+          stuecke: l.stuecke, text: einheitText(bibel, l.stuecke, { zweit: l.zweit }), teile: teileText(gelesen),
+          ausgelassen: l.ausgelassen.length ? ausgelassenText(l.ausgelassen) : null,
+          einheit: teileText(ganz), hat, ohne: hat.filter((t) => !gelesen[t]),
+          notiz: l.notiz, dabei: l.dabei, eigen: l.person_id === wer.id,
+        };
+      });
   }
 
   // ---------------------------------------------------------------- Handler
@@ -244,7 +292,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
       kopf: cookies[CSRF_COOKIE] ? {} : {
         'set-cookie': `${CSRF_COOKIE}=${token}; Path=${konfig.praefix}; SameSite=Strict; HttpOnly${sicher ? '; Secure' : ''}`,
       },
-      daten: { heute: heute(), ich: wer, csrf: token, version: '0.1.0', weisheit: WEISHEIT },
+      daten: { heute: heute(), ich: wer, csrf: token, version: VERSION, weisheit: WEISHEIT },
     };
   });
 
@@ -371,16 +419,22 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
       // Abhaken: die nächste Einheit des Plans.
       if (!plan) throw new Fehler(400, 'plan', 'Plan fehlt.');
       if (!darfAbhaken(plan, wer)) throw new Fehler(403, 'nicht_erlaubt', 'Diesen Plan kann nur sein Besitzer abhaken.');
-      const id = transaktion(db, () => {
+      // Herausgenommene Teile zählen nicht als gelesen; das Lesezeichen rückt trotzdem weiter.
+      const ohne = pruefeOhne(koerper.ohne);
+      const zweit = neben(plan.rezept);
+      const { id, gelesen } = transaktion(db, () => {
         const nr = q.gelesen.get(t, plan.id, plan.durchgang).n + 1;
         const e = plan.einheiten[nr - 1];
         if (!e) throw new Fehler(400, 'fertig', 'Der Plan ist durchgelesen.');
-        return Number(db.prepare(`INSERT INTO lesung (plan_id, person_id, quelle, gelesen_am, uhrzeit, einheit_nr, plan_version,
-                                   durchgang, stuecke, notiz, dabei, erstellt_am) VALUES (?, ?, 'plan', ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-          .run(plan.id, wer.id, datum, zeit, nr, plan.version, plan.durchgang, JSON.stringify(e.stuecke), notiz,
+        const teile = teileTrennen(e.stuecke, zweit, ohne);
+        const neu = Number(db.prepare(`INSERT INTO lesung (plan_id, person_id, quelle, gelesen_am, uhrzeit, einheit_nr, plan_version,
+                                   durchgang, stuecke, ausgelassen, notiz, dabei, erstellt_am) VALUES (?, ?, 'plan', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+          .run(plan.id, wer.id, datum, zeit, nr, plan.version, plan.durchgang, JSON.stringify(teile.gelesen),
+            teile.ausgelassen.length ? JSON.stringify(teile.ausgelassen) : null, notiz,
             dabei ? JSON.stringify(dabei) : null, jetzt).lastInsertRowid);
+        return { id: neu, gelesen: teile.gelesen };
       });
-      return { status: 201, daten: { lesung: id, plan: ausgabe(holePlan(plan.id, wer), wer) } };
+      return { status: 201, daten: { lesung: id, text: einheitText(bibel, gelesen, { zweit }), plan: ausgabe(holePlan(plan.id, wer), wer) } };
     }
     // Frei eintragen: für mich (ohne Plan) oder ins Logbuch eines gemeinsamen Plans.
     if (plan && plan.art !== 'gemeinsam') throw new Fehler(400, 'plan', 'Frei eintragen geht für dich oder in einen gemeinsamen Plan.');
@@ -405,9 +459,20 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
     if (!istTag(datum) || datum > heute()) throw new Fehler(400, 'datum', 'Das Datum darf nicht in der Zukunft liegen.');
     const zeit = koerper.uhrzeit ?? l.uhrzeit;
     if (zeit !== null && !UHR.test(zeit)) throw new Fehler(400, 'uhrzeit', 'Uhrzeit als HH:MM.');
-    const stuecke = l.quelle === 'frei' && koerper.stuecke ? JSON.stringify(pruefeStuecke(koerper.stuecke)) : l.stuecke;
+    let stuecke = l.quelle === 'frei' && koerper.stuecke ? JSON.stringify(pruefeStuecke(koerper.stuecke)) : l.stuecke;
+    let ausgelassen = l.ausgelassen;
+    if (l.quelle === 'plan' && koerper.ohne !== undefined) {
+      // Nachträglich: herausnehmen oder wieder mitzählen. Die Einheit ist Gelesenes plus Ausgelassenes.
+      const plan = zeile(q.plan.get(l.plan_id));
+      if (!plan) throw new Fehler(404, 'plan', 'Plan nicht gefunden.');
+      const ganz = [...JSON.parse(l.stuecke), ...(l.ausgelassen ? JSON.parse(l.ausgelassen) : [])];
+      const teile = teileTrennen(ganz, neben(plan.rezept), pruefeOhne(koerper.ohne));
+      stuecke = JSON.stringify(teile.gelesen);
+      ausgelassen = teile.ausgelassen.length ? JSON.stringify(teile.ausgelassen) : null;
+    }
     const notiz = koerper.notiz !== undefined ? String(koerper.notiz).slice(0, 2000) : l.notiz;
-    db.prepare('UPDATE lesung SET gelesen_am = ?, uhrzeit = ?, stuecke = ?, notiz = ? WHERE id = ?').run(datum, zeit, stuecke, notiz, l.id);
+    db.prepare('UPDATE lesung SET gelesen_am = ?, uhrzeit = ?, stuecke = ?, ausgelassen = ?, notiz = ? WHERE id = ?')
+      .run(datum, zeit, stuecke, ausgelassen, notiz, l.id);
     return { daten: { id: l.id } };
   });
 
@@ -477,7 +542,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
     const url = new URL(req.url, 'http://dienst');
     const pfad = url.pathname.slice(konfig.praefix.length) || '/';
     try {
-      if (pfad === '/gesund' && req.method === 'GET') return json(res, 200, { ok: true });
+      if (pfad === '/gesund' && req.method === 'GET') return json(res, 200, { ok: true, version: VERSION });
       let passend = null;
       for (const r of routen) {
         const m = r.methode === req.method && pfad.match(r.re);

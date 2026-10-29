@@ -67,6 +67,11 @@ http.createServer((req, res) => {
     if (!sitzung(req)) return sende(res, 302, 'text/plain', '', { location: '/m/bibellese?als=paul' });
     return datei(res, path.join(hier, 'pruefstand', 'seite.html'));
   }
+  // Dashboard-Kachel in Yuvomis Kachelrahmen.
+  if (p === '/kachel') {
+    if (!sitzung(req)) return sende(res, 302, 'text/plain', '', { location: '/m/bibellese?als=paul' });
+    return datei(res, path.join(hier, 'pruefstand', 'kachel.html'));
+  }
   if (p.startsWith('/modules/bibellese/')) return datei(res, path.join(wurzel, p));
   if (p === '/api.js' || p.startsWith('/utils/') || p.startsWith('/pruefstand/')) return datei(res, path.join(hier, 'pruefstand', p.replace(/^\/(pruefstand\/)?/, '')));
   if (p === '/lucide.min.js') return datei(res, path.join(wurzel, 'mockup/vendor/lucide.min.js'));

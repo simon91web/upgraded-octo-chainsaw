@@ -42,6 +42,7 @@
 .bl-carrier > :first-child, .bl-inset > :first-child { border-top-left-radius: inherit; border-top-right-radius: inherit; }
 .bl-carrier > :last-child, .bl-inset > :last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
 .bl-pad { padding: 16px; }
+.bl-pad--kopf { padding-bottom: 0; }
 .bl-stack { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
 .bl-section { display: flex; flex-direction: column; gap: 10px; }
 .bl-section-title { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; min-height: 32px; }
@@ -51,6 +52,7 @@
 .bl-card-title small { margin-left: auto; font-weight: 400; color: var(--color-text-secondary); font-size: 15px; }
 
 .bl-rows > * + * { border-top: 1px solid var(--color-border-subtle); }
+.bl-rows--sep { border-top: 1px solid var(--color-border-subtle); }
 .bl-row {
   display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 16px; min-height: 56px;
   border: 0; background: none; width: 100%; text-align: left; color: inherit; font: inherit; text-decoration: none;
@@ -58,7 +60,7 @@
 button.bl-row { cursor: pointer; }
 .bl-row:disabled { cursor: default; }
 .bl-row__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.bl-row__title { font-size: 16px; font-weight: 500; }
+.bl-row__title { font-size: 16px; font-weight: 500; overflow-wrap: break-word; }
 .bl-row__meta { font-size: 13px; color: var(--color-text-secondary); }
 .bl-row__note { font-size: 15px; color: var(--color-text-primary); margin-top: 2px; white-space: pre-line; }
 .bl-row__end { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--color-text-secondary); }
@@ -110,9 +112,36 @@ button.bl-row { cursor: pointer; }
 .bl-today__eyebrow > svg { width: 16px; height: 16px; }
 .bl-today__eyebrow .bl-anker { margin: -10px -10px -10px auto; }
 .bl-today__done { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--color-text-secondary); }
-.bl-today__ref { font-size: var(--text-3xl, 28px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+.bl-today__ref { font-size: var(--text-3xl, 28px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; overflow-wrap: break-word; }
 .bl-today--compact .bl-today__ref { font-size: var(--text-2xl, 22px); }
 .bl-today__unit { font-size: 15px; color: var(--color-text-secondary); margin-top: -6px; }
+/* Nebenstellen unter der Hauptstelle: zweiter Strang (Feder) dunkel, Parallelstellen (Spalten) grau.
+   Auf der Karte als Schalter mit gesetztem Haken wie „Dabei“; der Haken behält in beiden Zuständen
+   seinen Platz, damit beim Umschalten nichts springt. */
+.bl-neben { display: flex; flex-direction: column; margin-top: -8px; }
+.bl-neben + .bl-today__unit { margin-top: 0; }
+.bl-neben__zeile { display: flex; align-items: flex-start; gap: 8px; width: 100%; padding: 6px 0; border: 0; background: none; text-align: left; font: inherit; font-size: 17px; line-height: 1.35; color: var(--color-text-secondary); border-radius: var(--radius-sm); }
+div.bl-neben__zeile { padding: 2px 0; }
+button.bl-neben__zeile { cursor: pointer; }
+.bl-neben__zeile > svg:first-child { width: 17px; height: 17px; flex: none; margin-top: 2px; color: var(--color-text-secondary); }
+.bl-neben__zeile--zweit { color: var(--color-text-primary); font-weight: 500; }
+.bl-neben__text { flex: 1; min-width: 0; overflow-wrap: break-word; }
+.bl-haken { width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; color: var(--color-success); box-shadow: inset 0 0 0 1.5px var(--color-success); }
+.bl-haken svg { width: 14px; height: 14px; stroke-width: 3; }
+.bl-neben__zeile[aria-pressed="false"] { color: var(--color-text-tertiary); font-weight: 400; }
+.bl-neben__zeile[aria-pressed="false"] > svg:first-child { color: var(--color-text-tertiary); }
+.bl-neben__zeile[aria-pressed="false"] .bl-haken { box-shadow: inset 0 0 0 1.5px var(--color-border-control); }
+.bl-neben__zeile[aria-pressed="false"] .bl-haken svg { visibility: hidden; }
+.bl-today--compact .bl-neben__zeile { font-size: 15px; }
+.bl-today--compact .bl-neben__zeile > svg:first-child { width: 15px; height: 15px; }
+/* Im Logbuch eine Stufe kleiner und ohne Abstand nach oben; Ausgelassenes am leisesten. */
+.bl-row .bl-neben { margin-top: 0; }
+.bl-row .bl-neben__zeile { font-size: 15px; padding: 0; }
+.bl-row .bl-neben__zeile > svg:first-child { width: 15px; height: 15px; }
+.bl-row__aus { font-size: 15px; color: var(--color-text-tertiary); overflow-wrap: break-word; }
+.bl-eintrag-stelle { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.bl-eintrag-stelle .bl-neben { margin-top: 0; }
+.bl-eintrag-stelle .bl-lead { margin: 0; font-weight: 600; }
 .bl-today__meta { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 15px; color: var(--color-text-secondary); }
 .bl-today__fix { display: flex; flex-wrap: wrap; gap: 4px; margin: -8px 0 -4px -14px; }
 .bl-today__dabei { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 2px; }
@@ -251,6 +280,8 @@ button.bl-row { cursor: pointer; }
 .bl-empty__actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 
 .bl-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: -4px 0 -8px; padding: 2px 0; }
+.bl-filterzeile { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: -4px 0 -8px; }
+.bl-filterzeile > .bl-chips { margin: 0; min-width: 0; }
 .bl-chip { flex: none; min-height: 36px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 500; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text-secondary); white-space: nowrap; cursor: pointer; }
 .bl-chip[aria-pressed="true"] { background: var(--bl-tone-state); border-color: transparent; color: var(--bl-tone-ink); font-weight: 600; }
 .bl-filter { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 6px 0 12px; border-radius: 999px; border: 0; background: var(--bl-tone-state); color: var(--bl-tone-ink); font-size: 14px; font-weight: 600; cursor: pointer; }
