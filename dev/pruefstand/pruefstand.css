@@ -4,8 +4,8 @@ body { margin: 0; background: var(--color-bg); color: var(--color-text-primary);
   border-bottom: 1px dashed var(--color-border); color: var(--color-text-secondary); }
 .ps-leiste strong { color: var(--color-text-primary); margin-right: auto; }
 .ps-leiste select { font: inherit; }
-.ps-seite { max-width: 1200px; margin: 0 auto; padding: 0 16px 120px; }
-@media (min-width: 1024px) { .ps-seite { padding: 0 32px 48px; } }
+/* Kein eigener Rand: Breite und Seitenabstand kommen wie in Yuvomi aus .app-page__body und .page-measure. */
+.ps-seite { padding-bottom: 120px; }
 .ps-fab-layer .page-fab { position: fixed; right: 16px; bottom: 24px; z-index: 50; width: 52px; height: 52px; border-radius: 50%; border: 0;
   background: var(--color-accent); color: var(--color-ink-on-vivid); box-shadow: var(--shadow-lg); display: grid; place-items: center; cursor: pointer; }
 .page-fab.ps-fab--docked { position: static; height: 40px; padding: 0 16px; border-radius: 999px; border: 0; display: inline-flex; gap: 8px;

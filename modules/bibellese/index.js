@@ -2,7 +2,7 @@
 // Daten kommen vom eigenen Dienst unter /api/extensions/bibellese/, Mitglieder von Yuvomi.
 
 import { api } from '/api.js';
-import { renderPageHeader, renderPageTitle, renderPageActions } from '/utils/page-layout.js';
+import { renderPageHeader, renderPageTitle, renderPageActions, renderPageBody, renderPageSection } from '/utils/page-layout.js';
 import { createPageFab } from '/utils/fab.js';
 import { showToast } from '/utils/toast-show.js';
 import { dienst, ladeBibelDaten, DienstFehler } from './lib/dienst.js';
@@ -21,11 +21,14 @@ export async function render(container, { signal } = {}) {
   };
 
   // Kopf einmal bauen: der FAB dockt am Laptop in seine Aktionsleiste, ein Neuzeichnen würde ihn verlieren.
+  // Der Körper steht in .app-page__body und .page-measure: erst die setzen Seitenrand und Breite.
   container.replaceChildren();
   container.insertAdjacentHTML('beforeend', `${renderPageHeader({
     title: renderPageTitle('Bibellese'),
     actions: renderPageActions('<span class="bl-kopf-aktion" data-bl-kopf></span>'),
-  })}<div class="bl" data-bl><div class="bl-lade" aria-busy="true">Bibellese lädt …</div></div>`);
+  })}${renderPageBody({
+    content: renderPageSection({ content: '<div class="bl" data-bl><div class="bl-lade" aria-busy="true">Bibellese lädt …</div></div>' }),
+  })}`);
   const wurzel = container.querySelector('[data-bl]');
   const kopfAktion = container.querySelector('[data-bl-kopf]');
 
