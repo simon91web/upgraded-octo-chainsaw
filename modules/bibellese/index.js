@@ -7,8 +7,14 @@ import { createPageFab } from '/utils/fab.js';
 import { showToast } from '/utils/toast-show.js';
 import { dienst, ladeBibelDaten, DienstFehler } from './lib/dienst.js';
 import { esc, ic, plusTage, uhrzeitJetzt } from './lib/werkzeug.js';
-import { reiter, menu, menuAnker, heute, plaene, fortschritt, logbuch, statistikTab } from './lib/ansicht.js';
+import {
+  reiter, menu, menuAnker, heute, plaene, fortschritt, logbuch, statistikTab, naechsteTexte, gelesenText, eintragTexte, stellenTexte,
+} from './lib/ansicht.js';
 import { blatt, neuerAssistent, rezeptAus, nameVorschlag, zielVorschau, SCHRITTE } from './lib/blaetter.js';
+
+// Schnittstellenstufe, die dieses Modul braucht: 2 = Stellen je Einheit, Herausnehmen (`ohne`), Ausgelassenes.
+// Ein älterer Dienst läuft weiter, die Seite sagt dann, dass er veraltet ist, und zeigt keine Haken.
+const DIENST_API = 2;
 
 const VON_DIENST_NICHT_ERREICHBAR = 'Bibellese-Dienst nicht erreichbar – bitte später erneut versuchen.';
 
@@ -50,6 +56,8 @@ export async function render(container, { signal } = {}) {
     ]);
     if (signal?.aborted) return;
     S.ich = status.ich;
+    S.dienstVersion = status.version ?? null;
+    S.dienstAktuell = (status.api ?? 1) >= DIENST_API;
     S.heute = status.heute;
     S.weisheit = status.weisheit;
     S.bibel = bibelUndKern.bibel;
@@ -112,7 +120,9 @@ export async function render(container, { signal } = {}) {
     const warn = S.fehler ? `<div class="bl-alert" role="status">${ic('cloud-off')}<p>${esc(S.fehler)}</p>
         <button type="button" class="btn btn--secondary btn--sm" data-akt="erneut">${ic('refresh-cw')}Erneut versuchen</button></div>` : '';
     const nurLesen = S.ich.darfSchreiben ? '' : `<div class="bl-alert bl-alert--neutral" role="status">${ic('eye')}<p>Nur lesen: Abhaken und Eintragen sind für dieses Konto nicht freigegeben.</p></div>`;
-    return `${reiter(S)}<div class="bl-body">${warn}${nurLesen}${inhalt}</div>`;
+    // Nur Admins können den Dienst aktualisieren; allen anderen fehlt dann still das Herausnehmen.
+    const veraltet = S.dienstAktuell || !S.ich.admin ? '' : `<div class="bl-alert" role="status">${ic('triangle-alert')}<p>Der Bibellese-Dienst ist veraltet${S.dienstVersion ? ` (${esc(S.dienstVersion)})` : ''}. Bitte neu bauen und starten; bis dahin zählt „Gelesen“ immer alle Stellen.</p></div>`;
+    return `${reiter(S)}<div class="bl-body">${warn}${veraltet}${nurLesen}${inhalt}</div>`;
   }
 
   function zeichne() {
@@ -167,7 +177,7 @@ export async function render(container, { signal } = {}) {
         planId: p.id, ...(datum ? { datum } : {}), dabei: p.art === 'gemeinsam' ? [...S.dabei] : undefined, ohne: [...ohne],
       });
       // Gemeldet wird, was gezählt hat: ohne die herausgenommenen Stellen.
-      const text = r.text ?? p.naechste.text;
+      const text = gelesenText(naechsteTexte(S, p), S.dienstAktuell ? ohne : new Set());
       const vorher = S.gerade[p.id];
       if (!datum || datum === S.heute) S.gerade[p.id] = { text, uhrzeit: uhrzeitJetzt() };
       delete S.ohne[p.id];
@@ -188,7 +198,7 @@ export async function render(container, { signal } = {}) {
     const f = wurzel.querySelector('[data-form="eintrag"]');
     const edit = S.ui.edit ? [...S.lesungenAlle, ...S.lesungenFilter].find((l) => l.id === S.ui.edit) : null;
     const daten = { datum: f.datum.value || S.heute, uhrzeit: f.zeit.value || undefined, notiz: f.notiz.value.trim() };
-    if (edit?.quelle === 'plan' && edit.hat?.length) daten.ohne = [...S.ui.ohne];
+    if (edit?.quelle === 'plan' && S.dienstAktuell && eintragTexte(S, edit).hat.length) daten.ohne = [...S.ui.ohne];
     if (!edit || edit.quelle === 'frei') {
       const b = S.bibel.buch(f.buch.value);
       const von = Number(f.von.value);
@@ -218,7 +228,7 @@ export async function render(container, { signal } = {}) {
       const r = await dienst.eintragen({ ...daten, ...(ziel ? { planId: ziel, dabei: [...S.dabei] } : {}) });
       S.ui = null;
       await nachAenderung();
-      showToast(`${r.text} eingetragen`, 'success', 5000, async () => {
+      showToast(`${stellenTexte(S, daten.stuecke, null, { ersatz: r.text }).text} eingetragen`, 'success', 5000, async () => {
         try { await dienst.lesungLoeschen(r.lesung); await nachAenderung(); zeichne(); } catch (err) { meldeFehler(err); zeichne(); }
       });
     });
@@ -290,7 +300,7 @@ export async function render(container, { signal } = {}) {
       }
       case 'bearbeiten': {
         const l = [...S.lesungenAlle, ...S.lesungenFilter].find((x) => x.id === Number(wert));
-        await oeffneBlatt('eintragen', null, { edit: Number(wert), ohne: new Set(l?.ohne ?? []) });
+        await oeffneBlatt('eintragen', null, { edit: Number(wert), ohne: new Set(l ? eintragTexte(S, l).ohne : []) });
         return;
       }
       case 'logbuch-wahl': S.ui.ziel = wert; zeichne(); return;

@@ -3,11 +3,12 @@
 // Yuvomi gibt nur den Rahmen (.widget); Kopf und Körper baut die Kachel selbst mit Yuvomis Klassen
 // (.widget__header, .widget__body), damit Polster, Siegel und „Alle“ wie bei den eigenen Kacheln sitzen.
 // Die style.css des Moduls gilt auf dem Dashboard nicht, darum stehen die Zeilenstile hier.
+// Die Stellentexte rechnet die Kachel wie die Seite selbst (Kern und Bibeldaten des Moduls).
 
 import { showToast } from '/utils/toast-show.js';
-import { dienst } from '../lib/dienst.js';
+import { dienst, ladeBibelDaten } from '../lib/dienst.js';
 import { esc, ic, stelleHtml } from '../lib/werkzeug.js';
-import { kurzStatus, meinePlaene } from '../lib/ansicht.js';
+import { kurzStatus, meinePlaene, naechsteTexte } from '../lib/ansicht.js';
 
 const kopf = `<div class="widget__header">
     <h3 class="widget__title">
@@ -24,13 +25,15 @@ const neben = (icon, text, farbe) => (text ? `<span style="display:flex;align-it
 const leer = (text) => `<div class="card-empty-row widget__empty"><span class="card-empty-row__text">${esc(text)}</span></div>`;
 
 export async function renderWidget(container) {
+  // Ohne Bibeldaten (Ladefehler) bleibt der Text des Dienstes, ungeteilt.
+  const T = await ladeBibelDaten().catch(() => ({}));
   const zeichne = async () => {
     const { plaene } = await dienst.plaene();
     const liste = meinePlaene({ plaene }).filter((p) => p.naechste).slice(0, 3);
     const zeilen = liste.map((p, i) => {
       const [cls, text] = kurzStatus(p.stand);
       const farbe = cls === 'bl-state--warn' ? 'var(--color-warning-ink)' : cls === 'bl-state--ok' ? 'var(--color-success-ink)' : 'var(--color-text-secondary)';
-      const teile = p.naechste.teile ?? { haupt: p.naechste.text };
+      const teile = naechsteTexte(T, p);
       return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;${i ? 'border-top:1px solid var(--color-border-subtle)' : ''}">
         <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
           <span style="font-size:13px;color:var(--color-text-secondary)">${esc(p.name)}</span>
@@ -51,7 +54,7 @@ export async function renderWidget(container) {
         const p = liste.find((x) => x.id === Number(knopf.dataset.plan));
         try {
           const r = await dienst.abhaken({ planId: p.id });
-          showToast(`${p.naechste.text} gelesen`, 'success', 5000, async () => { await dienst.lesungLoeschen(r.lesung); await zeichne(); });
+          showToast(`${naechsteTexte(T, p).text} gelesen`, 'success', 5000, async () => { await dienst.lesungLoeschen(r.lesung); await zeichne(); });
           await zeichne();
         } catch (err) {
           showToast(err.message, 'error', 6000);

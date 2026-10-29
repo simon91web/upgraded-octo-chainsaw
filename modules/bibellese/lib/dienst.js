@@ -81,6 +81,8 @@ export function ladeBibelDaten() {
   bibelVersprechen ??= Promise.all([
     fetch(new URL('../daten/bibel.json', import.meta.url)).then((r) => r.json()),
     import('../kern/index.js'),
-  ]).then(([daten, kern]) => ({ bibel: kern.ladeBibel(daten), kern }));
+  ]).then(([daten, kern]) => ({ bibel: kern.ladeBibel(daten), kern }))
+    // Ein Fehlschlag bleibt nicht hängen: der nächste Aufruf versucht es neu.
+    .catch((err) => { bibelVersprechen = null; throw err; });
   return bibelVersprechen;
 }

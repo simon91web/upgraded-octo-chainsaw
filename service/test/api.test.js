@@ -76,6 +76,7 @@ test('Status liefert CSRF-Token und setzt das Cookie', async () => {
   assert.equal(s.daten.ich.id, 1);
   assert.ok(s.daten.csrf.length > 20);
   assert.ok(s.cookie.startsWith('bibellese-csrf='));
+  assert.equal(s.daten.api, 2);
 });
 
 test('Schreiben ohne CSRF oder von fremder Seite wird abgelehnt', async () => {
@@ -199,6 +200,7 @@ test('Teilweise gelesen: Herausgenommenes zählt nicht und lässt sich nachträg
   assert.deepEqual(eintrag.ohne, ['dazu']);
   assert.equal(eintrag.teile.dazu, null);
   assert.ok(eintrag.ausgelassen.startsWith('2. Chronik 5,2'));
+  assert.ok(eintrag.ausgelassenStuecke.every((x) => x.parallel && x.b === '2Chr'));
   const chronik = async () => (await rufe('maria', 'GET', `/fortschritt?plan=${plan.daten.id}`)).daten.jeBuch['2Chr']?.gelesen ?? 0;
   assert.equal(await chronik(), 0);
 

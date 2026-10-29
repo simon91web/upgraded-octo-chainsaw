@@ -45,6 +45,15 @@ Der Dienst liest diese Umgebungsvariablen:
 | `TZ_HAUSHALT` | `Europe/Berlin` | Zeitzone für „heute“ |
 | `PORT`, `HOST` | `3100`, `0.0.0.0` | |
 
+## Aktualisieren
+
+- **Darstellung** (Seite, Kachel, wie Stellen angezeigt werden): nur das neue ZIP hochladen und die Seite
+  einmal neu laden. Die Texte setzt das Modul selbst aus den Stellen zusammen.
+- **Speichern und Rechnen** (neue Felder, Einteilung, Fortschritt): zusätzlich den Dienst neu bauen –
+  `git pull`, dann `docker compose build bibellese` und `docker compose up -d bibellese`.
+- Welcher Dienst läuft, zeigt `/api/extensions/bibellese/gesund` (`version`, `api`). Ist er älter, als das
+  Modul ihn braucht, sehen Admins auf der Seite einen Hinweis.
+
 ## Entwickeln
 
 ```bash

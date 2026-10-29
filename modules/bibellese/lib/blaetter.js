@@ -1,7 +1,7 @@
 // Blätter (Dialoge): mobil von unten, am Laptop mittig. Nie Blatt auf Blatt.
 
 import { esc, ic, stelleHtml, NBSP, zahl, min, einheiten, lesungenText, fmtDatum, kurzDatum, plusTage } from './werkzeug.js';
-import { ART, RHYTHMEN, rhythmusText, rezeptText, buchDetail, meinePlaene, nebenZeilen } from './ansicht.js';
+import { ART, RHYTHMEN, rhythmusText, rezeptText, buchDetail, meinePlaene, nebenZeilen, stellenTexte, naechsteTexte, eintragTexte } from './ansicht.js';
 
 export const SCHRITTE = ['Was', 'Wo anfangen', 'Parallelen', 'Wie viel', 'Für wen'];
 const LESARTEN = [['still', 'Still', 200], ['langsam', 'Langsam', 150], ['vorlesen', 'Vorlesen', 130]];
@@ -42,11 +42,12 @@ function blattEintragen(S) {
   const bis = w.bis ?? letzte?.bis[0] ?? von;
   const opt = (t) => S.bibel.buecher.filter((b) => b.testament === t).map((b) => `<option value="${b.id}"${b.id === buchId ? ' selected' : ''}>${esc(b.name)}</option>`).join('');
   const planEintrag = edit?.quelle === 'plan';
+  const eintrag = planEintrag ? eintragTexte(S, edit) : null;
   return `<form data-form="eintrag" novalidate>
     ${edit || !gemeinsame.length ? '' : `<div class="bl-field"><span class="bl-field__label">Logbuch</span><div><div class="bl-seg" role="group" aria-label="Logbuch">${[['ich', 'Für mich'], ...gemeinsame.map((p) => [String(p.id), p.name])].map(([id, l]) =>
       `<button type="button" aria-pressed="${ziel === id}" data-akt="logbuch-wahl" data-wert="${id}">${esc(l)}</button>`).join('')}</div></div></div>`}
-    ${planEintrag ? `<div class="bl-eintrag-stelle"><p class="bl-lead">${stelleHtml(edit.einheit?.haupt || edit.text)}</p>
-      ${nebenZeilen(edit.einheit, { ohne: S.ui.ohne, schalter: (teil) => `data-akt="teil" data-wert="${teil}"` })}</div>` : `
+    ${planEintrag ? `<div class="bl-eintrag-stelle"><p class="bl-lead">${stelleHtml(eintrag.ganz.haupt)}</p>
+      ${nebenZeilen(eintrag.ganz, { ohne: S.ui.ohne, schalter: S.dienstAktuell ? (teil) => `data-akt="teil" data-wert="${teil}"` : null })}</div>` : `
     <div class="bl-field"><label for="bl-buch">Buch</label><select id="bl-buch" name="buch"><optgroup label="Altes Testament">${opt('AT')}</optgroup><optgroup label="Neues Testament">${opt('NT')}</optgroup></select></div>
     <div class="bl-field-row"><div class="bl-field"><label for="bl-von">Kapitel von</label><input id="bl-von" name="von" type="number" inputmode="numeric" min="1" value="${esc(von)}"></div>
       <div class="bl-field"><label for="bl-bis">bis</label><input id="bl-bis" name="bis" type="number" inputmode="numeric" min="1" value="${esc(bis)}"></div></div>`}
@@ -69,7 +70,7 @@ function blattPlan(S, p) {
     const fertig = e.nr <= st.gelesen;
     const naechste = e.nr === st.gelesen + 1;
     return `<div class="bl-row${naechste ? ' bl-row--next' : ''}"><span class="bl-ring${fertig ? ' bl-ring--done' : ''}${naechste ? ' bl-ring--next' : ''}" role="img" aria-label="${fertig ? 'gelesen' : 'offen'}">${fertig ? ic('check') : ''}</span>
-      <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(e.text)}</span><span class="bl-row__meta">${min(e.minuten)}</span></div><span class="bl-row__end">${e.nr}</span></div>`;
+      <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(stellenTexte(S, e.stuecke, p.rezept, { ersatz: e.text }).text)}</span><span class="bl-row__meta">${min(e.minuten)}</span></div><span class="bl-row__end">${e.nr}</span></div>`;
   }).join('') : '<div class="bl-row"><span class="bl-row__meta">Lädt …</span></div>';
   const verschoben = st.ziel && st.zielUrspruenglich && st.zielUrspruenglich !== st.ziel;
   const e = d && st.verzug > 0 && p.darfAendern ? einteilenVorschau(p, d) : null;
@@ -102,7 +103,7 @@ export function einteilenVorschau(p, d) {
 }
 
 function blattGelesenAm(S, p) {
-  return `<p class="bl-lead">${esc(p?.naechste?.text ?? '')}</p>
+  return `<p class="bl-lead">${stelleHtml(p ? naechsteTexte(S, p).text : '')}</p>
     <div class="bl-field"><label for="bl-am">Gelesen am</label><input id="bl-am" name="am" type="date" max="${S.heute}" value="${plusTage(S.heute, -1)}"></div>
     <div class="bl-sheet__foot"><button type="button" class="btn btn--ghost" data-akt="schliessen">Abbrechen</button>
       <button type="button" class="btn btn--primary" data-akt="gelesen-am" data-plan="${p.id}">${ic('check')}Gelesen</button></div>`;
@@ -123,7 +124,7 @@ function blattAufholen(S, p) {
     const naechste = nr === st.gelesen + 1;
     const wann = i === 0 && S.ui.heuteOffen ? 'heute' : 'zum Aufholen';
     return `<div class="bl-row${naechste ? ' bl-row--next' : ''}"><span class="bl-ring${fertig ? ' bl-ring--done' : ''}${naechste ? ' bl-ring--next' : ''}" role="img" aria-label="${fertig ? 'gelesen' : 'offen'}">${fertig ? ic('check') : ''}</span>
-      <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(e.text)}</span><span class="bl-row__meta">Einheit ${nr} · ${wann}</span></div></div>`;
+      <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(stellenTexte(S, e.stuecke, p.rezept, { ersatz: e.text }).text)}</span><span class="bl-row__meta">Einheit ${nr} · ${wann}</span></div></div>`;
   }).join('') : '<div class="bl-row"><span class="bl-row__meta">Lädt …</span></div>';
   const mehr = S.ui.anzahl > sichtbar ? `<div class="bl-row"><span class="bl-row__meta" style="padding-left:32px">und ${S.ui.anzahl - sichtbar} weitere</span></div>` : '';
   let satz;

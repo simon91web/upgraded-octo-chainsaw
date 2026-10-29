@@ -18,6 +18,51 @@ export const vonAnderen = (S) => S.plaene.filter((p) => !p.eigen && p.art === 's
 const person = (S, id) => S.mitglieder.find((m) => m.id === id);
 const buchName = (S, id) => (S.bibel?.hat(id) ? S.bibel.buch(id).name : id);
 
+// ------------------------------------------------------------------ Stellentexte
+//
+// Die Texte rechnet das Modul selbst aus den Stellen (Kern und Bibeldaten sind geladen). Der Dienst
+// liefert nur Stellen; eine Änderung an der Darstellung braucht so nur das ZIP, keinen neuen Dienst.
+
+const nebenCache = new Map();
+function zweitVon(S, rezept) {
+  if (!rezept?.straenge) return null;
+  const k = JSON.stringify(rezept.straenge);
+  if (!nebenCache.has(k)) nebenCache.set(k, S.kern.nebenBuecher(S.bibel, rezept));
+  return nebenCache.get(k);
+}
+
+/**
+ * Hauptstelle, zweiter Strang, Parallelstellen und der ganze Text einer Einheit.
+ * `rezept` bestimmt den zweiten Strang. Ohne Stellen (sehr alter Dienst) gilt `ersatz`.
+ */
+export function stellenTexte(S, stuecke, rezept, { ersatz = '' } = {}) {
+  if (!stuecke?.length || !S.kern?.einheitTeile) return { haupt: ersatz, zweit: null, dazu: null, text: ersatz };
+  const zweit = zweitVon(S, rezept);
+  const t = S.kern.einheitTeile(S.bibel, stuecke, { zweit });
+  return { haupt: t.haupt?.text ?? '', zweit: t.zweit?.text ?? null, dazu: t.dazu?.text ?? null, text: S.kern.einheitText(S.bibel, stuecke, { zweit }) };
+}
+
+/** Der Text dessen, was ohne die herausgenommenen Teile gelesen wurde. */
+export const gelesenText = (t, ohne = new Set()) => [t.haupt, !ohne.has('zweit') && t.zweit, !ohne.has('dazu') && t.dazu && `dazu ${t.dazu}`]
+  .filter(Boolean).join(' · ');
+
+/** Die nächste Einheit eines Plans als Texte. */
+export const naechsteTexte = (S, p) => stellenTexte(S, p.naechste?.stuecke, p.rezept, { ersatz: p.naechste?.text ?? '' });
+
+/**
+ * Ein Logbuch-Eintrag: Gelesenes, die ganze Einheit (für die Haken im Blatt), welche Nebenteile sie
+ * hatte und welche davon ausgelassen sind, und „Ausgelassen: …“ als Liste ohne „dazu“.
+ */
+export function eintragTexte(S, l) {
+  const rezept = l.quelle === 'plan' ? S.plaene.find((p) => p.id === l.planId)?.rezept : null;
+  const aus = l.ausgelassenStuecke ?? [];
+  const gelesen = stellenTexte(S, l.stuecke, rezept, { ersatz: l.text });
+  const ganz = stellenTexte(S, [...l.stuecke, ...aus], rezept, { ersatz: l.text });
+  const hat = l.quelle === 'plan' ? ['zweit', 'dazu'].filter((t) => ganz[t]) : [];
+  const ausgelassen = aus.length ? stellenTexte(S, aus.map(({ parallel, ...s }) => s), null).text : (l.ausgelassen ?? null);
+  return { gelesen, ganz, hat, ohne: hat.filter((t) => !gelesen[t]), ausgelassen };
+}
+
 export const TABS = [['heute', 'Heute'], ['plaene', 'Pläne'], ['fortschritt', 'Fortschritt'], ['logbuch', 'Logbuch'], ['statistik', 'Statistik']];
 
 export function reiter(S) {
@@ -114,13 +159,13 @@ function heuteKarte(S, p, { primaer }) {
     `<button type="button" class="bl-avatar" style="--av:${esc(m.avatar_color || '#6C3AED')}" aria-pressed="${S.dabei.has(m.id)}" data-akt="dabei" data-wert="${m.id}" aria-label="${esc(m.display_name)}" title="${esc(m.display_name)}">
       <span class="bl-avatar__face">${esc((m.display_name || '?').slice(0, 1).toUpperCase())}</span><span class="bl-avatar__tick">${ic('check')}</span></button>`).join('')}</div></div>` : '';
   const knopf = `btn ${primaer ? 'btn--primary' : 'btn--secondary'}`;
-  const teile = p.naechste.teile ?? { haupt: p.naechste.text };
+  const teile = naechsteTexte(S, p);
   return `<article class="bl-card bl-today${primaer ? '' : ' bl-today--compact'}" aria-label="${esc(p.name)}">
     <div class="bl-today__eyebrow">${ic(ART[p.art].icon)}${esc(p.name)}
       ${menuAnker(S, 'einheit', p.id, `Mehr zu ${p.name}`, 'btn btn--ghost btn--icon')}</div>
     ${gerade ? `<div class="bl-today__done"><span class="bl-ring bl-ring--done">${ic('check')}</span>${esc(gerade.text)} gelesen · ${esc(gerade.uhrzeit)}</div>` : ''}
     <div class="bl-today__ref">${stelleHtml(teile.haupt)}</div>
-    ${nebenZeilen(teile, { ohne: S.ohne[p.id], schalter: p.darfAbhaken ? (teil) => `data-akt="teil" data-plan="${p.id}" data-wert="${teil}"` : null })}
+    ${nebenZeilen(teile, { ohne: S.ohne[p.id], schalter: p.darfAbhaken && S.dienstAktuell ? (teil) => `data-akt="teil" data-plan="${p.id}" data-wert="${teil}"` : null })}
     <div class="bl-today__unit bl-tabnum">Einheit ${p.naechste.nr} von ${zahl(st.anzahl)} · ${min(p.naechste.minuten)}${aufholen ? ' · zum Aufholen' : ''}</div>
     ${zielStatus(p)}
     ${dabei}
@@ -378,11 +423,12 @@ function zeile(S, l, ersterDesTages) {
   const wer = !l.eigen ? person(S, l.personId)?.display_name : null;
   const meta = [planName, l.quelle === 'plan' ? `Einheit ${l.einheitNr}` : 'Frei eingetragen', l.uhrzeit, wer && !l.dabei ? `von ${wer}` : null, namen].filter(Boolean).join(' · ');
   const tag = Number(l.datum.slice(8, 10));
+  const t = eintragTexte(S, l);
   return `<div class="bl-row${ersterDesTages ? '' : ' bl-row--same-day'}">
     <span class="bl-row__date${l.datum === S.heute ? ' bl-row__date--today' : ''}" aria-label="${tagKopf(l.datum, S.heute)}">${ersterDesTages ? `<b>${tag}</b>${WT2[wochentag(l.datum)]}` : ''}</span>
-    <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(l.teile?.haupt || l.text)}</span>
-      ${l.teile ? nebenZeilen(l.teile) : ''}
-      ${l.ausgelassen ? `<span class="bl-row__aus">Ausgelassen: ${stelleHtml(l.ausgelassen)}</span>` : ''}
+    <div class="bl-row__main"><span class="bl-row__title">${stelleHtml(t.gelesen.haupt)}</span>
+      ${nebenZeilen(t.gelesen)}
+      ${t.ausgelassen ? `<span class="bl-row__aus">Ausgelassen: ${stelleHtml(t.ausgelassen)}</span>` : ''}
       <span class="bl-row__meta">${esc(meta)}</span>
       ${l.notiz ? `<span class="bl-row__note">${esc(l.notiz)}</span>` : ''}</div>
     ${l.eigen || S.ich.admin ? menuAnker(S, 'eintrag', l.id, 'Mehr zum Eintrag', 'btn btn--ghost btn--icon') : ''}</div>`;

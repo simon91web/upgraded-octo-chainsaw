@@ -12,6 +12,9 @@ import {
 
 // Version aus package.json: /status und /gesund zeigen, welcher Dienst tatsächlich läuft.
 export const VERSION = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
+// Schnittstellenstufe für das Modul: 2 = Stellen je Einheit und Lesung (auch ausgelassene), `ohne` beim Abhaken.
+// Die Texte setzt das Modul selbst zusammen; die Textfelder hier bleiben für ältere Module.
+export const API = 2;
 
 const TAG = /^\d{4}-\d{2}-\d{2}$/;
 const UHR = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -222,7 +225,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
       kannNeuEinteilen: Boolean(p.einheiten_vorher) || undefined,
       uebernommen: p.besitzer !== wer.id && p.art === 'sichtbar' ? Boolean(q.kopieVon.get(p.id, wer.id)) : undefined,
       zielVerlauf: q.aenderungen.all(p.id),
-      ...(mitEinheiten ? { einheiten: p.einheiten.map((e, i) => ({ nr: i + 1, text: einheitText(bibel, e.stuecke, { zweit: neben(p.rezept) }), minuten: minutenDerEinheit(e, p.woerter_je_minute) })) } : {}),
+      ...(mitEinheiten ? { einheiten: p.einheiten.map((e, i) => ({ nr: i + 1, stuecke: e.stuecke, text: einheitText(bibel, e.stuecke, { zweit: neben(p.rezept) }), minuten: minutenDerEinheit(e, p.woerter_je_minute) })) } : {}),
     };
   }
 
@@ -268,7 +271,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
           id: l.id, planId: l.plan_id, planName: l.plan_name ?? null, personId: l.person_id, quelle: l.quelle,
           datum: l.gelesen_am, uhrzeit: l.uhrzeit, einheitNr: l.einheit_nr, durchgang: l.durchgang,
           stuecke: l.stuecke, text: einheitText(bibel, l.stuecke, { zweit: l.zweit }), teile: teileText(gelesen),
-          ausgelassen: l.ausgelassen.length ? ausgelassenText(l.ausgelassen) : null,
+          ausgelassen: l.ausgelassen.length ? ausgelassenText(l.ausgelassen) : null, ausgelassenStuecke: l.ausgelassen,
           einheit: teileText(ganz), hat, ohne: hat.filter((t) => !gelesen[t]),
           notiz: l.notiz, dabei: l.dabei, eigen: l.person_id === wer.id,
         };
@@ -292,7 +295,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
       kopf: cookies[CSRF_COOKIE] ? {} : {
         'set-cookie': `${CSRF_COOKIE}=${token}; Path=${konfig.praefix}; SameSite=Strict; HttpOnly${sicher ? '; Secure' : ''}`,
       },
-      daten: { heute: heute(), ich: wer, csrf: token, version: VERSION, weisheit: WEISHEIT },
+      daten: { heute: heute(), ich: wer, csrf: token, version: VERSION, api: API, weisheit: WEISHEIT },
     };
   });
 
@@ -542,7 +545,7 @@ export function erzeugeApi({ db, konfig, anmeldung, heute = () => heuteIn(konfig
     const url = new URL(req.url, 'http://dienst');
     const pfad = url.pathname.slice(konfig.praefix.length) || '/';
     try {
-      if (pfad === '/gesund' && req.method === 'GET') return json(res, 200, { ok: true, version: VERSION });
+      if (pfad === '/gesund' && req.method === 'GET') return json(res, 200, { ok: true, version: VERSION, api: API });
       let passend = null;
       for (const r of routen) {
         const m = r.methode === req.method && pfad.match(r.re);
