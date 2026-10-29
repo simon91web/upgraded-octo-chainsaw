@@ -1,0 +1,9 @@
+# Datenbank des Dienstes (Standardort service/daten/, im Container /data)
+*.db
+*.db-wal
+*.db-shm
+service/daten/
+deploy/data/
+deploy/bibellese-daten/
+node_modules/
+dist/

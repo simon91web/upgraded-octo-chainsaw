@@ -1,0 +1,425 @@
+# Geschichtsbücher: Josua bis Esther
+
+@Josh
+= 1,1 Die Eroberung des Landes
+1,1 Gottes Auftrag an Josua
+2,1 Rahab und die Kundschafter
+3,1 Der Durchzug durch den Jordan
+4,1 Die Gedenksteine
+5,1 Beschneidung und Passah in Gilgal
+5,13 Der Fürst über das Heer des Herrn
+6,1 Der Fall Jerichos
+7,1 Achans Diebstahl
+8,1 Die Eroberung von Ai
+8,30 Der Altar auf dem Berg Ebal
+9,1 Die List der Gibeoniter
+10,1 Die Sonne steht still
+10,16 Die fünf Könige in der Höhle
+10,28 Die Eroberung des Südens
+11,1 Die Eroberung des Nordens
+11,16 Rückblick auf die Eroberung
+12,1 Die besiegten Könige
+= 13,1 Die Verteilung des Landes
+13,1 Das noch nicht eroberte Land; das Ostjordanland
+14,1 Die Verteilung beginnt; Kalebs Erbteil
+15,1 Die Grenzen Judas
+15,13 Kaleb und Achsa
+15,20 Die Städte Judas
+16,1 Das Gebiet Ephraims und Manasses
+18,1 Die Landvermessung in Silo
+18,11 Das Gebiet Benjamins
+19,1 Die Gebiete der übrigen sechs Stämme
+19,49 Josuas Erbteil
+20,1 Die Zufluchtsstädte
+21,1 Die Städte der Leviten
+21,43 Gott hat seine Zusagen erfüllt
+= 22,1 Josuas Abschied
+22,1 Der Altar am Jordan
+23,1 Josuas Abschiedsrede
+24,1 Der Landtag zu Sichem
+24,29 Josuas Tod
+
+@Judg
+= 1,1 Israel nach Josuas Tod
+1,1 Judas Kampf gegen die Kanaaniter
+1,10 Hebron, Debir und Achsa
+1,16 Die unvollständige Landnahme
+2,1 Der Engel des Herrn in Bochim
+2,6 Josuas Tod und eine neue Generation
+2,11 Der Kreislauf von Abfall und Rettung
+= 3,7 Die Richter
+3,7 Otniel
+3,12 Ehud
+3,31 Schamgar
+4,1 Debora und Barak
+5,1 Das Lied der Debora
+6,1 Die Berufung Gideons
+6,33 Das Zeichen mit dem Vlies
+7,1 Gideons dreihundert Mann
+8,1 Gideon verfolgt die Midianiter
+8,22 Gideons Ephod und Tod
+9,1 Abimelechs Königtum
+10,1 Tola und Jair
+10,6 Israels Abfall und Not
+11,1 Jephta
+12,1 Jephta und Ephraim
+12,8 Ibzan, Elon und Abdon
+13,1 Die Geburt Simsons
+14,1 Simsons Hochzeit
+15,1 Simsons Rache an den Philistern
+16,1 Simson und Delila
+16,23 Simsons Tod
+= 17,1 Zeiten ohne König
+17,1 Michas Götzenbild
+18,1 Der Stamm Dan sucht ein Gebiet
+19,1 Die Schandtat in Gibea
+20,1 Der Krieg gegen Benjamin
+21,1 Frauen für die Benjaminiter
+
+@Ruth
+= 1,1 Die Geschichte Ruths
+1,1 Noomi und Ruth
+2,1 Ruth auf dem Feld des Boas
+3,1 Ruth bei Boas auf der Tenne
+4,1 Boas löst Ruth aus
+4,18 Das Geschlecht Davids
+
+@1Sam
+= 1,1 Samuel
+1,1 Hannas Gebet und Samuels Geburt
+2,1 Der Lobgesang der Hanna
+2,12 Die Söhne Elis
+3,1 Gott beruft Samuel
+4,1 Die Bundeslade wird geraubt
+5,1 Die Lade bei den Philistern
+6,1 Die Rückkehr der Lade
+7,2 Samuel als Richter
+= 8,1 Saul
+8,1 Israel verlangt einen König
+9,1 Saul begegnet Samuel
+10,17 Saul wird König
+11,1 Sauls Sieg über die Ammoniter
+12,1 Samuels Abschiedsrede
+13,1 Sauls Ungehorsam in Gilgal
+14,1 Jonatans Heldentat
+14,47 Sauls Kriege und Familie
+15,1 Saul wird verworfen
+= 16,1 Saul und David
+16,1 David wird gesalbt
+16,14 David am Hof Sauls
+17,1 David und Goliath
+18,1 Jonatans Freundschaft und Sauls Eifersucht
+19,1 Saul trachtet David nach dem Leben
+20,1 David und Jonatan
+21,2 David in Nob
+21,11 David bei Achisch in Gat
+22,1 David in der Höhle Adullam
+22,6 Saul lässt die Priester von Nob töten
+23,1 David rettet Keïla
+23,14 David auf der Flucht in der Wüste
+24,1 David verschont Saul in der Höhle
+25,1 Samuels Tod; David und Abigail
+26,1 David verschont Saul ein zweites Mal
+27,1 David bei den Philistern
+28,1 Saul bei der Totenbeschwörerin
+29,1 David wird von den Philistern zurückgeschickt
+30,1 Davids Sieg über die Amalekiter
+31,1 Sauls Tod
+
+@2Sam
+= 1,1 David wird König
+1,1 David erfährt von Sauls Tod
+1,17 Davids Klagelied über Saul und Jonatan
+2,1 David wird König über Juda
+2,12 Krieg zwischen dem Haus Sauls und David
+3,1 Abner wechselt zu David
+3,22 Abners Ermordung
+4,1 Isch-Boschets Ermordung
+5,1 David wird König über Israel und erobert Jerusalem
+5,11 Davids Haus und Familie in Jerusalem
+5,17 Siege über die Philister
+6,1 Usas Tod beim ersten Versuch, die Lade zu holen
+6,12 Die Lade kommt nach Jerusalem
+7,1 Gottes Verheißung an David
+7,18 Davids Gebet
+8,1 Davids Siege
+9,1 David und Mefi-Boschet
+10,1 Krieg gegen Ammon und Aram
+= 11,1 David und seine Familie
+11,1 David und Bathseba
+12,1 Nathans Strafrede
+12,15 Der Tod des Kindes; Salomos Geburt
+12,26 Die Eroberung von Rabba
+13,1 Amnon und Tamar
+13,23 Absalom rächt Tamar
+14,1 Absaloms Rückkehr
+15,1 Absaloms Aufstand
+15,13 Davids Flucht
+16,1 Ziba und Schimei
+16,15 Der Rat Ahitophels und Huschais
+17,24 David in Mahanajim
+18,1 Absaloms Tod
+18,19 David erfährt von Absaloms Tod
+19,10 Davids Rückkehr nach Jerusalem
+20,1 Der Aufstand Schebas
+20,23 Davids Beamte
+= 21,1 Anhang
+21,1 Die Sühne für die Gibeoniter
+21,15 Kämpfe gegen die Philister
+22,1 Davids Danklied
+23,1 Davids letzte Worte
+23,8 Davids Helden
+24,1 Die Volkszählung und die Pest
+
+@1Kgs
+= 1,1 Salomo
+1,1 Adonijas Anspruch und Salomos Salbung
+2,1 Davids Vermächtnis und Tod
+2,13 Salomo festigt seine Herrschaft
+3,1 Salomo bittet um Weisheit
+3,16 Das salomonische Urteil
+4,1 Salomos Beamte
+5,1 Salomos Macht und Weisheit
+5,15 Vorbereitungen für den Tempelbau
+6,1 Der Bau des Tempels
+7,1 Salomos Palast
+7,13 Die Tempelgeräte
+8,1 Die Lade kommt in den Tempel
+8,22 Salomos Tempelweihgebet
+8,54 Salomos Segen
+8,62 Die Opfer zur Tempelweihe
+9,1 Gottes Antwort an Salomo
+9,10 Salomos weitere Unternehmungen
+10,1 Die Königin von Saba
+10,14 Salomos Reichtum
+11,1 Salomos Abfall
+11,14 Salomos Gegner
+11,41 Salomos Tod
+= 12,1 Das geteilte Reich
+12,1 Die Reichsteilung
+12,25 Jerobeams goldene Kälber
+13,1 Der Gottesmann aus Juda
+14,1 Ahijas Prophezeiung gegen Jerobeam
+14,21 Rehabeam von Juda
+15,1 Abija von Juda
+15,9 Asa von Juda
+15,25 Nadab und Bascha von Israel
+16,8 Ela, Simri und Omri
+16,29 Ahab wird König
+= 17,1 Elia
+17,1 Elia und die Witwe in Zarpat
+18,1 Elia und Obadja
+18,20 Das Gottesurteil auf dem Karmel
+18,41 Das Ende der Dürre
+19,1 Elia am Horeb
+19,19 Die Berufung Elisas
+20,1 Ahabs Kriege gegen Aram
+21,1 Nabots Weinberg
+22,1 Micha ben Jimla und Ahabs Tod
+22,41 Joschafat von Juda
+22,52 Ahasja von Israel
+
+@2Kgs
+= 1,1 Elisa
+1,1 Elia und Ahasja
+2,1 Elias Himmelfahrt
+2,19 Elisas erste Wunder
+3,1 Krieg gegen Moab
+4,1 Das Öl der Witwe
+4,8 Die Schunemiterin
+4,38 Wunder für die Prophetenjünger
+5,1 Naaman wird geheilt
+6,1 Das schwimmende Eisen
+6,8 Die Aramäer werden mit Blindheit geschlagen
+6,24 Hungersnot in Samaria
+8,1 Die Schunemiterin erhält ihr Land zurück
+8,7 Hasael wird König von Aram
+8,16 Joram und Ahasja von Juda
+9,1 Jehu wird gesalbt
+9,14 Jehu tötet Joram und Ahasja
+9,30 Isebels Ende
+10,1 Die Ausrottung des Hauses Ahab
+10,18 Jehu vernichtet den Baalsdienst
+= 11,1 Israel und Juda bis zum Fall Samarias
+11,1 Atalja und Joas
+12,1 Joas erneuert den Tempel
+13,1 Joahas und Joasch von Israel
+13,14 Elisas Tod
+14,1 Amazja von Juda
+14,23 Jerobeam II. von Israel
+15,1 Asarja von Juda
+15,8 Die letzten Könige Israels
+15,32 Jotam von Juda
+16,1 Ahas von Juda
+17,1 Der Untergang des Nordreichs
+17,24 Die Neubesiedlung Samarias
+= 18,1 Juda bis zum Exil
+18,1 Hiskia wird König
+18,13 Sanherib bedroht Jerusalem
+19,1 Hiskia sucht Jesajas Rat
+19,14 Hiskias Gebet und Gottes Antwort
+20,1 Hiskias Krankheit
+20,12 Gesandte aus Babel
+20,20 Hiskias Tod
+21,1 Manasse und Amon
+22,1 Josia und das Gesetzbuch
+23,1 Josias Reform
+23,21 Josias Passah und Tod
+23,31 Joahas, Jojakim und Jojachin
+24,18 Zedekia, der letzte König Judas
+25,1 Die Zerstörung Jerusalems
+25,22 Gedalja
+25,27 Jojachins Begnadigung
+
+@1Chr
+= 1,1 Geschlechtsregister
+1,1 Von Adam bis Abraham
+1,28 Die Nachkommen Abrahams und Esaus
+2,1 Die Söhne Israels; von Juda bis David
+2,18 Die Sippen Kalebs und Jerachmeels
+3,1 Die Nachkommen Davids
+4,1 Juda und Simeon
+5,1 Die Stämme östlich des Jordan
+5,27 Die Hohenpriester
+6,1 Die Levitenfamilien und die Sänger
+6,39 Die Wohnorte der Leviten
+7,1 Die nördlichen Stämme
+8,1 Die Nachkommen Benjamins
+8,29 Die Vorfahren und Nachkommen Sauls
+9,1 Die Bewohner Jerusalems
+9,35 Das Geschlecht Sauls
+= 10,1 David
+10,1 Sauls Tod
+11,1 David wird König und erobert Jerusalem
+11,10 Davids Helden
+12,1 Davids Anhänger
+13,1 Der erste Versuch, die Lade zu holen
+14,1 Davids Haus und Siege
+15,1 Die Lade kommt nach Jerusalem
+16,7 Davids Danklied
+16,37 Der Dienst vor der Lade
+17,1 Gottes Verheißung an David
+17,16 Davids Gebet
+18,1 Davids Siege
+19,1 Krieg gegen die Ammoniter
+20,4 Kämpfe gegen die Philister
+21,1 Die Volkszählung
+22,2 Vorbereitungen für den Tempelbau
+23,1 Die Ordnung der Leviten
+24,1 Die Abteilungen der Priester
+25,1 Die Sänger
+26,1 Torhüter und Beamte
+27,1 Heer und Verwaltung
+28,1 Davids Auftrag an Salomo
+29,1 Gaben für den Tempel
+29,10 Davids Lobgebet
+29,20 Salomo wird König
+29,26 Davids Tod
+
+@2Chr
+= 1,1 Salomo
+1,1 Salomo bittet um Weisheit
+1,14 Salomos Reichtum
+2,1 Vorbereitungen für den Tempelbau
+3,1 Der Bau des Tempels
+4,1 Die Tempelgeräte
+5,2 Die Lade kommt in den Tempel
+6,1 Salomos Rede bei der Tempelweihe
+6,12 Salomos Tempelweihgebet
+7,1 Die Tempelweihe
+7,11 Gottes Antwort an Salomo
+8,1 Salomos Unternehmungen
+9,1 Die Königin von Saba
+9,13 Salomos Reichtum und Tod
+= 10,1 Die Könige von Juda
+10,1 Die Reichsteilung
+11,1 Rehabeam
+13,1 Abija
+14,1 Asa
+17,1 Joschafat
+18,1 Joschafat und Ahab
+19,4 Joschafats Rechtsreform
+20,1 Joschafats Sieg über Moab und Ammon
+20,31 Das Ende Joschafats
+21,1 Joram
+22,1 Ahasja
+22,10 Atalja und die Krönung des Joas
+24,1 Joas erneuert den Tempel
+25,1 Amazja
+26,1 Usija
+27,1 Jotam
+28,1 Ahas
+29,1 Hiskia reinigt den Tempel
+30,1 Hiskias Passah
+31,1 Hiskias Reformen
+32,1 Sanheribs Angriff
+32,24 Hiskias Krankheit und Hochmut
+32,27 Hiskias Reichtum und Tod
+33,1 Manasse und Amon
+34,1 Josia und das Gesetzbuch
+34,29 Die Erneuerung des Bundes
+35,1 Josias Passah
+35,20 Josias Tod
+36,1 Die letzten Könige Judas
+36,15 Der Untergang Jerusalems
+36,22 Der Erlass des Kyrus
+
+@Ezra
+= 1,1 Die erste Rückkehr und der Tempelbau
+1,1 Der Erlass des Kyrus
+2,1 Die Heimkehrer nach Familien und Orten
+2,36 Priester, Leviten und Tempeldiener
+2,59 Ohne Nachweis; Gesamtzahl und Gaben
+3,1 Altar und Grundsteinlegung des Tempels
+4,1 Widerstand gegen den Bau
+5,1 Der Tempelbau wird fortgesetzt
+6,1 Der Erlass des Darius
+6,13 Vollendung und Weihe des Tempels
+= 7,1 Esras Rückkehr und Reform
+7,1 Esra kommt nach Jerusalem
+7,11 Der Brief des Artasasta
+8,1 Esras Begleiter und die Reise
+9,1 Esras Bußgebet
+10,1 Die Auflösung der Mischehen
+
+@Neh
+= 1,1 Der Bau der Mauer
+1,1 Nehemias Gebet
+2,1 Nehemia reist nach Jerusalem
+2,11 Nehemia besichtigt die Mauern
+3,1 Die Arbeiter an der Mauer
+3,33 Widerstand gegen den Mauerbau
+5,1 Nehemia hilft den Armen
+6,1 Anschläge gegen Nehemia; die Mauer wird vollendet
+7,1 Wachen für Jerusalem
+7,6 Die Heimkehrer nach Familien und Orten
+7,39 Priester, Leviten und Tempeldiener
+7,61 Ohne Nachweis; Gesamtzahl und Gaben
+= 8,1 Die Erneuerung des Bundes
+8,1 Esra liest das Gesetz vor
+8,13 Das Laubhüttenfest
+9,1 Das Bußgebet der Leviten
+10,1 Die Verpflichtung auf das Gesetz
+= 11,1 Die Ordnung in Jerusalem
+11,1 Die Bewohner Jerusalems und Judas
+12,1 Priester und Leviten
+12,27 Die Einweihung der Mauer
+13,1 Nehemias letzte Reformen
+
+@Esth
+= 1,1 Esther wird Königin
+1,1 Königin Waschti wird verstoßen
+2,1 Esther wird Königin
+2,19 Mordechai deckt eine Verschwörung auf
+= 3,1 Hamans Anschlag und seine Vereitelung
+3,1 Hamans Plan gegen die Juden
+4,1 Mordechai bittet Esther um Hilfe
+5,1 Esther vor dem König
+5,9 Hamans Galgen
+6,1 Mordechai wird geehrt
+7,1 Hamans Sturz
+8,1 Das Gegenedikt
+9,1 Die Juden besiegen ihre Feinde
+= 9,20 Das Purimfest
+9,20 Die Einsetzung des Purimfestes
+10,1 Mordechais Größe

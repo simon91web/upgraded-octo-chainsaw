@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bibellese – Prüfstand</title>
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/reset.css">
+<link rel="stylesheet" href="/styles/layout.css">
+<link rel="stylesheet" href="/styles/sub-tabs.css">
+<link rel="stylesheet" href="/styles/typography.css">
+<link rel="stylesheet" href="/pruefstand/pruefstand.css">
+<link rel="stylesheet" href="/modules/bibellese/style.css">
+<script src="/lucide.min.js"></script>
+<script>
+  // Wie Yuvomis lucide-scope.js: createIcons({ el }) ohne eigene icons-Angabe erlauben.
+  (() => { const o = lucide.createIcons; lucide.createIcons = (opts = {}) => o({ icons: lucide.icons, ...opts }); })();
+</script>
+</head>
+<body>
+  <header class="ps-leiste">
+    <strong>Prüfstand Bibellese</strong>
+    <span>Angemeldet als <select id="ps-als" aria-label="Testperson">
+      <option value="paul">Paul (Admin)</option><option value="maria">Maria</option><option value="lea">Lea (Kind)</option>
+      <option value="jonas">Jonas (Kind)</option><option value="oma">Oma (nur lesen)</option></select></span>
+    <span><select id="ps-thema" aria-label="Erscheinungsbild"><option value="">System</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></span>
+  </header>
+  <main class="ps-seite" id="main-content">
+    <div class="app-page app-page--dashboard extension-page" id="ps-wurzel" style="--active-module-accent:#9A6B3F"></div>
+  </main>
+  <div id="fab-layer" class="ps-fab-layer"></div>
+  <script type="module">
+    const als = document.cookie.match(/sid=(\w+)/)?.[1] ?? 'paul';
+    const auswahl = document.getElementById('ps-als');
+    auswahl.value = als;
+    auswahl.addEventListener('change', () => { location.href = `/m/bibellese?als=${auswahl.value}`; });
+    const thema = document.getElementById('ps-thema');
+    thema.value = localStorage.getItem('ps-thema') ?? '';
+    const setze = () => { if (thema.value) document.documentElement.dataset.theme = thema.value; else delete document.documentElement.dataset.theme; };
+    setze();
+    thema.addEventListener('change', () => { localStorage.setItem('ps-thema', thema.value); setze(); });
+    const { render } = await import('/modules/bibellese/index.js');
+    const steuerung = new AbortController();
+    await render(document.getElementById('ps-wurzel'), { signal: steuerung.signal, user: null, page: { composition: 'dashboard' } });
+    // Wie Yuvomis adoptPageFab(): mobil schwebt der FAB, am Laptop dockt er beschriftet in den Kopf.
+    const fab = document.querySelector('#ps-wurzel .page-fab');
+    const docken = () => {
+      const breit = window.innerWidth >= 1024;
+      const ziel = breit ? document.querySelector('#ps-wurzel .page-toolbar__actions') : document.getElementById('fab-layer');
+      if (fab && ziel && fab.parentElement !== ziel) ziel.append(fab);
+      fab?.classList.toggle('ps-fab--docked', breit);
+    };
+    docken();
+    window.addEventListener('resize', docken);
+  </script>
+</body>
+</html>

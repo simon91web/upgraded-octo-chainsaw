@@ -1,0 +1,124 @@
+# Parallelstellen – Verszählung der Schlachter 2000
+# Eine Zeile je Gruppe: [art] Stelle | Stelle | …  (Buch-IDs wie in buecher.json, Teile in kanonischer Reihenfolge)
+# Arten: geschichte, lieder, gesetz. Die Evangelien folgen in einem zweiten Schritt.
+# Regeln (docs/LESEPLAN.md §3 und §10): nur echte Paralleltexte (dasselbe Ereignis oder derselbe Wortlaut),
+# jeder Teil ein ganzer Sinnabschnitt oder eine Folge davon, ein Vers gehört höchstens zu einer Gruppe.
+# Psalmen bleiben ganz. Lieber etwas Sondergut mitnehmen als einen Mini-Abschnitt (unter 5 Versen) anlegen.
+#
+# Abschnittsgrenzen: Seit Commit 504f10e (29.10.2026) fällt jeder Teil unten auf Grenzen in quellen/perikopen/.
+#
+# Vorbehalt: 2Kgs 15 hat in der Schlachter 2000 38 Verse; verszahlen.txt sagt noch 39 und wird berichtigt.
+# Bis dahin endet 2Kgs 15,32-38 nicht auf einer Abschnittsgrenze.
+
+# ── Geschichte ─────────────────────────────────────────────────────────────
+
+# Urgeschichte und Väter ∥ Geschlechtsregister der Chronik
+[geschichte] Gen 10 | 1Chr 1,1-27
+[geschichte] Gen 36 | 1Chr 1,28-54
+
+# Mose und Josua
+[geschichte] Num 27,12-23 | Deut 32,48-52
+[geschichte] Josh 15,13-19 | Judg 1,10-15
+[geschichte] Josh 21,1-42 | 1Chr 6,39-66
+[geschichte] Josh 24,29-33 | Judg 2,6-10
+
+# Saul und David
+[geschichte] 1Chr 8,29-40 | 1Chr 9,35-44
+[geschichte] 1Sam 31 | 1Chr 10
+[geschichte] 2Sam 5,1-10 | 1Chr 11,1-9
+[geschichte] 2Sam 5,11-25 | 1Chr 14
+[geschichte] 2Sam 6,1-11 | 1Chr 13
+[geschichte] 2Sam 6,12-23 | 1Chr 15,1-16,6
+[geschichte] 2Sam 7,1-17 | 1Chr 17,1-15
+[geschichte] 2Sam 7,18-29 | 1Chr 17,16-27
+[geschichte] 2Sam 8 | 1Chr 18
+[geschichte] 2Sam 10 | 1Chr 19,1-20,3
+[geschichte] 2Sam 21,15-22 | 1Chr 20,4-8
+[geschichte] 2Sam 23,8-39 | 1Chr 11,10-47
+[geschichte] 2Sam 24 | 1Chr 21,1-22,1
+[geschichte] 1Kgs 2,1-12 | 1Chr 29,26-30
+
+# Salomo
+[geschichte] 1Kgs 3,1-15 | 2Chr 1,1-13
+[geschichte] 1Kgs 5,15-32 | 2Chr 2
+[geschichte] 1Kgs 6 | 2Chr 3
+[geschichte] 1Kgs 7,13-51 | 2Chr 4,1-5,1
+[geschichte] 1Kgs 8,1-21 | 2Chr 5,2-6,11
+[geschichte] 1Kgs 8,22-53 | 2Chr 6,12-42
+[geschichte] 1Kgs 8,54-66 | 2Chr 7,1-10
+[geschichte] 1Kgs 9,1-9 | 2Chr 7,11-22
+[geschichte] 1Kgs 9,10-28 | 2Chr 8
+[geschichte] 1Kgs 10,1-13 | 2Chr 9,1-12
+[geschichte] 1Kgs 10,14-29 | 2Chr 1,14-17 | 2Chr 9,13-31
+
+# Die Könige von Juda
+[geschichte] 1Kgs 12,1-24 | 2Chr 10
+[geschichte] 1Kgs 14,21-31 | 2Chr 11,1-12,16
+[geschichte] 1Kgs 15,1-8 | 2Chr 13
+[geschichte] 1Kgs 15,9-24 | 2Chr 14-16
+[geschichte] 1Kgs 22,1-40 | 2Chr 18,1-19,3
+[geschichte] 1Kgs 22,41-51 | 2Chr 20,31-37
+[geschichte] 2Kgs 8,16-29 | 2Chr 21,1-22,9
+[geschichte] 2Kgs 11 | 2Chr 22,10-23,21
+[geschichte] 2Kgs 12 | 2Chr 24
+[geschichte] 2Kgs 14,1-22 | 2Chr 25
+[geschichte] 2Kgs 15,1-7 | 2Chr 26
+[geschichte] 2Kgs 15,32-38 | 2Chr 27
+[geschichte] 2Kgs 16 | 2Chr 28
+
+# Hiskia
+[geschichte] 2Kgs 18,13-37 | 2Chr 32,1-23 | Isa 36
+[geschichte] 2Kgs 19 | Isa 37
+[geschichte] 2Kgs 20,1-11 | 2Chr 32,24-26 | Isa 38
+[geschichte] 2Kgs 20,12-19 | Isa 39
+[geschichte] 2Kgs 20,20-21 | 2Chr 32,27-33
+
+# Manasse bis zum Exil
+[geschichte] 2Kgs 21 | 2Chr 33
+[geschichte] 2Kgs 22 | 2Chr 34,1-28
+[geschichte] 2Kgs 23,1-20 | 2Chr 34,29-33
+[geschichte] 2Kgs 23,21-30 | 2Chr 35
+[geschichte] 2Kgs 23,31-24,20 | 2Chr 36,1-14
+[geschichte] 2Kgs 25,1-21 | 2Chr 36,15-21 | Jer 39,1-10 | Jer 52,1-30
+[geschichte] 2Kgs 25,22-26 | Jer 40,7-41,18
+[geschichte] 2Kgs 25,27-30 | Jer 52,31-34
+
+# Nach dem Exil
+[geschichte] 1Chr 9,1-34 | Neh 11
+[geschichte] 2Chr 36,22-23 | Ezra 1
+[geschichte] Ezra 2,1-35 | Neh 7,6-38
+[geschichte] Ezra 2,36-58 | Neh 7,39-60
+[geschichte] Ezra 2,59-70 | Neh 7,61-73
+
+# ── Lieder ─────────────────────────────────────────────────────────────────
+
+[lieder]     2Sam 22 | Ps 18
+[lieder]     1Chr 16,7-36 | Ps 96
+[lieder]     Ps 14 | Ps 53
+
+# nicht gebündelt (Psalm bliebe nicht ganz): 1Chr 16,8-22 | Ps 105,1-15
+# nicht gebündelt (Psalm bliebe nicht ganz): Ps 40,14-18 | Ps 70
+# nicht gebündelt (Psalm bliebe nicht ganz): Ps 57,8-12 | Ps 108,1-6
+# nicht gebündelt (Psalm bliebe nicht ganz): Ps 60,7-14 | Ps 108,7-14
+# nicht gebündelt (Bruchstück): 1Chr 16,34-36 | Ps 106,1.47-48
+# nicht gebündelt (Bruchstück): 2Chr 6,41-42 | Ps 132,8-10
+# nicht gebündelt (Bruchstück): Ps 115,4-11 | Ps 135,15-20
+# nicht gebündelt (Bruchstück): Ps 31,2-4 | Ps 71,1-3
+
+# ── Gesetz ─────────────────────────────────────────────────────────────────
+
+[gesetz]     Exod 20,1-17 | Deut 5,6-21
+[gesetz]     Exod 21,1-11 | Deut 15,12-18
+[gesetz]     Exod 23,14-33 | Exod 34,10-28
+[gesetz]     Lev 11 | Deut 14,1-21
+
+# ── Bewusst nicht aufgenommen ──────────────────────────────────────────────
+# - Kurze Teilstücke in Geschlechtsregistern: Gen 5 und 11,10-26 (in 1Chr 1,1-27 mitgelesen), Gen 25,1-18
+#   (1Chr 1,28-33 wird bei Gen 36 mitgelesen), Ruth 4,18-22 ∥ 1Chr 2, 2Sam 3,2-5 ∥ 1Chr 3,1-4
+# - Kleine Parallelen ohne eigene Zeile, damit kein Mini-Abschnitt nötig ist (sie stecken in größeren Gruppen oder
+#   bleiben an ihrem Platz): 2Kgs 9,14-29 ∥ 2Chr 22,7-9, 1Kgs 11,41-43 ∥ 2Chr 9,29-31, 1Kgs 12,21-24 ∥ 2Chr 11,1-4,
+#   2Kgs 24,18-20 ∥ Jer 52,1-3
+# - Rückblicke in Moses Reden (Deut 1-3; 5,22-33; 9,7-10,11): Nacherzählung, nicht derselbe Text
+# - Anweisung und Ausführung (Exod 25-31 ∥ 35-40, Exod 29 ∥ Lev 8): würde Exod 35-40 fast leeren; erst entscheiden
+# - Gleiches Thema, anderer Wortlaut: Festkalender (Lev 23, Num 28-29, Deut 16), Zufluchtsstädte (Num 35, Deut 19, Josh 20)
+# - Prophetische Dubletten (Isa 2,2-4 ∥ Mic 4,1-3; Jer 49,7-22 ∥ Obad): keine der drei Arten
