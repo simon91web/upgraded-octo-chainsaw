@@ -301,7 +301,9 @@
 4,41 Zufluchtsstädte im Osten
 = 4,44 Zweite Rede: Gebote und Rechte
 4,44 Einleitung zur Gesetzesrede
-5,1 Die Zehn Gebote
+5,1 Der Bund am Horeb
+5,6 Die Zehn Gebote
+5,22 Mose als Mittler
 6,1 Höre, Israel
 7,1 Israel, das erwählte Volk
 8,1 Gottes Erziehung in der Wüste

@@ -131,6 +131,7 @@
 3,22 Abners Ermordung
 4,1 Isch-Boschets Ermordung
 5,1 David wird König über Israel und erobert Jerusalem
+5,11 Davids Haus und Familie in Jerusalem
 5,17 Siege über die Philister
 6,1 Die Lade kommt nach Jerusalem
 7,1 Gottes Verheißung an David
@@ -252,10 +253,12 @@
 19,14 Hiskias Gebet und Gottes Antwort
 20,1 Hiskias Krankheit
 20,12 Gesandte aus Babel
+20,20 Hiskias Tod
 21,1 Manasse und Amon
 22,1 Josia und das Gesetzbuch
 23,1 Josias Reform
-23,31 Die letzten Könige Judas
+23,31 Joahas, Jojakim und Jojachin
+24,18 Zedekia, der letzte König Judas
 25,1 Die Zerstörung Jerusalems
 25,22 Gedalja
 25,27 Jojachins Begnadigung
@@ -338,7 +341,8 @@
 30,1 Hiskias Passah
 31,1 Hiskias Reformen
 32,1 Sanheribs Angriff
-32,24 Hiskias Krankheit und Tod
+32,24 Hiskias Krankheit und Hochmut
+32,27 Hiskias Reichtum und Tod
 33,1 Manasse und Amon
 34,1 Josia und das Gesetzbuch
 35,1 Josias Passah
@@ -372,7 +376,8 @@
 3,33 Widerstand gegen den Mauerbau
 5,1 Nehemia hilft den Armen
 6,1 Anschläge gegen Nehemia; die Mauer wird vollendet
-7,1 Die Wachen und die Liste der Heimkehrer
+7,1 Wachen für Jerusalem
+7,6 Die Liste der Heimkehrer
 = 8,1 Die Erneuerung des Bundes
 8,1 Esra liest das Gesetz vor
 8,13 Das Laubhüttenfest
