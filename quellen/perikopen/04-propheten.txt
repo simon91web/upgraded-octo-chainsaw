@@ -148,7 +148,9 @@
 37,1 Jeremia im Gefängnis
 38,1 Jeremia in der Zisterne
 39,1 Der Fall Jerusalems
-40,1 Jeremia bei Gedalja
+39,11 Jeremia wird befreit; Zusage an Ebed-Melech
+40,1 Jeremia wird freigelassen
+40,7 Gedalja als Statthalter
 41,1 Gedaljas Ermordung
 42,1 Warnung vor der Flucht nach Ägypten
 43,8 Jeremia in Ägypten

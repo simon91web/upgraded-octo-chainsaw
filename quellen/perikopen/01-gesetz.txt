@@ -337,6 +337,7 @@
 14,1 Reine und unreine Speisen
 14,22 Der Zehnte
 15,1 Das Erlassjahr
+15,12 Die Freilassung hebräischer Knechte
 15,19 Die Erstgeburt
 16,1 Die Feste
 16,18 Richter und Recht

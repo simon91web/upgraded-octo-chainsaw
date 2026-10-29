@@ -13,7 +13,7 @@
     "kapitel": 1189,
     "verse": 31172,
     "hauptteile": 190,
-    "perikopen": 1973,
+    "perikopen": 1985,
     "at": {
       "buecher": 39,
       "kapitel": 929,
@@ -4475,7 +4475,7 @@
       "gruppe": "Gesetz (Pentateuch)",
       "kapitelanzahl": 34,
       "versanzahl": 959,
-      "perikopenanzahl": 60,
+      "perikopenanzahl": 61,
       "verse_je_kapitel": [
         46,
         37,
@@ -4916,13 +4916,27 @@
               },
               "bis": {
                 "kapitel": 15,
-                "vers": 18
+                "vers": 11
               },
-              "stelle": "5Mo 15,1–18",
-              "verse": 18
+              "stelle": "5Mo 15,1–11",
+              "verse": 11
             },
             {
               "nr": 28,
+              "titel": "Die Freilassung hebräischer Knechte",
+              "von": {
+                "kapitel": 15,
+                "vers": 12
+              },
+              "bis": {
+                "kapitel": 15,
+                "vers": 18
+              },
+              "stelle": "5Mo 15,12–18",
+              "verse": 7
+            },
+            {
+              "nr": 29,
               "titel": "Die Erstgeburt",
               "von": {
                 "kapitel": 15,
@@ -4936,7 +4950,7 @@
               "verse": 5
             },
             {
-              "nr": 29,
+              "nr": 30,
               "titel": "Die Feste",
               "von": {
                 "kapitel": 16,
@@ -4950,7 +4964,7 @@
               "verse": 17
             },
             {
-              "nr": 30,
+              "nr": 31,
               "titel": "Richter und Recht",
               "von": {
                 "kapitel": 16,
@@ -4964,7 +4978,7 @@
               "verse": 18
             },
             {
-              "nr": 31,
+              "nr": 32,
               "titel": "Der König",
               "von": {
                 "kapitel": 17,
@@ -4978,7 +4992,7 @@
               "verse": 7
             },
             {
-              "nr": 32,
+              "nr": 33,
               "titel": "Priester und Leviten",
               "von": {
                 "kapitel": 18,
@@ -4992,7 +5006,7 @@
               "verse": 8
             },
             {
-              "nr": 33,
+              "nr": 34,
               "titel": "Gegen Wahrsagerei; der kommende Prophet",
               "von": {
                 "kapitel": 18,
@@ -5006,7 +5020,7 @@
               "verse": 14
             },
             {
-              "nr": 34,
+              "nr": 35,
               "titel": "Die Zufluchtsstädte",
               "von": {
                 "kapitel": 19,
@@ -5020,7 +5034,7 @@
               "verse": 13
             },
             {
-              "nr": 35,
+              "nr": 36,
               "titel": "Grenzsteine und Zeugen",
               "von": {
                 "kapitel": 19,
@@ -5034,7 +5048,7 @@
               "verse": 8
             },
             {
-              "nr": 36,
+              "nr": 37,
               "titel": "Gesetze für den Krieg",
               "von": {
                 "kapitel": 20,
@@ -5048,7 +5062,7 @@
               "verse": 20
             },
             {
-              "nr": 37,
+              "nr": 38,
               "titel": "Sühne für einen ungeklärten Mord",
               "von": {
                 "kapitel": 21,
@@ -5062,7 +5076,7 @@
               "verse": 9
             },
             {
-              "nr": 38,
+              "nr": 39,
               "titel": "Familienrecht und weitere Gesetze",
               "von": {
                 "kapitel": 21,
@@ -5076,7 +5090,7 @@
               "verse": 14
             },
             {
-              "nr": 39,
+              "nr": 40,
               "titel": "Verschiedene Gebote",
               "von": {
                 "kapitel": 22,
@@ -5090,7 +5104,7 @@
               "verse": 12
             },
             {
-              "nr": 40,
+              "nr": 41,
               "titel": "Ehe und Keuschheit",
               "von": {
                 "kapitel": 22,
@@ -5104,7 +5118,7 @@
               "verse": 18
             },
             {
-              "nr": 41,
+              "nr": 42,
               "titel": "Wer zur Gemeinde des Herrn gehört",
               "von": {
                 "kapitel": 23,
@@ -5118,7 +5132,7 @@
               "verse": 8
             },
             {
-              "nr": 42,
+              "nr": 43,
               "titel": "Reinheit im Lager und weitere Gebote",
               "von": {
                 "kapitel": 23,
@@ -5132,7 +5146,7 @@
               "verse": 17
             },
             {
-              "nr": 43,
+              "nr": 44,
               "titel": "Ehescheidung und soziale Gebote",
               "von": {
                 "kapitel": 24,
@@ -5146,7 +5160,7 @@
               "verse": 22
             },
             {
-              "nr": 44,
+              "nr": 45,
               "titel": "Verschiedene Gesetze",
               "von": {
                 "kapitel": 25,
@@ -5160,7 +5174,7 @@
               "verse": 19
             },
             {
-              "nr": 45,
+              "nr": 46,
               "titel": "Erstlingsfrüchte und Zehnter",
               "von": {
                 "kapitel": 26,
@@ -5174,7 +5188,7 @@
               "verse": 15
             },
             {
-              "nr": 46,
+              "nr": 47,
               "titel": "Israel, Gottes Eigentumsvolk",
               "von": {
                 "kapitel": 26,
@@ -5204,7 +5218,7 @@
           "verse": 94,
           "perikopen": [
             {
-              "nr": 47,
+              "nr": 48,
               "titel": "Die Steine auf dem Berg Ebal",
               "von": {
                 "kapitel": 27,
@@ -5218,7 +5232,7 @@
               "verse": 10
             },
             {
-              "nr": 48,
+              "nr": 49,
               "titel": "Die Fluchworte",
               "von": {
                 "kapitel": 27,
@@ -5232,7 +5246,7 @@
               "verse": 16
             },
             {
-              "nr": 49,
+              "nr": 50,
               "titel": "Segen für Gehorsam",
               "von": {
                 "kapitel": 28,
@@ -5246,7 +5260,7 @@
               "verse": 14
             },
             {
-              "nr": 50,
+              "nr": 51,
               "titel": "Fluch für Ungehorsam",
               "von": {
                 "kapitel": 28,
@@ -5276,7 +5290,7 @@
           "verse": 49,
           "perikopen": [
             {
-              "nr": 51,
+              "nr": 52,
               "titel": "Der Bund im Land Moab",
               "von": {
                 "kapitel": 28,
@@ -5290,7 +5304,7 @@
               "verse": 29
             },
             {
-              "nr": 52,
+              "nr": 53,
               "titel": "Umkehr und Wiederherstellung",
               "von": {
                 "kapitel": 30,
@@ -5304,7 +5318,7 @@
               "verse": 10
             },
             {
-              "nr": 53,
+              "nr": 54,
               "titel": "Leben und Tod",
               "von": {
                 "kapitel": 30,
@@ -5334,7 +5348,7 @@
           "verse": 123,
           "perikopen": [
             {
-              "nr": 54,
+              "nr": 55,
               "titel": "Josua wird Moses Nachfolger",
               "von": {
                 "kapitel": 31,
@@ -5348,7 +5362,7 @@
               "verse": 8
             },
             {
-              "nr": 55,
+              "nr": 56,
               "titel": "Das Gesetz soll vorgelesen werden",
               "von": {
                 "kapitel": 31,
@@ -5362,7 +5376,7 @@
               "verse": 5
             },
             {
-              "nr": 56,
+              "nr": 57,
               "titel": "Ankündigung des Abfalls",
               "von": {
                 "kapitel": 31,
@@ -5376,7 +5390,7 @@
               "verse": 16
             },
             {
-              "nr": 57,
+              "nr": 58,
               "titel": "Das Lied Moses",
               "von": {
                 "kapitel": 31,
@@ -5390,7 +5404,7 @@
               "verse": 48
             },
             {
-              "nr": 58,
+              "nr": 59,
               "titel": "Mose soll auf den Berg Nebo steigen",
               "von": {
                 "kapitel": 32,
@@ -5404,7 +5418,7 @@
               "verse": 5
             },
             {
-              "nr": 59,
+              "nr": 60,
               "titel": "Moses Segen über die Stämme",
               "von": {
                 "kapitel": 33,
@@ -5418,7 +5432,7 @@
               "verse": 29
             },
             {
-              "nr": 60,
+              "nr": 61,
               "titel": "Moses Tod",
               "von": {
                 "kapitel": 34,
@@ -6009,7 +6023,7 @@
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 21,
       "versanzahl": 618,
-      "perikopenanzahl": 29,
+      "perikopenanzahl": 32,
       "verse_je_kapitel": [
         36,
         23,
@@ -6050,20 +6064,48 @@
           "perikopen": [
             {
               "nr": 1,
-              "titel": "Die unvollständige Landnahme",
+              "titel": "Judas Kampf gegen die Kanaaniter",
               "von": {
                 "kapitel": 1,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 1,
-                "vers": 36
+                "vers": 9
               },
-              "stelle": "Ri 1",
-              "verse": 36
+              "stelle": "Ri 1,1–9",
+              "verse": 9
             },
             {
               "nr": 2,
+              "titel": "Hebron, Debir und Achsa",
+              "von": {
+                "kapitel": 1,
+                "vers": 10
+              },
+              "bis": {
+                "kapitel": 1,
+                "vers": 15
+              },
+              "stelle": "Ri 1,10–15",
+              "verse": 6
+            },
+            {
+              "nr": 3,
+              "titel": "Die unvollständige Landnahme",
+              "von": {
+                "kapitel": 1,
+                "vers": 16
+              },
+              "bis": {
+                "kapitel": 1,
+                "vers": 36
+              },
+              "stelle": "Ri 1,16–36",
+              "verse": 21
+            },
+            {
+              "nr": 4,
               "titel": "Der Engel des Herrn in Bochim",
               "von": {
                 "kapitel": 2,
@@ -6077,18 +6119,32 @@
               "verse": 5
             },
             {
-              "nr": 3,
-              "titel": "Der Kreislauf von Abfall und Rettung",
+              "nr": 5,
+              "titel": "Josuas Tod und eine neue Generation",
               "von": {
                 "kapitel": 2,
                 "vers": 6
               },
               "bis": {
+                "kapitel": 2,
+                "vers": 10
+              },
+              "stelle": "Ri 2,6–10",
+              "verse": 5
+            },
+            {
+              "nr": 6,
+              "titel": "Der Kreislauf von Abfall und Rettung",
+              "von": {
+                "kapitel": 2,
+                "vers": 11
+              },
+              "bis": {
                 "kapitel": 3,
                 "vers": 6
               },
-              "stelle": "Ri 2,6–3,6",
-              "verse": 24
+              "stelle": "Ri 2,11–3,6",
+              "verse": 19
             }
           ]
         },
@@ -6107,7 +6163,7 @@
           "verse": 406,
           "perikopen": [
             {
-              "nr": 4,
+              "nr": 7,
               "titel": "Otniel",
               "von": {
                 "kapitel": 3,
@@ -6121,7 +6177,7 @@
               "verse": 5
             },
             {
-              "nr": 5,
+              "nr": 8,
               "titel": "Ehud",
               "von": {
                 "kapitel": 3,
@@ -6135,7 +6191,7 @@
               "verse": 19
             },
             {
-              "nr": 6,
+              "nr": 9,
               "titel": "Schamgar",
               "von": {
                 "kapitel": 3,
@@ -6149,7 +6205,7 @@
               "verse": 1
             },
             {
-              "nr": 7,
+              "nr": 10,
               "titel": "Debora und Barak",
               "von": {
                 "kapitel": 4,
@@ -6163,7 +6219,7 @@
               "verse": 24
             },
             {
-              "nr": 8,
+              "nr": 11,
               "titel": "Das Lied der Debora",
               "von": {
                 "kapitel": 5,
@@ -6177,7 +6233,7 @@
               "verse": 31
             },
             {
-              "nr": 9,
+              "nr": 12,
               "titel": "Die Berufung Gideons",
               "von": {
                 "kapitel": 6,
@@ -6191,7 +6247,7 @@
               "verse": 32
             },
             {
-              "nr": 10,
+              "nr": 13,
               "titel": "Das Zeichen mit dem Vlies",
               "von": {
                 "kapitel": 6,
@@ -6205,7 +6261,7 @@
               "verse": 8
             },
             {
-              "nr": 11,
+              "nr": 14,
               "titel": "Gideons dreihundert Mann",
               "von": {
                 "kapitel": 7,
@@ -6219,7 +6275,7 @@
               "verse": 25
             },
             {
-              "nr": 12,
+              "nr": 15,
               "titel": "Gideon verfolgt die Midianiter",
               "von": {
                 "kapitel": 8,
@@ -6233,7 +6289,7 @@
               "verse": 21
             },
             {
-              "nr": 13,
+              "nr": 16,
               "titel": "Gideons Ephod und Tod",
               "von": {
                 "kapitel": 8,
@@ -6247,7 +6303,7 @@
               "verse": 14
             },
             {
-              "nr": 14,
+              "nr": 17,
               "titel": "Abimelechs Königtum",
               "von": {
                 "kapitel": 9,
@@ -6261,7 +6317,7 @@
               "verse": 57
             },
             {
-              "nr": 15,
+              "nr": 18,
               "titel": "Tola und Jair",
               "von": {
                 "kapitel": 10,
@@ -6275,7 +6331,7 @@
               "verse": 5
             },
             {
-              "nr": 16,
+              "nr": 19,
               "titel": "Israels Abfall und Not",
               "von": {
                 "kapitel": 10,
@@ -6289,7 +6345,7 @@
               "verse": 13
             },
             {
-              "nr": 17,
+              "nr": 20,
               "titel": "Jephta",
               "von": {
                 "kapitel": 11,
@@ -6303,7 +6359,7 @@
               "verse": 40
             },
             {
-              "nr": 18,
+              "nr": 21,
               "titel": "Jephta und Ephraim",
               "von": {
                 "kapitel": 12,
@@ -6317,7 +6373,7 @@
               "verse": 7
             },
             {
-              "nr": 19,
+              "nr": 22,
               "titel": "Ibzan, Elon und Abdon",
               "von": {
                 "kapitel": 12,
@@ -6331,7 +6387,7 @@
               "verse": 8
             },
             {
-              "nr": 20,
+              "nr": 23,
               "titel": "Die Geburt Simsons",
               "von": {
                 "kapitel": 13,
@@ -6345,7 +6401,7 @@
               "verse": 25
             },
             {
-              "nr": 21,
+              "nr": 24,
               "titel": "Simsons Hochzeit",
               "von": {
                 "kapitel": 14,
@@ -6359,7 +6415,7 @@
               "verse": 20
             },
             {
-              "nr": 22,
+              "nr": 25,
               "titel": "Simsons Rache an den Philistern",
               "von": {
                 "kapitel": 15,
@@ -6373,7 +6429,7 @@
               "verse": 20
             },
             {
-              "nr": 23,
+              "nr": 26,
               "titel": "Simson und Delila",
               "von": {
                 "kapitel": 16,
@@ -6387,7 +6443,7 @@
               "verse": 22
             },
             {
-              "nr": 24,
+              "nr": 27,
               "titel": "Simsons Tod",
               "von": {
                 "kapitel": 16,
@@ -6417,7 +6473,7 @@
           "verse": 147,
           "perikopen": [
             {
-              "nr": 25,
+              "nr": 28,
               "titel": "Michas Götzenbild",
               "von": {
                 "kapitel": 17,
@@ -6431,7 +6487,7 @@
               "verse": 13
             },
             {
-              "nr": 26,
+              "nr": 29,
               "titel": "Der Stamm Dan sucht ein Gebiet",
               "von": {
                 "kapitel": 18,
@@ -6445,7 +6501,7 @@
               "verse": 31
             },
             {
-              "nr": 27,
+              "nr": 30,
               "titel": "Die Schandtat in Gibea",
               "von": {
                 "kapitel": 19,
@@ -6459,7 +6515,7 @@
               "verse": 30
             },
             {
-              "nr": 28,
+              "nr": 31,
               "titel": "Der Krieg gegen Benjamin",
               "von": {
                 "kapitel": 20,
@@ -6473,7 +6529,7 @@
               "verse": 48
             },
             {
-              "nr": 29,
+              "nr": 32,
               "titel": "Frauen für die Benjaminiter",
               "von": {
                 "kapitel": 21,
@@ -7219,7 +7275,7 @@
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 24,
       "versanzahl": 695,
-      "perikopenanzahl": 39,
+      "perikopenanzahl": 40,
       "verse_je_kapitel": [
         27,
         32,
@@ -7403,20 +7459,34 @@
             },
             {
               "nr": 11,
-              "titel": "Die Lade kommt nach Jerusalem",
+              "titel": "Usas Tod beim ersten Versuch, die Lade zu holen",
               "von": {
                 "kapitel": 6,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 6,
-                "vers": 23
+                "vers": 11
               },
-              "stelle": "2Sam 6",
-              "verse": 23
+              "stelle": "2Sam 6,1–11",
+              "verse": 11
             },
             {
               "nr": 12,
+              "titel": "Die Lade kommt nach Jerusalem",
+              "von": {
+                "kapitel": 6,
+                "vers": 12
+              },
+              "bis": {
+                "kapitel": 6,
+                "vers": 23
+              },
+              "stelle": "2Sam 6,12–23",
+              "verse": 12
+            },
+            {
+              "nr": 13,
               "titel": "Gottes Verheißung an David",
               "von": {
                 "kapitel": 7,
@@ -7430,7 +7500,7 @@
               "verse": 17
             },
             {
-              "nr": 13,
+              "nr": 14,
               "titel": "Davids Gebet",
               "von": {
                 "kapitel": 7,
@@ -7444,7 +7514,7 @@
               "verse": 12
             },
             {
-              "nr": 14,
+              "nr": 15,
               "titel": "Davids Siege",
               "von": {
                 "kapitel": 8,
@@ -7458,7 +7528,7 @@
               "verse": 18
             },
             {
-              "nr": 15,
+              "nr": 16,
               "titel": "David und Mefi-Boschet",
               "von": {
                 "kapitel": 9,
@@ -7472,7 +7542,7 @@
               "verse": 13
             },
             {
-              "nr": 16,
+              "nr": 17,
               "titel": "Krieg gegen Ammon und Aram",
               "von": {
                 "kapitel": 10,
@@ -7502,7 +7572,7 @@
           "verse": 321,
           "perikopen": [
             {
-              "nr": 17,
+              "nr": 18,
               "titel": "David und Bathseba",
               "von": {
                 "kapitel": 11,
@@ -7516,7 +7586,7 @@
               "verse": 27
             },
             {
-              "nr": 18,
+              "nr": 19,
               "titel": "Nathans Strafrede",
               "von": {
                 "kapitel": 12,
@@ -7530,7 +7600,7 @@
               "verse": 14
             },
             {
-              "nr": 19,
+              "nr": 20,
               "titel": "Der Tod des Kindes; Salomos Geburt",
               "von": {
                 "kapitel": 12,
@@ -7544,7 +7614,7 @@
               "verse": 11
             },
             {
-              "nr": 20,
+              "nr": 21,
               "titel": "Die Eroberung von Rabba",
               "von": {
                 "kapitel": 12,
@@ -7558,7 +7628,7 @@
               "verse": 6
             },
             {
-              "nr": 21,
+              "nr": 22,
               "titel": "Amnon und Tamar",
               "von": {
                 "kapitel": 13,
@@ -7572,7 +7642,7 @@
               "verse": 22
             },
             {
-              "nr": 22,
+              "nr": 23,
               "titel": "Absalom rächt Tamar",
               "von": {
                 "kapitel": 13,
@@ -7586,7 +7656,7 @@
               "verse": 17
             },
             {
-              "nr": 23,
+              "nr": 24,
               "titel": "Absaloms Rückkehr",
               "von": {
                 "kapitel": 14,
@@ -7600,7 +7670,7 @@
               "verse": 33
             },
             {
-              "nr": 24,
+              "nr": 25,
               "titel": "Absaloms Aufstand",
               "von": {
                 "kapitel": 15,
@@ -7614,7 +7684,7 @@
               "verse": 12
             },
             {
-              "nr": 25,
+              "nr": 26,
               "titel": "Davids Flucht",
               "von": {
                 "kapitel": 15,
@@ -7628,7 +7698,7 @@
               "verse": 25
             },
             {
-              "nr": 26,
+              "nr": 27,
               "titel": "Ziba und Schimei",
               "von": {
                 "kapitel": 16,
@@ -7642,7 +7712,7 @@
               "verse": 14
             },
             {
-              "nr": 27,
+              "nr": 28,
               "titel": "Der Rat Ahitophels und Huschais",
               "von": {
                 "kapitel": 16,
@@ -7656,7 +7726,7 @@
               "verse": 32
             },
             {
-              "nr": 28,
+              "nr": 29,
               "titel": "David in Mahanajim",
               "von": {
                 "kapitel": 17,
@@ -7670,7 +7740,7 @@
               "verse": 6
             },
             {
-              "nr": 29,
+              "nr": 30,
               "titel": "Absaloms Tod",
               "von": {
                 "kapitel": 18,
@@ -7684,7 +7754,7 @@
               "verse": 18
             },
             {
-              "nr": 30,
+              "nr": 31,
               "titel": "David erfährt von Absaloms Tod",
               "von": {
                 "kapitel": 18,
@@ -7698,7 +7768,7 @@
               "verse": 23
             },
             {
-              "nr": 31,
+              "nr": 32,
               "titel": "Davids Rückkehr nach Jerusalem",
               "von": {
                 "kapitel": 19,
@@ -7712,7 +7782,7 @@
               "verse": 35
             },
             {
-              "nr": 32,
+              "nr": 33,
               "titel": "Der Aufstand Schebas",
               "von": {
                 "kapitel": 20,
@@ -7726,7 +7796,7 @@
               "verse": 22
             },
             {
-              "nr": 33,
+              "nr": 34,
               "titel": "Davids Beamte",
               "von": {
                 "kapitel": 20,
@@ -7756,7 +7826,7 @@
           "verse": 137,
           "perikopen": [
             {
-              "nr": 34,
+              "nr": 35,
               "titel": "Die Sühne für die Gibeoniter",
               "von": {
                 "kapitel": 21,
@@ -7770,7 +7840,7 @@
               "verse": 14
             },
             {
-              "nr": 35,
+              "nr": 36,
               "titel": "Kämpfe gegen die Philister",
               "von": {
                 "kapitel": 21,
@@ -7784,7 +7854,7 @@
               "verse": 8
             },
             {
-              "nr": 36,
+              "nr": 37,
               "titel": "Davids Danklied",
               "von": {
                 "kapitel": 22,
@@ -7798,7 +7868,7 @@
               "verse": 51
             },
             {
-              "nr": 37,
+              "nr": 38,
               "titel": "Davids letzte Worte",
               "von": {
                 "kapitel": 23,
@@ -7812,7 +7882,7 @@
               "verse": 7
             },
             {
-              "nr": 38,
+              "nr": 39,
               "titel": "Davids Helden",
               "von": {
                 "kapitel": 23,
@@ -7826,7 +7896,7 @@
               "verse": 32
             },
             {
-              "nr": 39,
+              "nr": 40,
               "titel": "Die Volkszählung und die Pest",
               "von": {
                 "kapitel": 24,
@@ -7853,7 +7923,7 @@
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 22,
       "versanzahl": 817,
-      "perikopenanzahl": 42,
+      "perikopenanzahl": 43,
       "verse_je_kapitel": [
         53,
         46,
@@ -8289,20 +8359,34 @@
             },
             {
               "nr": 28,
-              "titel": "Abija und Asa von Juda",
+              "titel": "Abija von Juda",
               "von": {
                 "kapitel": 15,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 15,
-                "vers": 24
+                "vers": 8
               },
-              "stelle": "1Kö 15,1–24",
-              "verse": 24
+              "stelle": "1Kö 15,1–8",
+              "verse": 8
             },
             {
               "nr": 29,
+              "titel": "Asa von Juda",
+              "von": {
+                "kapitel": 15,
+                "vers": 9
+              },
+              "bis": {
+                "kapitel": 15,
+                "vers": 24
+              },
+              "stelle": "1Kö 15,9–24",
+              "verse": 16
+            },
+            {
+              "nr": 30,
               "titel": "Nadab und Bascha von Israel",
               "von": {
                 "kapitel": 15,
@@ -8316,7 +8400,7 @@
               "verse": 17
             },
             {
-              "nr": 30,
+              "nr": 31,
               "titel": "Ela, Simri und Omri",
               "von": {
                 "kapitel": 16,
@@ -8330,7 +8414,7 @@
               "verse": 21
             },
             {
-              "nr": 31,
+              "nr": 32,
               "titel": "Ahab wird König",
               "von": {
                 "kapitel": 16,
@@ -8360,7 +8444,7 @@
           "verse": 217,
           "perikopen": [
             {
-              "nr": 32,
+              "nr": 33,
               "titel": "Elia und die Witwe in Zarpat",
               "von": {
                 "kapitel": 17,
@@ -8374,7 +8458,7 @@
               "verse": 24
             },
             {
-              "nr": 33,
+              "nr": 34,
               "titel": "Elia und Obadja",
               "von": {
                 "kapitel": 18,
@@ -8388,7 +8472,7 @@
               "verse": 19
             },
             {
-              "nr": 34,
+              "nr": 35,
               "titel": "Das Gottesurteil auf dem Karmel",
               "von": {
                 "kapitel": 18,
@@ -8402,7 +8486,7 @@
               "verse": 21
             },
             {
-              "nr": 35,
+              "nr": 36,
               "titel": "Das Ende der Dürre",
               "von": {
                 "kapitel": 18,
@@ -8416,7 +8500,7 @@
               "verse": 6
             },
             {
-              "nr": 36,
+              "nr": 37,
               "titel": "Elia am Horeb",
               "von": {
                 "kapitel": 19,
@@ -8430,7 +8514,7 @@
               "verse": 18
             },
             {
-              "nr": 37,
+              "nr": 38,
               "titel": "Die Berufung Elisas",
               "von": {
                 "kapitel": 19,
@@ -8444,7 +8528,7 @@
               "verse": 3
             },
             {
-              "nr": 38,
+              "nr": 39,
               "titel": "Ahabs Kriege gegen Aram",
               "von": {
                 "kapitel": 20,
@@ -8458,7 +8542,7 @@
               "verse": 43
             },
             {
-              "nr": 39,
+              "nr": 40,
               "titel": "Nabots Weinberg",
               "von": {
                 "kapitel": 21,
@@ -8472,7 +8556,7 @@
               "verse": 29
             },
             {
-              "nr": 40,
+              "nr": 41,
               "titel": "Micha ben Jimla und Ahabs Tod",
               "von": {
                 "kapitel": 22,
@@ -8486,7 +8570,7 @@
               "verse": 40
             },
             {
-              "nr": 41,
+              "nr": 42,
               "titel": "Joschafat von Juda",
               "von": {
                 "kapitel": 22,
@@ -8500,7 +8584,7 @@
               "verse": 11
             },
             {
-              "nr": 42,
+              "nr": 43,
               "titel": "Ahasja von Israel",
               "von": {
                 "kapitel": 22,
@@ -8527,7 +8611,7 @@
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 25,
       "versanzahl": 720,
-      "perikopenanzahl": 46,
+      "perikopenanzahl": 47,
       "verse_je_kapitel": [
         18,
         25,
@@ -9171,13 +9255,27 @@
               },
               "bis": {
                 "kapitel": 23,
-                "vers": 30
+                "vers": 20
               },
-              "stelle": "2Kö 23,1–30",
-              "verse": 30
+              "stelle": "2Kö 23,1–20",
+              "verse": 20
             },
             {
               "nr": 42,
+              "titel": "Josias Passah und Tod",
+              "von": {
+                "kapitel": 23,
+                "vers": 21
+              },
+              "bis": {
+                "kapitel": 23,
+                "vers": 30
+              },
+              "stelle": "2Kö 23,21–30",
+              "verse": 10
+            },
+            {
+              "nr": 43,
               "titel": "Joahas, Jojakim und Jojachin",
               "von": {
                 "kapitel": 23,
@@ -9191,7 +9289,7 @@
               "verse": 24
             },
             {
-              "nr": 43,
+              "nr": 44,
               "titel": "Zedekia, der letzte König Judas",
               "von": {
                 "kapitel": 24,
@@ -9205,7 +9303,7 @@
               "verse": 3
             },
             {
-              "nr": 44,
+              "nr": 45,
               "titel": "Die Zerstörung Jerusalems",
               "von": {
                 "kapitel": 25,
@@ -9219,7 +9317,7 @@
               "verse": 21
             },
             {
-              "nr": 45,
+              "nr": 46,
               "titel": "Gedalja",
               "von": {
                 "kapitel": 25,
@@ -9233,7 +9331,7 @@
               "verse": 5
             },
             {
-              "nr": 46,
+              "nr": 47,
               "titel": "Jojachins Begnadigung",
               "von": {
                 "kapitel": 25,
@@ -9260,7 +9358,7 @@
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 29,
       "versanzahl": 943,
-      "perikopenanzahl": 40,
+      "perikopenanzahl": 41,
       "verse_je_kapitel": [
         54,
         55,
@@ -9463,20 +9561,34 @@
             },
             {
               "nr": 12,
-              "titel": "Benjamin und das Haus Sauls",
+              "titel": "Die Nachkommen Benjamins",
               "von": {
                 "kapitel": 8,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 8,
-                "vers": 40
+                "vers": 28
               },
-              "stelle": "1Chr 8",
-              "verse": 40
+              "stelle": "1Chr 8,1–28",
+              "verse": 28
             },
             {
               "nr": 13,
+              "titel": "Die Vorfahren und Nachkommen Sauls",
+              "von": {
+                "kapitel": 8,
+                "vers": 29
+              },
+              "bis": {
+                "kapitel": 8,
+                "vers": 40
+              },
+              "stelle": "1Chr 8,29–40",
+              "verse": 12
+            },
+            {
+              "nr": 14,
               "titel": "Die Bewohner Jerusalems",
               "von": {
                 "kapitel": 9,
@@ -9490,7 +9602,7 @@
               "verse": 34
             },
             {
-              "nr": 14,
+              "nr": 15,
               "titel": "Das Geschlecht Sauls",
               "von": {
                 "kapitel": 9,
@@ -9520,7 +9632,7 @@
           "verse": 536,
           "perikopen": [
             {
-              "nr": 15,
+              "nr": 16,
               "titel": "Sauls Tod",
               "von": {
                 "kapitel": 10,
@@ -9534,7 +9646,7 @@
               "verse": 14
             },
             {
-              "nr": 16,
+              "nr": 17,
               "titel": "David wird König und erobert Jerusalem",
               "von": {
                 "kapitel": 11,
@@ -9548,7 +9660,7 @@
               "verse": 9
             },
             {
-              "nr": 17,
+              "nr": 18,
               "titel": "Davids Helden",
               "von": {
                 "kapitel": 11,
@@ -9562,7 +9674,7 @@
               "verse": 38
             },
             {
-              "nr": 18,
+              "nr": 19,
               "titel": "Davids Anhänger",
               "von": {
                 "kapitel": 12,
@@ -9576,7 +9688,7 @@
               "verse": 41
             },
             {
-              "nr": 19,
+              "nr": 20,
               "titel": "Der erste Versuch, die Lade zu holen",
               "von": {
                 "kapitel": 13,
@@ -9590,7 +9702,7 @@
               "verse": 14
             },
             {
-              "nr": 20,
+              "nr": 21,
               "titel": "Davids Haus und Siege",
               "von": {
                 "kapitel": 14,
@@ -9604,7 +9716,7 @@
               "verse": 17
             },
             {
-              "nr": 21,
+              "nr": 22,
               "titel": "Die Lade kommt nach Jerusalem",
               "von": {
                 "kapitel": 15,
@@ -9618,7 +9730,7 @@
               "verse": 35
             },
             {
-              "nr": 22,
+              "nr": 23,
               "titel": "Davids Danklied",
               "von": {
                 "kapitel": 16,
@@ -9632,7 +9744,7 @@
               "verse": 30
             },
             {
-              "nr": 23,
+              "nr": 24,
               "titel": "Der Dienst vor der Lade",
               "von": {
                 "kapitel": 16,
@@ -9646,7 +9758,7 @@
               "verse": 7
             },
             {
-              "nr": 24,
+              "nr": 25,
               "titel": "Gottes Verheißung an David",
               "von": {
                 "kapitel": 17,
@@ -9660,7 +9772,7 @@
               "verse": 15
             },
             {
-              "nr": 25,
+              "nr": 26,
               "titel": "Davids Gebet",
               "von": {
                 "kapitel": 17,
@@ -9674,7 +9786,7 @@
               "verse": 12
             },
             {
-              "nr": 26,
+              "nr": 27,
               "titel": "Davids Siege",
               "von": {
                 "kapitel": 18,
@@ -9688,7 +9800,7 @@
               "verse": 17
             },
             {
-              "nr": 27,
+              "nr": 28,
               "titel": "Krieg gegen die Ammoniter",
               "von": {
                 "kapitel": 19,
@@ -9702,7 +9814,7 @@
               "verse": 22
             },
             {
-              "nr": 28,
+              "nr": 29,
               "titel": "Kämpfe gegen die Philister",
               "von": {
                 "kapitel": 20,
@@ -9716,7 +9828,7 @@
               "verse": 5
             },
             {
-              "nr": 29,
+              "nr": 30,
               "titel": "Die Volkszählung",
               "von": {
                 "kapitel": 21,
@@ -9730,7 +9842,7 @@
               "verse": 31
             },
             {
-              "nr": 30,
+              "nr": 31,
               "titel": "Vorbereitungen für den Tempelbau",
               "von": {
                 "kapitel": 22,
@@ -9744,7 +9856,7 @@
               "verse": 18
             },
             {
-              "nr": 31,
+              "nr": 32,
               "titel": "Die Ordnung der Leviten",
               "von": {
                 "kapitel": 23,
@@ -9758,7 +9870,7 @@
               "verse": 32
             },
             {
-              "nr": 32,
+              "nr": 33,
               "titel": "Die Abteilungen der Priester",
               "von": {
                 "kapitel": 24,
@@ -9772,7 +9884,7 @@
               "verse": 31
             },
             {
-              "nr": 33,
+              "nr": 34,
               "titel": "Die Sänger",
               "von": {
                 "kapitel": 25,
@@ -9786,7 +9898,7 @@
               "verse": 31
             },
             {
-              "nr": 34,
+              "nr": 35,
               "titel": "Torhüter und Beamte",
               "von": {
                 "kapitel": 26,
@@ -9800,7 +9912,7 @@
               "verse": 32
             },
             {
-              "nr": 35,
+              "nr": 36,
               "titel": "Heer und Verwaltung",
               "von": {
                 "kapitel": 27,
@@ -9814,7 +9926,7 @@
               "verse": 34
             },
             {
-              "nr": 36,
+              "nr": 37,
               "titel": "Davids Auftrag an Salomo",
               "von": {
                 "kapitel": 28,
@@ -9828,7 +9940,7 @@
               "verse": 21
             },
             {
-              "nr": 37,
+              "nr": 38,
               "titel": "Gaben für den Tempel",
               "von": {
                 "kapitel": 29,
@@ -9842,7 +9954,7 @@
               "verse": 9
             },
             {
-              "nr": 38,
+              "nr": 39,
               "titel": "Davids Lobgebet",
               "von": {
                 "kapitel": 29,
@@ -9856,7 +9968,7 @@
               "verse": 10
             },
             {
-              "nr": 39,
+              "nr": 40,
               "titel": "Salomo wird König",
               "von": {
                 "kapitel": 29,
@@ -9870,7 +9982,7 @@
               "verse": 6
             },
             {
-              "nr": 40,
+              "nr": 41,
               "titel": "Davids Tod",
               "von": {
                 "kapitel": 29,
@@ -9897,7 +10009,7 @@
       "gruppe": "Geschichtsbücher",
       "kapitelanzahl": 36,
       "versanzahl": 822,
-      "perikopenanzahl": 42,
+      "perikopenanzahl": 44,
       "verse_je_kapitel": [
         17,
         18,
@@ -10037,20 +10149,34 @@
             },
             {
               "nr": 7,
-              "titel": "Salomos Rede und Tempelweihgebet",
+              "titel": "Salomos Rede bei der Tempelweihe",
               "von": {
                 "kapitel": 6,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 6,
-                "vers": 42
+                "vers": 11
               },
-              "stelle": "2Chr 6",
-              "verse": 42
+              "stelle": "2Chr 6,1–11",
+              "verse": 11
             },
             {
               "nr": 8,
+              "titel": "Salomos Tempelweihgebet",
+              "von": {
+                "kapitel": 6,
+                "vers": 12
+              },
+              "bis": {
+                "kapitel": 6,
+                "vers": 42
+              },
+              "stelle": "2Chr 6,12–42",
+              "verse": 31
+            },
+            {
+              "nr": 9,
               "titel": "Die Tempelweihe",
               "von": {
                 "kapitel": 7,
@@ -10064,7 +10190,7 @@
               "verse": 10
             },
             {
-              "nr": 9,
+              "nr": 10,
               "titel": "Gottes Antwort an Salomo",
               "von": {
                 "kapitel": 7,
@@ -10078,7 +10204,7 @@
               "verse": 12
             },
             {
-              "nr": 10,
+              "nr": 11,
               "titel": "Salomos Unternehmungen",
               "von": {
                 "kapitel": 8,
@@ -10092,7 +10218,7 @@
               "verse": 18
             },
             {
-              "nr": 11,
+              "nr": 12,
               "titel": "Die Königin von Saba",
               "von": {
                 "kapitel": 9,
@@ -10106,7 +10232,7 @@
               "verse": 12
             },
             {
-              "nr": 12,
+              "nr": 13,
               "titel": "Salomos Reichtum und Tod",
               "von": {
                 "kapitel": 9,
@@ -10136,7 +10262,7 @@
           "verse": 621,
           "perikopen": [
             {
-              "nr": 13,
+              "nr": 14,
               "titel": "Die Reichsteilung",
               "von": {
                 "kapitel": 10,
@@ -10150,7 +10276,7 @@
               "verse": 19
             },
             {
-              "nr": 14,
+              "nr": 15,
               "titel": "Rehabeam",
               "von": {
                 "kapitel": 11,
@@ -10164,7 +10290,7 @@
               "verse": 39
             },
             {
-              "nr": 15,
+              "nr": 16,
               "titel": "Abija",
               "von": {
                 "kapitel": 13,
@@ -10178,7 +10304,7 @@
               "verse": 23
             },
             {
-              "nr": 16,
+              "nr": 17,
               "titel": "Asa",
               "von": {
                 "kapitel": 14,
@@ -10192,7 +10318,7 @@
               "verse": 47
             },
             {
-              "nr": 17,
+              "nr": 18,
               "titel": "Joschafat",
               "von": {
                 "kapitel": 17,
@@ -10206,7 +10332,7 @@
               "verse": 19
             },
             {
-              "nr": 18,
+              "nr": 19,
               "titel": "Joschafat und Ahab",
               "von": {
                 "kapitel": 18,
@@ -10220,7 +10346,7 @@
               "verse": 37
             },
             {
-              "nr": 19,
+              "nr": 20,
               "titel": "Joschafats Rechtsreform",
               "von": {
                 "kapitel": 19,
@@ -10234,7 +10360,7 @@
               "verse": 8
             },
             {
-              "nr": 20,
+              "nr": 21,
               "titel": "Joschafats Sieg über Moab und Ammon",
               "von": {
                 "kapitel": 20,
@@ -10248,7 +10374,7 @@
               "verse": 30
             },
             {
-              "nr": 21,
+              "nr": 22,
               "titel": "Das Ende Joschafats",
               "von": {
                 "kapitel": 20,
@@ -10262,7 +10388,7 @@
               "verse": 7
             },
             {
-              "nr": 22,
+              "nr": 23,
               "titel": "Joram",
               "von": {
                 "kapitel": 21,
@@ -10276,35 +10402,35 @@
               "verse": 20
             },
             {
-              "nr": 23,
-              "titel": "Ahasja und Atalja",
+              "nr": 24,
+              "titel": "Ahasja",
               "von": {
                 "kapitel": 22,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 22,
-                "vers": 12
+                "vers": 9
               },
-              "stelle": "2Chr 22",
-              "verse": 12
+              "stelle": "2Chr 22,1–9",
+              "verse": 9
             },
             {
-              "nr": 24,
-              "titel": "Joas wird König",
+              "nr": 25,
+              "titel": "Atalja und die Krönung des Joas",
               "von": {
-                "kapitel": 23,
-                "vers": 1
+                "kapitel": 22,
+                "vers": 10
               },
               "bis": {
                 "kapitel": 23,
                 "vers": 21
               },
-              "stelle": "2Chr 23",
-              "verse": 21
+              "stelle": "2Chr 22,10–23,21",
+              "verse": 24
             },
             {
-              "nr": 25,
+              "nr": 26,
               "titel": "Joas erneuert den Tempel",
               "von": {
                 "kapitel": 24,
@@ -10318,7 +10444,7 @@
               "verse": 27
             },
             {
-              "nr": 26,
+              "nr": 27,
               "titel": "Amazja",
               "von": {
                 "kapitel": 25,
@@ -10332,7 +10458,7 @@
               "verse": 28
             },
             {
-              "nr": 27,
+              "nr": 28,
               "titel": "Usija",
               "von": {
                 "kapitel": 26,
@@ -10346,7 +10472,7 @@
               "verse": 23
             },
             {
-              "nr": 28,
+              "nr": 29,
               "titel": "Jotam",
               "von": {
                 "kapitel": 27,
@@ -10360,7 +10486,7 @@
               "verse": 9
             },
             {
-              "nr": 29,
+              "nr": 30,
               "titel": "Ahas",
               "von": {
                 "kapitel": 28,
@@ -10374,7 +10500,7 @@
               "verse": 27
             },
             {
-              "nr": 30,
+              "nr": 31,
               "titel": "Hiskia reinigt den Tempel",
               "von": {
                 "kapitel": 29,
@@ -10388,7 +10514,7 @@
               "verse": 36
             },
             {
-              "nr": 31,
+              "nr": 32,
               "titel": "Hiskias Passah",
               "von": {
                 "kapitel": 30,
@@ -10402,7 +10528,7 @@
               "verse": 27
             },
             {
-              "nr": 32,
+              "nr": 33,
               "titel": "Hiskias Reformen",
               "von": {
                 "kapitel": 31,
@@ -10416,7 +10542,7 @@
               "verse": 21
             },
             {
-              "nr": 33,
+              "nr": 34,
               "titel": "Sanheribs Angriff",
               "von": {
                 "kapitel": 32,
@@ -10430,7 +10556,7 @@
               "verse": 23
             },
             {
-              "nr": 34,
+              "nr": 35,
               "titel": "Hiskias Krankheit und Hochmut",
               "von": {
                 "kapitel": 32,
@@ -10444,7 +10570,7 @@
               "verse": 3
             },
             {
-              "nr": 35,
+              "nr": 36,
               "titel": "Hiskias Reichtum und Tod",
               "von": {
                 "kapitel": 32,
@@ -10458,7 +10584,7 @@
               "verse": 7
             },
             {
-              "nr": 36,
+              "nr": 37,
               "titel": "Manasse und Amon",
               "von": {
                 "kapitel": 33,
@@ -10472,7 +10598,7 @@
               "verse": 25
             },
             {
-              "nr": 37,
+              "nr": 38,
               "titel": "Josia und das Gesetzbuch",
               "von": {
                 "kapitel": 34,
@@ -10480,13 +10606,27 @@
               },
               "bis": {
                 "kapitel": 34,
-                "vers": 33
+                "vers": 28
               },
-              "stelle": "2Chr 34",
-              "verse": 33
+              "stelle": "2Chr 34,1–28",
+              "verse": 28
             },
             {
-              "nr": 38,
+              "nr": 39,
+              "titel": "Die Erneuerung des Bundes",
+              "von": {
+                "kapitel": 34,
+                "vers": 29
+              },
+              "bis": {
+                "kapitel": 34,
+                "vers": 33
+              },
+              "stelle": "2Chr 34,29–33",
+              "verse": 5
+            },
+            {
+              "nr": 40,
               "titel": "Josias Passah",
               "von": {
                 "kapitel": 35,
@@ -10500,7 +10640,7 @@
               "verse": 19
             },
             {
-              "nr": 39,
+              "nr": 41,
               "titel": "Josias Tod",
               "von": {
                 "kapitel": 35,
@@ -10514,7 +10654,7 @@
               "verse": 8
             },
             {
-              "nr": 40,
+              "nr": 42,
               "titel": "Die letzten Könige Judas",
               "von": {
                 "kapitel": 36,
@@ -10528,7 +10668,7 @@
               "verse": 14
             },
             {
-              "nr": 41,
+              "nr": 43,
               "titel": "Der Untergang Jerusalems",
               "von": {
                 "kapitel": 36,
@@ -10542,7 +10682,7 @@
               "verse": 7
             },
             {
-              "nr": 42,
+              "nr": 44,
               "titel": "Der Erlass des Kyrus",
               "von": {
                 "kapitel": 36,
@@ -17339,7 +17479,7 @@
       "gruppe": "Große Propheten",
       "kapitelanzahl": 52,
       "versanzahl": 1364,
-      "perikopenanzahl": 69,
+      "perikopenanzahl": 71,
       "verse_je_kapitel": [
         19,
         37,
@@ -18150,27 +18290,55 @@
               },
               "bis": {
                 "kapitel": 39,
-                "vers": 18
+                "vers": 10
               },
-              "stelle": "Jer 39",
-              "verse": 18
+              "stelle": "Jer 39,1–10",
+              "verse": 10
             },
             {
               "nr": 52,
-              "titel": "Jeremia bei Gedalja",
+              "titel": "Jeremia wird befreit; Zusage an Ebed-Melech",
+              "von": {
+                "kapitel": 39,
+                "vers": 11
+              },
+              "bis": {
+                "kapitel": 39,
+                "vers": 18
+              },
+              "stelle": "Jer 39,11–18",
+              "verse": 8
+            },
+            {
+              "nr": 53,
+              "titel": "Jeremia wird freigelassen",
               "von": {
                 "kapitel": 40,
                 "vers": 1
               },
               "bis": {
                 "kapitel": 40,
-                "vers": 16
+                "vers": 6
               },
-              "stelle": "Jer 40",
-              "verse": 16
+              "stelle": "Jer 40,1–6",
+              "verse": 6
             },
             {
-              "nr": 53,
+              "nr": 54,
+              "titel": "Gedalja als Statthalter",
+              "von": {
+                "kapitel": 40,
+                "vers": 7
+              },
+              "bis": {
+                "kapitel": 40,
+                "vers": 16
+              },
+              "stelle": "Jer 40,7–16",
+              "verse": 10
+            },
+            {
+              "nr": 55,
               "titel": "Gedaljas Ermordung",
               "von": {
                 "kapitel": 41,
@@ -18184,7 +18352,7 @@
               "verse": 18
             },
             {
-              "nr": 54,
+              "nr": 56,
               "titel": "Warnung vor der Flucht nach Ägypten",
               "von": {
                 "kapitel": 42,
@@ -18198,7 +18366,7 @@
               "verse": 29
             },
             {
-              "nr": 55,
+              "nr": 57,
               "titel": "Jeremia in Ägypten",
               "von": {
                 "kapitel": 43,
@@ -18212,7 +18380,7 @@
               "verse": 36
             },
             {
-              "nr": 56,
+              "nr": 58,
               "titel": "Wort an Baruch",
               "von": {
                 "kapitel": 45,
@@ -18242,7 +18410,7 @@
           "verse": 231,
           "perikopen": [
             {
-              "nr": 57,
+              "nr": 59,
               "titel": "Gegen Ägypten",
               "von": {
                 "kapitel": 46,
@@ -18256,7 +18424,7 @@
               "verse": 28
             },
             {
-              "nr": 58,
+              "nr": 60,
               "titel": "Gegen die Philister",
               "von": {
                 "kapitel": 47,
@@ -18270,7 +18438,7 @@
               "verse": 7
             },
             {
-              "nr": 59,
+              "nr": 61,
               "titel": "Gegen Moab",
               "von": {
                 "kapitel": 48,
@@ -18284,7 +18452,7 @@
               "verse": 47
             },
             {
-              "nr": 60,
+              "nr": 62,
               "titel": "Gegen Ammon",
               "von": {
                 "kapitel": 49,
@@ -18298,7 +18466,7 @@
               "verse": 6
             },
             {
-              "nr": 61,
+              "nr": 63,
               "titel": "Gegen Edom",
               "von": {
                 "kapitel": 49,
@@ -18312,7 +18480,7 @@
               "verse": 16
             },
             {
-              "nr": 62,
+              "nr": 64,
               "titel": "Gegen Damaskus",
               "von": {
                 "kapitel": 49,
@@ -18326,7 +18494,7 @@
               "verse": 5
             },
             {
-              "nr": 63,
+              "nr": 65,
               "titel": "Gegen Kedar und Hazor",
               "von": {
                 "kapitel": 49,
@@ -18340,7 +18508,7 @@
               "verse": 6
             },
             {
-              "nr": 64,
+              "nr": 66,
               "titel": "Gegen Elam",
               "von": {
                 "kapitel": 49,
@@ -18354,7 +18522,7 @@
               "verse": 6
             },
             {
-              "nr": 65,
+              "nr": 67,
               "titel": "Gericht über Babel",
               "von": {
                 "kapitel": 50,
@@ -18368,7 +18536,7 @@
               "verse": 46
             },
             {
-              "nr": 66,
+              "nr": 68,
               "titel": "Babels Fall und Israels Befreiung",
               "von": {
                 "kapitel": 51,
@@ -18382,7 +18550,7 @@
               "verse": 58
             },
             {
-              "nr": 67,
+              "nr": 69,
               "titel": "Seraja und die Buchrolle",
               "von": {
                 "kapitel": 51,
@@ -18412,7 +18580,7 @@
           "verse": 34,
           "perikopen": [
             {
-              "nr": 68,
+              "nr": 70,
               "titel": "Der Untergang Jerusalems",
               "von": {
                 "kapitel": 52,
@@ -18426,7 +18594,7 @@
               "verse": 30
             },
             {
-              "nr": 69,
+              "nr": 71,
               "titel": "Jojachins Begnadigung",
               "von": {
                 "kapitel": 52,
