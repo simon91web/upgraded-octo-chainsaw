@@ -9,7 +9,7 @@ dazu eine inhaltliche Gliederung in Hauptteile und Sinnabschnitte (Perikopen).
 | Neues Testament | 27 | 260 | 7.958 |
 | **Gesamt** | **66** | **1.189** | **31.172** |
 
-Gliederung: 190 Hauptteile, 1.956 Sinnabschnitte.
+Gliederung: 190 Hauptteile, 1.973 Sinnabschnitte.
 
 ## Dateien
 
@@ -28,7 +28,7 @@ mit Umlauten öffnet.
 ```json
 {
   "uebersetzung": "Schlachter 2000",
-  "statistik": { "buecher": 66, "kapitel": 1189, "verse": 31172, "hauptteile": 190, "perikopen": 1956 },
+  "statistik": { "buecher": 66, "kapitel": 1189, "verse": 31172, "hauptteile": 190, "perikopen": 1973 },
   "buecher": [
     {
       "nr": 8, "id": "Ruth", "name": "Ruth", "abk": "Rt", "testament": "AT", "gruppe": "Geschichtsbücher",

@@ -1,20 +1,20 @@
 ﻿Nr;ID;Buch;Alternativname;Abkürzung;Testament;Gruppe;Kapitel;Verse;Hauptteile;Perikopen
-1;Gen;1. Mose;Genesis;1Mo;AT;Gesetz (Pentateuch);50;1533;4;84
+1;Gen;1. Mose;Genesis;1Mo;AT;Gesetz (Pentateuch);50;1533;4;86
 2;Exod;2. Mose;Exodus;2Mo;AT;Gesetz (Pentateuch);40;1213;6;82
 3;Lev;3. Mose;Levitikus;3Mo;AT;Gesetz (Pentateuch);27;859;5;36
-4;Num;4. Mose;Numeri;4Mo;AT;Gesetz (Pentateuch);36;1288;3;72
+4;Num;4. Mose;Numeri;4Mo;AT;Gesetz (Pentateuch);36;1288;3;77
 5;Deut;5. Mose;Deuteronomium;5Mo;AT;Gesetz (Pentateuch);34;959;5;60
-6;Josh;Josua;;Jos;AT;Geschichtsbücher;24;658;3;32
+6;Josh;Josua;;Jos;AT;Geschichtsbücher;24;658;3;34
 7;Judg;Richter;;Ri;AT;Geschichtsbücher;21;618;3;29
 8;Ruth;Ruth;;Rt;AT;Geschichtsbücher;4;85;1;5
 9;1Sam;1. Samuel;;1Sam;AT;Geschichtsbücher;31;811;3;37
 10;2Sam;2. Samuel;;2Sam;AT;Geschichtsbücher;24;695;3;39
 11;1Kgs;1. Könige;;1Kö;AT;Geschichtsbücher;22;817;3;42
 12;2Kgs;2. Könige;;2Kö;AT;Geschichtsbücher;25;720;3;46
-13;1Chr;1. Chronik;;1Chr;AT;Geschichtsbücher;29;943;2;38
+13;1Chr;1. Chronik;;1Chr;AT;Geschichtsbücher;29;943;2;40
 14;2Chr;2. Chronik;;2Chr;AT;Geschichtsbücher;36;822;2;42
-15;Ezra;Esra;;Esr;AT;Geschichtsbücher;10;280;2;12
-16;Neh;Nehemia;;Neh;AT;Geschichtsbücher;13;406;3;17
+15;Ezra;Esra;;Esr;AT;Geschichtsbücher;10;280;2;14
+16;Neh;Nehemia;;Neh;AT;Geschichtsbücher;13;406;3;19
 17;Esth;Esther;;Est;AT;Geschichtsbücher;10;167;3;13
 18;Job;Hiob;Ijob;Hi;AT;Poetische Bücher;42;1070;5;37
 19;Ps;Psalmen;;Ps;AT;Poetische Bücher;150;2527;5;171
@@ -23,7 +23,7 @@
 22;Song;Hohelied;;Hld;AT;Poetische Bücher;8;117;1;10
 23;Isa;Jesaja;;Jes;AT;Große Propheten;66;1291;7;84
 24;Jer;Jeremia;;Jer;AT;Große Propheten;52;1364;5;69
-25;Lam;Klagelieder;;Kla;AT;Große Propheten;5;154;1;5
+25;Lam;Klagelieder;;Kla;AT;Große Propheten;5;154;1;7
 26;Ezek;Hesekiel;Ezechiel;Hes;AT;Große Propheten;48;1273;5;60
 27;Dan;Daniel;;Dan;AT;Große Propheten;12;357;2;13
 28;Hos;Hosea;;Hos;AT;Kleine Propheten;14;197;2;15

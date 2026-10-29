@@ -22,7 +22,9 @@
 = 13,1 Die Verteilung des Landes
 13,1 Das noch nicht eroberte Land; das Ostjordanland
 14,1 Die Verteilung beginnt; Kalebs Erbteil
-15,1 Das Gebiet Judas
+15,1 Die Grenzen Judas
+15,13 Kaleb und Achsa
+15,20 Die Städte Judas
 16,1 Das Gebiet Ephraims und Manasses
 18,1 Die Landvermessung in Silo
 18,11 Das Gebiet Benjamins
@@ -265,8 +267,10 @@
 
 @1Chr
 = 1,1 Geschlechtsregister
-1,1 Von Adam bis Israel
-2,1 Die Nachkommen Judas
+1,1 Von Adam bis Abraham
+1,28 Die Nachkommen Abrahams und Esaus
+2,1 Die Söhne Israels; von Juda bis David
+2,18 Die Sippen Kalebs und Jerachmeels
 3,1 Die Nachkommen Davids
 4,1 Juda und Simeon
 5,1 Die Stämme östlich des Jordan
@@ -354,7 +358,9 @@
 @Ezra
 = 1,1 Die erste Rückkehr und der Tempelbau
 1,1 Der Erlass des Kyrus
-2,1 Die Liste der Heimkehrer
+2,1 Die Heimkehrer nach Familien und Orten
+2,36 Priester, Leviten und Tempeldiener
+2,59 Ohne Nachweis; Gesamtzahl und Gaben
 3,1 Altar und Grundsteinlegung des Tempels
 4,1 Widerstand gegen den Bau
 5,1 Der Tempelbau wird fortgesetzt
@@ -377,7 +383,9 @@
 5,1 Nehemia hilft den Armen
 6,1 Anschläge gegen Nehemia; die Mauer wird vollendet
 7,1 Wachen für Jerusalem
-7,6 Die Liste der Heimkehrer
+7,6 Die Heimkehrer nach Familien und Orten
+7,39 Priester, Leviten und Tempeldiener
+7,61 Ohne Nachweis; Gesamtzahl und Gaben
 = 8,1 Die Erneuerung des Bundes
 8,1 Esra liest das Gesetz vor
 8,13 Das Laubhüttenfest

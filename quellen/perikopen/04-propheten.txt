@@ -173,7 +173,9 @@
 = 1,1 Fünf Klagelieder über Jerusalem
 1,1 Das erste Klagelied: Jerusalems Verlassenheit
 2,1 Das zweite Klagelied: Gottes Zorn über Zion
-3,1 Das dritte Klagelied: Hoffnung im Leid
+3,1 Das dritte Klagelied: Klage des Leidenden
+3,21 Gottes Gnade ist alle Morgen neu
+3,40 Ruf zur Umkehr und Bitte um Recht
 4,1 Das vierte Klagelied: Die Not der Belagerung
 5,1 Das fünfte Klagelied: Gebet um Wiederherstellung
 

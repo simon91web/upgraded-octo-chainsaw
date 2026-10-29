@@ -41,7 +41,9 @@
 22,1 Die Opferung Isaaks
 22,20 Die Nachkommen Nahors
 23,1 Saras Tod und Begräbnis
-24,1 Eine Frau für Isaak
+24,1 Eine Frau für Isaak: der Knecht am Brunnen
+24,28 Rebekka willigt ein
+24,62 Isaak und Rebekka
 25,1 Abrahams Nachkommen und Tod
 25,12 Die Nachkommen Ismaels
 = 25,19 Isaak und Jakob
@@ -225,9 +227,12 @@
 
 @Num
 = 1,1 Israel am Sinai
-1,1 Die Zählung des Volkes
+1,1 Die Zählung der Stämme
+1,47 Die Leviten werden nicht gezählt
 2,1 Die Lagerordnung
-3,1 Die Leviten
+3,1 Aarons Söhne und der Dienst der Leviten
+3,14 Die Zählung der Leviten
+3,40 Die Auslösung der Erstgeburt
 4,1 Die Dienste der Levitenfamilien
 5,1 Reinheit im Lager
 5,11 Das Eifersuchtsopfer
@@ -284,7 +289,9 @@
 23,27 Bileams dritter Spruch
 24,14 Bileams letzte Sprüche
 25,1 Israels Abfall in Schittim
-26,1 Die zweite Zählung
+26,1 Die zweite Zählung: Ruben bis Sebulon
+26,28 Josef bis Naphtali und die Gesamtzahl
+26,52 Verteilung des Landes; Zählung der Leviten
 27,1 Das Erbrecht der Töchter Zelophchads
 27,12 Josua wird Moses Nachfolger
 28,1 Tägliche Opfer, Sabbat und Neumond
