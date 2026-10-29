@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bibellese – Mockup</title>
+<link rel="stylesheet" href="vendor/yuvomi-tokens.css">
+<link rel="stylesheet" href="mockup.css">
+<script src="vendor/lucide.min.js"></script>
+</head>
+<body>
+  <header class="mk-bar" aria-label="Mockup-Steuerung">
+    <div class="mk-bar__title">
+      <strong>Bibellese</strong>
+      <span>Mockup · Yuvomi-Modul · Beispieldaten, Stand 29.10.2026</span>
+    </div>
+    <div class="mk-bar__controls">
+      <div class="mk-seg" role="group" aria-label="Gerät" data-mk="ansicht">
+        <button data-wert="beide">Beide</button><button data-wert="laptop">Laptop</button><button data-wert="handy">Handy 390</button>
+      </div>
+      <div class="mk-seg" role="group" aria-label="Erscheinungsbild" data-mk="thema">
+        <button data-wert="light">Hell</button><button data-wert="dark">Dunkel</button>
+      </div>
+      <div class="mk-seg" role="group" aria-label="Zustand" data-mk="szenario">
+        <button data-wert="normal">Normal</button><button data-wert="grossVerzug">Großer Verzug</button><button data-wert="ohnePlan">„Für mich“ ohne Plan</button><button data-wert="fehler">Dienst weg</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mk-stage" id="mk-stage">
+    <section class="mk-device mk-device--laptop" aria-label="Laptop, 1280 Pixel">
+      <div class="mk-device__label">Laptop · 1280 × 800</div>
+      <div class="mk-zoom"><div class="frame frame--laptop" data-frame="laptop"></div></div>
+    </section>
+    <section class="mk-device mk-device--handy" aria-label="Handy, 390 Pixel">
+      <div class="mk-device__label">Handy · 390 × 844</div>
+      <div class="frame frame--handy" data-frame="handy"></div>
+    </section>
+    <section class="mk-device mk-device--kachel" aria-label="Dashboard-Kachel">
+      <div class="mk-device__label">Dashboard-Kachel · 1 × 2</div>
+      <div class="frame frame--kachel" data-frame="kachel"></div>
+    </section>
+  </main>
+
+  <script type="module" src="mockup.js"></script>
+</body>
+</html>
