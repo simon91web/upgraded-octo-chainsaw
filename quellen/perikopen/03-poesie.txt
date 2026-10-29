@@ -1,0 +1,304 @@
+# Poetische Bücher: Hiob bis Hohelied
+# Psalmen: Überschriften zählen als Verse, ein Abschnitt je Psalm (Ps 119 nach Strophen).
+
+@Job
+= 1,1 Prolog
+1,1 Hiobs Frömmigkeit
+1,6 Die erste Prüfung
+2,1 Die zweite Prüfung
+2,11 Hiobs Freunde kommen
+= 3,1 Die Reden Hiobs und seiner Freunde
+3,1 Hiob verflucht den Tag seiner Geburt
+4,1 Die erste Rede des Elifas
+6,1 Hiobs Antwort an Elifas
+8,1 Die erste Rede Bildads
+9,1 Hiobs Antwort an Bildad
+11,1 Die erste Rede Zofars
+12,1 Hiobs Antwort an Zofar
+14,1 Der Mensch, vom Weib geboren
+15,1 Die zweite Rede des Elifas
+16,1 Hiobs Antwort: Mein Zeuge ist im Himmel
+18,1 Die zweite Rede Bildads
+19,1 Hiobs Antwort: Ich weiß, dass mein Erlöser lebt
+20,1 Die zweite Rede Zofars
+21,1 Hiobs Antwort: Das Glück der Gottlosen
+22,1 Die dritte Rede des Elifas
+23,1 Hiobs Antwort: Wo finde ich Gott?
+25,1 Die dritte Rede Bildads
+26,1 Hiobs Antwort: Gottes unergründliche Größe
+27,1 Hiob beteuert seine Unschuld
+28,1 Lob der Weisheit
+29,1 Hiobs früheres Glück
+30,1 Hiobs jetziges Elend
+31,1 Hiobs Reinigungseid
+= 32,1 Die Reden Elihus
+32,1 Die erste Rede Elihus
+34,1 Die zweite Rede Elihus
+35,1 Die dritte Rede Elihus
+36,1 Die vierte Rede Elihus
+= 38,1 Gottes Reden und Hiobs Antwort
+38,1 Gottes erste Rede: Erde, Meer und Himmel
+38,39 Gottes erste Rede: die Tiere
+40,3 Hiobs erste Antwort
+40,6 Gottes zweite Rede: Behemot und Leviatan
+42,1 Hiob beugt sich vor Gott
+= 42,7 Epilog
+42,7 Hiobs Wiederherstellung
+
+@Ps
+= 1 Erstes Buch (Psalm 1–41)
+1 Die zwei Wege
+2 Der König auf dem Zion
+3 Morgengebet in Bedrängnis
+4 Abendgebet im Vertrauen
+5 Bitte um Gottes Geleit
+6 Bußgebet in Not
+7 Gebet eines unschuldig Verfolgten
+8 Gottes Herrlichkeit und die Würde des Menschen
+9 Dank für Gottes gerechtes Gericht
+10 Klage über den Übermut der Gottlosen
+11 Vertrauen auf Gott
+12 Klage über die Untreue der Menschen
+13 Wie lange, Herr?
+14 Die Torheit der Gottlosen
+15 Wer darf in Gottes Zelt wohnen?
+16 Gott, mein Erbteil
+17 Gebet um Schutz vor den Feinden
+18 Davids Danklied für seine Rettung
+19 Gottes Ehre in Schöpfung und Gesetz
+20 Gebet für den König
+21 Dank für den Sieg des Königs
+22 Mein Gott, warum hast du mich verlassen?
+23 Der Herr ist mein Hirte
+24 Der König der Herrlichkeit zieht ein
+25 Bitte um Führung und Vergebung
+26 Gebet eines Unschuldigen
+27 Der Herr ist mein Licht und mein Heil
+28 Hilferuf und Dank
+29 Die Stimme des Herrn im Gewitter
+30 Dank für Rettung aus Todesgefahr
+31 In deine Hand befehle ich meinen Geist
+32 Das Glück der Vergebung
+33 Lob des Schöpfers und Herrn der Geschichte
+34 Schmeckt und seht, wie gut der Herr ist
+35 Gebet gegen ungerechte Feinde
+36 Gottes Güte und die Bosheit der Menschen
+37 Das Ergehen der Gerechten und der Gottlosen
+38 Bußgebet eines Kranken
+39 Die Vergänglichkeit des Menschen
+40 Dank und Bitte
+41 Gebet eines Kranken und Verlassenen
+= 42 Zweites Buch (Psalm 42–72)
+42 Sehnsucht nach dem lebendigen Gott
+43 Sende dein Licht und deine Wahrheit
+44 Klage des Volkes nach einer Niederlage
+45 Hochzeitslied für den König
+46 Gott ist unsere Zuflucht
+47 Gott ist König über die ganze Erde
+48 Zion, die Stadt Gottes
+49 Die Torheit des Vertrauens auf Reichtum
+50 Gott hält Gericht über sein Volk
+51 Bußgebet Davids
+52 Das Ende des Gewalttätigen
+53 Die Torheit der Gottlosen
+54 Gebet in Verfolgung
+55 Klage über den Verrat eines Freundes
+56 Vertrauen in der Angst
+57 Zuflucht im Schatten deiner Flügel
+58 Gott richtet die ungerechten Richter
+59 Gebet um Rettung vor den Feinden
+60 Gebet nach einer Niederlage
+61 Gebet um Schutz
+62 Meine Seele ist still zu Gott
+63 Sehnsucht nach Gott in der Wüste
+64 Gebet gegen heimliche Feinde
+65 Dank für Gottes Segen über das Land
+66 Lob für Gottes große Taten
+67 Gott sei uns gnädig und segne uns
+68 Gottes Siegeszug
+69 Hilferuf in tiefer Not
+70 Eile, Gott, mir zu helfen
+71 Gebet im Alter
+72 Das Reich des gerechten Königs
+= 73 Drittes Buch (Psalm 73–89)
+73 Das Glück der Gottlosen und die Nähe Gottes
+74 Klage über das zerstörte Heiligtum
+75 Gott ist Richter
+76 Gottes Sieg in Juda
+77 Trost im Gedenken an Gottes Taten
+78 Gottes Treue und Israels Untreue
+79 Klage über das verwüstete Jerusalem
+80 Gebet für den Weinstock Israel
+81 Festlied und Mahnung
+82 Gott richtet die Götter
+83 Gebet gegen feindliche Völker
+84 Sehnsucht nach dem Haus Gottes
+85 Bitte um neue Gnade
+86 Gebet in Bedrängnis
+87 Zion, die Mutter der Völker
+88 Klage aus tiefster Verlassenheit
+89 Gottes Bund mit David und die Klage
+= 90 Viertes Buch (Psalm 90–106)
+90 Gott ist ewig, der Mensch vergänglich
+91 Unter dem Schutz des Höchsten
+92 Lob am Sabbat
+93 Der Herr ist König
+94 Gott, der Rächer der Gerechten
+95 Kommt, lasst uns anbeten
+96 Singt dem Herrn ein neues Lied
+97 Der Herr ist König, die Erde freue sich
+98 Der Herr schafft Heil und Gerechtigkeit
+99 Heilig ist der Herr
+100 Jauchzt dem Herrn, alle Welt
+101 Der Vorsatz eines gerechten Königs
+102 Gebet eines Elenden
+103 Lobe den Herrn, meine Seele
+104 Lob des Schöpfers
+105 Gottes Treue in der Geschichte Israels
+106 Israels Untreue und Gottes Erbarmen
+= 107 Fünftes Buch (Psalm 107–150)
+107 Dank der Erlösten
+108 Morgenlob und Bitte um Hilfe
+109 Hilferuf gegen die Verleumder
+110 Der Priesterkönig
+111 Lob der Werke Gottes
+112 Das Glück des Gottesfürchtigen
+113 Gott erhebt den Niedrigen
+114 Der Auszug aus Ägypten
+115 Gott allein die Ehre
+116 Dank für Rettung aus Todesnot
+117 Lobt den Herrn, alle Völker
+118 Danklied für Gottes Hilfe
+119,1 Lob des Wortes Gottes: Alef
+119,9 Lob des Wortes Gottes: Bet
+119,17 Lob des Wortes Gottes: Gimel
+119,25 Lob des Wortes Gottes: Dalet
+119,33 Lob des Wortes Gottes: He
+119,41 Lob des Wortes Gottes: Waw
+119,49 Lob des Wortes Gottes: Sajin
+119,57 Lob des Wortes Gottes: Chet
+119,65 Lob des Wortes Gottes: Tet
+119,73 Lob des Wortes Gottes: Jod
+119,81 Lob des Wortes Gottes: Kaf
+119,89 Lob des Wortes Gottes: Lamed
+119,97 Lob des Wortes Gottes: Mem
+119,105 Lob des Wortes Gottes: Nun
+119,113 Lob des Wortes Gottes: Samech
+119,121 Lob des Wortes Gottes: Ajin
+119,129 Lob des Wortes Gottes: Pe
+119,137 Lob des Wortes Gottes: Zade
+119,145 Lob des Wortes Gottes: Qof
+119,153 Lob des Wortes Gottes: Resch
+119,161 Lob des Wortes Gottes: Schin
+119,169 Lob des Wortes Gottes: Taw
+120 Wallfahrtslied: Hilferuf gegen falsche Zungen
+121 Wallfahrtslied: Meine Hilfe kommt vom Herrn
+122 Wallfahrtslied: Freude über Jerusalem
+123 Wallfahrtslied: Aufblick zu Gott
+124 Wallfahrtslied: Unsere Hilfe steht im Namen des Herrn
+125 Wallfahrtslied: Wer auf den Herrn vertraut
+126 Wallfahrtslied: Die Heimkehr der Gefangenen
+127 Wallfahrtslied: An Gottes Segen ist alles gelegen
+128 Wallfahrtslied: Segen für den Gottesfürchtigen
+129 Wallfahrtslied: Israels Bedrängnis und Bewahrung
+130 Wallfahrtslied: Aus der Tiefe rufe ich zu dir
+131 Wallfahrtslied: Kindliches Vertrauen
+132 Wallfahrtslied: Gottes Erwählung Davids und Zions
+133 Wallfahrtslied: Die Gemeinschaft der Brüder
+134 Wallfahrtslied: Nächtliches Lob im Heiligtum
+135 Lob für Gottes Größe
+136 Seine Gnade währt ewig
+137 An den Strömen Babels
+138 Dank für erhörtes Gebet
+139 Gott kennt mich ganz
+140 Gebet um Schutz vor Gewalttätern
+141 Abendgebet um Bewahrung
+142 Hilferuf in der Höhle
+143 Bitte um Gottes Führung
+144 Gebet des Königs um Sieg und Segen
+145 Lob der Größe und Güte Gottes
+146 Vertraut nicht auf Menschen
+147 Lob des Herrn, der Jerusalem baut
+148 Die ganze Schöpfung lobe den Herrn
+149 Ein neues Lied für Gottes Volk
+150 Alles, was Odem hat, lobe den Herrn
+
+@Prov
+= 1,1 Reden über die Weisheit
+1,1 Zweck des Buches
+1,8 Warnung vor schlechter Gesellschaft
+1,20 Der Ruf der Weisheit
+2,1 Weisheit bewahrt vor dem Bösen
+3,1 Vertrauen auf den Herrn
+3,13 Der Wert der Weisheit
+3,27 Rechtes Verhalten gegenüber dem Nächsten
+4,1 Erwirb Weisheit
+5,1 Warnung vor der fremden Frau
+6,1 Bürgschaft, Faulheit und Bosheit
+6,20 Warnung vor dem Ehebruch
+7,1 Die Verführerin
+8,1 Die Weisheit lädt ein
+9,1 Weisheit und Torheit laden ein
+= 10,1 Die Sprüche Salomos
+10,1 Der Gerechte und der Gottlose
+11,1 Redlichkeit und Güte
+12,1 Die Macht der Worte
+13,1 Zucht und Hoffnung
+14,1 Die Weisheit baut ihr Haus
+15,1 Die sanfte Antwort
+16,1 Der Mensch denkt, Gott lenkt
+17,1 Frieden und Streit
+18,1 Die Zunge hat Macht über Leben und Tod
+19,1 Armut, Geduld und Erziehung
+20,1 Wein, Faulheit und Redlichkeit
+21,1 Gott lenkt das Herz des Königs
+22,1 Ein guter Name
+= 22,17 Worte der Weisen
+22,17 Dreißig Worte der Weisen
+24,23 Weitere Worte der Weisen
+= 25,1 Sprüche Salomos aus der Sammlung Hiskias
+25,1 Vom Umgang mit Königen und Nächsten
+26,1 Über Toren und Faule
+27,1 Rühme dich nicht des morgigen Tages
+28,1 Der Gerechte ist mutig wie ein Löwe
+29,1 Zucht und Gerechtigkeit
+= 30,1 Anhänge
+30,1 Die Worte Agurs
+31,1 Die Worte an König Lemuel
+31,10 Lob der tüchtigen Frau
+
+@Eccl
+= 1,1 Die Suche nach dem Sinn
+1,1 Alles ist nichtig
+1,12 Die Nichtigkeit der Weisheit
+2,1 Die Nichtigkeit von Vergnügen und Arbeit
+3,1 Alles hat seine Zeit
+3,16 Ungerechtigkeit und Vergänglichkeit
+4,1 Unterdrückung, Arbeit und Einsamkeit
+4,17 Ehrfurcht vor Gott
+5,7 Die Nichtigkeit des Reichtums
+6,1 Besitz ohne Genuss
+= 7,1 Weisheit für ein Leben in Gottesfurcht
+7,1 Weisheitssprüche
+7,15 Die Grenzen der Weisheit
+8,1 Gehorsam gegenüber dem König
+8,10 Gottes Wege sind unergründlich
+9,1 Alle trifft dasselbe Geschick
+9,13 Weisheit ist besser als Stärke
+11,1 Wage es und handle
+11,9 Gedenke an deinen Schöpfer
+= 12,9 Nachwort
+12,9 Fürchte Gott und halte seine Gebote
+
+@Song
+= 1,1 Lieder der Liebe
+1,1 Sehnsucht der Braut
+2,8 Der Geliebte kommt
+3,1 Nächtliche Suche
+3,6 Der Hochzeitszug Salomos
+4,1 Die Schönheit der Braut
+5,2 Erneute Suche
+6,4 Die einzigartige Geliebte
+7,1 Die Sulamith
+7,12 Die Liebe im Weinberg
+8,5 Die Kraft der Liebe

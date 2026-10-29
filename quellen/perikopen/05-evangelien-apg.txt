@@ -1,0 +1,439 @@
+# Evangelien und Apostelgeschichte
+
+@Matt
+= 1,1 Geburt und Kindheit Jesu
+1,1 Der Stammbaum Jesu
+1,18 Die Geburt Jesu
+2,1 Die Weisen aus dem Morgenland
+2,13 Die Flucht nach Ägypten und der Kindermord
+2,19 Die Rückkehr nach Nazareth
+= 3,1 Die Vorbereitung
+3,1 Johannes der Täufer
+3,13 Die Taufe Jesu
+4,1 Die Versuchung Jesu
+= 4,12 Jesu Wirken in Galiläa
+4,12 Jesus beginnt in Galiläa
+4,18 Die Berufung der ersten Jünger
+4,23 Jesus lehrt und heilt
+5,1 Die Seligpreisungen
+5,13 Salz und Licht
+5,17 Jesus und das Gesetz
+5,21 Vom Töten
+5,27 Vom Ehebruch
+5,33 Vom Schwören
+5,38 Vom Vergelten
+5,43 Von der Feindesliebe
+6,1 Vom Almosengeben
+6,5 Vom Beten; das Vaterunser
+6,16 Vom Fasten
+6,19 Schätze im Himmel
+6,25 Sorgt euch nicht
+7,1 Vom Richten
+7,7 Bittet, so wird euch gegeben
+7,13 Die enge Pforte
+7,15 Falsche Propheten
+7,24 Das Haus auf dem Felsen
+8,1 Die Heilung eines Aussätzigen
+8,5 Der Hauptmann von Kapernaum
+8,14 Die Schwiegermutter des Petrus
+8,18 Vom Ernst der Nachfolge
+8,23 Die Stillung des Sturms
+8,28 Die Besessenen von Gadara
+9,1 Die Heilung eines Gelähmten
+9,9 Die Berufung des Matthäus
+9,14 Die Frage nach dem Fasten
+9,18 Die Tochter des Jairus und die blutflüssige Frau
+9,27 Zwei Blinde und ein Stummer
+9,35 Die Ernte ist groß
+10,1 Die Aussendung der Zwölf
+10,16 Die Verfolgung der Jünger
+10,34 Nicht Frieden, sondern das Schwert
+11,1 Die Frage des Täufers
+11,20 Weherufe über galiläische Städte
+11,25 Kommt her zu mir
+12,1 Ährenraufen am Sabbat
+12,9 Heilung am Sabbat
+12,15 Der Knecht Gottes
+12,22 Jesus und Beelzebul
+12,38 Das Zeichen des Jona
+12,46 Jesu wahre Verwandte
+13,1 Das Gleichnis vom Sämann
+13,24 Das Unkraut unter dem Weizen
+13,31 Senfkorn und Sauerteig
+13,36 Die Deutung des Unkrautgleichnisses
+13,44 Schatz, Perle und Netz
+13,53 Jesus wird in Nazareth abgelehnt
+14,1 Der Tod Johannes des Täufers
+14,13 Die Speisung der Fünftausend
+14,22 Jesus geht auf dem Wasser
+14,34 Heilungen in Genezareth
+15,1 Rein und unrein
+15,21 Die kanaanäische Frau
+15,29 Heilungen und die Speisung der Viertausend
+16,1 Die Zeichenforderung
+16,5 Der Sauerteig der Pharisäer
+16,13 Das Bekenntnis des Petrus
+= 16,21 Auf dem Weg nach Jerusalem
+16,21 Erste Leidensankündigung; Nachfolge
+17,1 Die Verklärung Jesu
+17,14 Die Heilung eines mondsüchtigen Knaben
+17,22 Zweite Leidensankündigung
+17,24 Die Tempelsteuer
+18,1 Der Größte im Himmelreich
+18,12 Das verlorene Schaf
+18,15 Vom Umgang mit dem sündigen Bruder
+18,21 Der unbarmherzige Knecht
+19,1 Ehe und Ehescheidung
+19,13 Jesus segnet die Kinder
+19,16 Der reiche Jüngling
+20,1 Die Arbeiter im Weinberg
+20,17 Dritte Leidensankündigung
+20,20 Herrschen und Dienen
+20,29 Zwei Blinde bei Jericho
+= 21,1 Jesus in Jerusalem
+21,1 Der Einzug in Jerusalem
+21,12 Die Tempelreinigung
+21,18 Der verdorrte Feigenbaum
+21,23 Die Frage nach der Vollmacht
+21,28 Die zwei Söhne
+21,33 Die bösen Weingärtner
+22,1 Das königliche Hochzeitsmahl
+22,15 Die Frage nach der Steuer
+22,23 Die Frage nach der Auferstehung
+22,34 Das höchste Gebot
+22,41 Davids Sohn und Herr
+23,1 Weherufe über Schriftgelehrte und Pharisäer
+23,37 Klage über Jerusalem
+24,1 Der Anfang der Wehen
+24,15 Die große Drangsal
+24,29 Das Kommen des Menschensohnes
+24,36 Seid wachsam!
+25,1 Die zehn Jungfrauen
+25,14 Die anvertrauten Talente
+25,31 Das Weltgericht
+= 26,1 Leiden und Sterben Jesu
+26,1 Der Beschluss, Jesus zu töten
+26,6 Die Salbung in Bethanien
+26,14 Der Verrat des Judas
+26,17 Das Passahmahl
+26,26 Die Einsetzung des Abendmahls
+26,31 Ankündigung der Verleugnung
+26,36 Gethsemane
+26,47 Die Gefangennahme
+26,57 Jesus vor dem Hohen Rat
+26,69 Die Verleugnung des Petrus
+27,1 Jesus wird Pilatus übergeben; das Ende des Judas
+27,11 Jesus vor Pilatus
+27,27 Die Verspottung
+27,32 Die Kreuzigung
+27,45 Der Tod Jesu
+27,57 Die Grablegung
+27,62 Die Grabwache
+= 28,1 Die Auferstehung
+28,1 Die Auferstehung Jesu
+28,11 Der Betrug der Hohenpriester
+28,16 Der Missionsbefehl
+
+@Mark
+= 1,1 Der Anfang des Evangeliums
+1,1 Johannes der Täufer
+1,9 Taufe und Versuchung Jesu
+= 1,14 Jesu Wirken in Galiläa
+1,14 Jesus beginnt zu predigen; die ersten Jünger
+1,21 Jesus in der Synagoge von Kapernaum
+1,29 Heilungen in Kapernaum
+1,40 Die Heilung eines Aussätzigen
+2,1 Die Heilung eines Gelähmten
+2,13 Die Berufung des Levi
+2,18 Die Frage nach dem Fasten
+2,23 Ährenraufen am Sabbat
+3,1 Heilung am Sabbat
+3,7 Andrang am See
+3,13 Die Wahl der Zwölf
+3,20 Jesus und Beelzebul
+3,31 Jesu wahre Verwandte
+4,1 Das Gleichnis vom Sämann
+4,21 Das Licht und das Maß
+4,26 Die selbstwachsende Saat und das Senfkorn
+4,35 Die Stillung des Sturms
+5,1 Der Besessene von Gerasa
+5,21 Die Tochter des Jairus und die blutflüssige Frau
+6,1 Jesus wird in Nazareth abgelehnt
+6,7 Die Aussendung der Zwölf
+6,14 Der Tod Johannes des Täufers
+6,30 Die Speisung der Fünftausend
+6,45 Jesus geht auf dem Wasser
+6,53 Heilungen in Genezareth
+7,1 Rein und unrein
+7,24 Die syrophönizische Frau
+7,31 Die Heilung eines Taubstummen
+8,1 Die Speisung der Viertausend
+8,11 Zeichenforderung und Sauerteig
+8,22 Die Heilung eines Blinden in Bethsaida
+8,27 Das Bekenntnis des Petrus
+= 8,31 Auf dem Weg nach Jerusalem
+8,31 Erste Leidensankündigung; Nachfolge
+9,2 Die Verklärung Jesu
+9,14 Die Heilung eines besessenen Knaben
+9,30 Zweite Leidensankündigung; der Rangstreit
+9,38 Wer nicht gegen uns ist; Verführung zur Sünde
+10,1 Ehe und Ehescheidung
+10,13 Jesus segnet die Kinder
+10,17 Der reiche Mann
+10,32 Dritte Leidensankündigung
+10,35 Herrschen und Dienen
+10,46 Der blinde Bartimäus
+= 11,1 Jesus in Jerusalem
+11,1 Der Einzug in Jerusalem
+11,12 Feigenbaum und Tempelreinigung
+11,27 Die Frage nach der Vollmacht
+12,1 Die bösen Weingärtner
+12,13 Die Frage nach der Steuer
+12,18 Die Frage nach der Auferstehung
+12,28 Das höchste Gebot
+12,35 Davids Sohn; Warnung vor den Schriftgelehrten
+12,41 Das Opfer der Witwe
+13,1 Der Anfang der Wehen
+13,14 Die große Drangsal
+13,24 Das Kommen des Menschensohnes
+= 14,1 Leiden und Sterben Jesu
+14,1 Der Tötungsbeschluss und die Salbung in Bethanien
+14,12 Das Passahmahl und das Abendmahl
+14,27 Ankündigung der Verleugnung
+14,32 Gethsemane
+14,43 Die Gefangennahme
+14,53 Jesus vor dem Hohen Rat
+14,66 Die Verleugnung des Petrus
+15,1 Jesus vor Pilatus
+15,16 Die Verspottung
+15,21 Die Kreuzigung
+15,33 Der Tod Jesu
+15,42 Die Grablegung
+= 16,1 Die Auferstehung
+16,1 Die Auferstehung Jesu
+16,9 Erscheinungen und Himmelfahrt
+
+@Luke
+= 1,1 Geburt und Kindheit
+1,1 Widmung an Theophilus
+1,5 Die Ankündigung der Geburt des Johannes
+1,26 Die Ankündigung der Geburt Jesu
+1,39 Maria bei Elisabeth; der Lobgesang der Maria
+1,57 Die Geburt des Johannes; der Lobgesang des Zacharias
+2,1 Die Geburt Jesu
+2,21 Jesus im Tempel; Simeon und Hanna
+2,41 Der zwölfjährige Jesus im Tempel
+= 3,1 Die Vorbereitung
+3,1 Johannes der Täufer
+3,21 Die Taufe Jesu und sein Stammbaum
+4,1 Die Versuchung Jesu
+= 4,14 Jesu Wirken in Galiläa
+4,14 Jesus in Nazareth
+4,31 Jesus in Kapernaum
+5,1 Der Fischzug des Petrus
+5,12 Die Heilung eines Aussätzigen
+5,17 Die Heilung eines Gelähmten
+5,27 Die Berufung des Levi; die Frage nach dem Fasten
+6,1 Der Herr über den Sabbat
+6,12 Die Wahl der Zwölf
+6,17 Seligpreisungen und Weherufe
+6,27 Von der Feindesliebe
+6,37 Vom Richten; Baum und Frucht
+7,1 Der Hauptmann von Kapernaum
+7,11 Der Jüngling zu Nain
+7,18 Die Frage des Täufers
+7,36 Die Salbung durch die Sünderin
+8,1 Jesu Begleiterinnen; das Gleichnis vom Sämann
+8,16 Das Licht; Jesu wahre Verwandte
+8,22 Die Stillung des Sturms
+8,26 Der Besessene von Gerasa
+8,40 Die Tochter des Jairus und die blutflüssige Frau
+9,1 Die Aussendung der Zwölf
+9,10 Die Speisung der Fünftausend
+9,18 Das Bekenntnis des Petrus; Leidensankündigung
+9,28 Die Verklärung Jesu
+9,37 Die Heilung eines besessenen Knaben
+9,46 Der Rangstreit der Jünger
+= 9,51 Auf dem Weg nach Jerusalem
+9,51 Ablehnung in Samarien; vom Ernst der Nachfolge
+10,1 Die Aussendung der Siebzig
+10,25 Der barmherzige Samariter
+10,38 Maria und Martha
+11,1 Das Vaterunser; vom Bitten
+11,14 Jesus und Beelzebul
+11,29 Das Zeichen des Jona; das Licht des Leibes
+11,37 Weherufe über Pharisäer und Gesetzesgelehrte
+12,1 Warnung vor Heuchelei; Ermutigung zum Bekenntnis
+12,13 Der reiche Kornbauer
+12,22 Sorgt euch nicht
+12,35 Wachsame Knechte
+12,49 Die Zeichen der Zeit
+13,1 Ruf zur Umkehr; der unfruchtbare Feigenbaum
+13,10 Die Heilung einer verkrümmten Frau
+13,18 Senfkorn und Sauerteig
+13,22 Die enge Pforte; Klage über Jerusalem
+14,1 Heilung am Sabbat; vom Platz beim Gastmahl
+14,15 Das große Abendmahl
+14,25 Die Kosten der Nachfolge
+15,1 Das verlorene Schaf und der verlorene Groschen
+15,11 Der verlorene Sohn
+16,1 Der ungerechte Verwalter
+16,19 Der reiche Mann und der arme Lazarus
+17,1 Von Verführung, Vergebung und Glauben
+17,11 Die zehn Aussätzigen
+17,20 Das Kommen des Reiches Gottes
+18,1 Die bittende Witwe
+18,9 Der Pharisäer und der Zöllner
+18,15 Jesus segnet die Kinder
+18,18 Der reiche Oberste
+18,31 Leidensankündigung; der Blinde bei Jericho
+19,1 Zachäus
+19,11 Die anvertrauten Pfunde
+= 19,28 Jesus in Jerusalem
+19,28 Der Einzug in Jerusalem
+19,41 Jesus weint über Jerusalem; die Tempelreinigung
+20,1 Die Frage nach der Vollmacht
+20,9 Die bösen Weingärtner
+20,20 Die Frage nach der Steuer
+20,27 Die Frage nach der Auferstehung
+20,41 Davids Sohn; Warnung vor den Schriftgelehrten
+21,1 Das Opfer der Witwe
+21,5 Zeichen der Endzeit
+21,20 Die Zerstörung Jerusalems und das Kommen des Menschensohnes
+21,29 Mahnung zur Wachsamkeit
+= 22,1 Leiden und Sterben Jesu
+22,1 Der Verrat des Judas
+22,7 Das Passahmahl und das Abendmahl
+22,24 Der Rangstreit; Ankündigung der Verleugnung
+22,39 Jesus am Ölberg
+22,47 Die Gefangennahme
+22,54 Die Verleugnung des Petrus
+22,63 Jesus vor dem Hohen Rat
+23,1 Jesus vor Pilatus und Herodes
+23,26 Die Kreuzigung
+23,44 Der Tod Jesu
+23,50 Die Grablegung
+= 24,1 Auferstehung und Himmelfahrt
+24,1 Die Auferstehung Jesu
+24,13 Die Emmausjünger
+24,36 Jesus erscheint den Jüngern
+24,50 Die Himmelfahrt
+
+@John
+= 1,1 Prolog und erste Zeugen
+1,1 Das Wort wurde Fleisch
+1,19 Das Zeugnis Johannes des Täufers
+1,35 Die ersten Jünger
+= 2,1 Jesu Wirken in der Öffentlichkeit
+2,1 Die Hochzeit zu Kana
+2,13 Die Tempelreinigung
+3,1 Jesus und Nikodemus
+3,22 Das letzte Zeugnis des Täufers
+4,1 Jesus und die samaritische Frau
+4,43 Die Heilung des Sohnes eines königlichen Beamten
+5,1 Die Heilung am Teich Bethesda
+5,19 Die Vollmacht des Sohnes
+6,1 Die Speisung der Fünftausend
+6,16 Jesus geht auf dem Wasser
+6,22 Das Brot des Lebens
+6,60 Viele Jünger wenden sich ab; das Bekenntnis des Petrus
+7,1 Jesus und seine Brüder
+7,14 Jesus lehrt beim Laubhüttenfest
+7,37 Ströme lebendigen Wassers
+7,53 Jesus und die Ehebrecherin
+8,12 Das Licht der Welt
+8,31 Die Wahrheit wird euch frei machen
+9,1 Die Heilung eines Blindgeborenen
+10,1 Der gute Hirte
+10,22 Jesus beim Fest der Tempelweihe
+11,1 Die Auferweckung des Lazarus
+11,45 Der Beschluss, Jesus zu töten
+12,1 Die Salbung in Bethanien
+12,12 Der Einzug in Jerusalem
+12,20 Das Weizenkorn; Jesu Stunde ist gekommen
+12,37 Unglaube und Glaube
+= 13,1 Jesu Abschied von den Jüngern
+13,1 Die Fußwaschung
+13,21 Ankündigung des Verrats
+13,31 Das neue Gebot; Ankündigung der Verleugnung
+14,1 Der Weg zum Vater
+14,15 Die Verheißung des Heiligen Geistes
+15,1 Der wahre Weinstock
+15,18 Der Hass der Welt
+16,5 Das Wirken des Geistes
+16,16 Trauer wird zu Freude
+17,1 Das hohepriesterliche Gebet
+= 18,1 Leiden, Sterben und Auferstehung
+18,1 Die Gefangennahme
+18,12 Jesus vor Hannas; die Verleugnung des Petrus
+18,28 Jesus vor Pilatus
+19,17 Die Kreuzigung
+19,31 Die Seitenwunde und die Grablegung
+20,1 Das leere Grab
+20,11 Jesus erscheint Maria Magdalena
+20,19 Jesus erscheint den Jüngern; Thomas
+= 21,1 Nachtrag
+21,1 Jesus am See Tiberias
+21,15 Jesus und Petrus
+21,24 Schlusswort
+
+@Acts
+= 1,1 Die Gemeinde in Jerusalem
+1,1 Die Verheißung des Geistes und die Himmelfahrt
+1,12 Die Wahl des Matthias
+2,1 Die Ausgießung des Heiligen Geistes
+2,14 Die Pfingstpredigt des Petrus
+2,42 Das Leben der ersten Gemeinde
+3,1 Die Heilung des Gelähmten am Tempel
+3,11 Die Rede des Petrus im Tempel
+4,1 Petrus und Johannes vor dem Hohen Rat
+4,23 Das Gebet der Gemeinde
+4,32 Die Gütergemeinschaft
+5,1 Hananias und Saphira
+5,12 Zeichen und Wunder der Apostel
+5,17 Die Apostel vor dem Hohen Rat
+6,1 Die Wahl der sieben Diakone
+6,8 Stephanus wird verhaftet
+7,1 Die Rede des Stephanus
+7,54 Der Tod des Stephanus; die Verfolgung
+= 8,4 Die Ausbreitung in Judäa und Samarien
+8,4 Philippus in Samarien
+8,26 Philippus und der Kämmerer aus Äthiopien
+9,1 Die Bekehrung des Saulus
+9,20 Saulus in Damaskus und Jerusalem
+9,32 Petrus heilt Äneas und erweckt Tabitha
+10,1 Petrus und Kornelius
+11,1 Petrus rechtfertigt sich in Jerusalem
+11,19 Die Gemeinde in Antiochia
+12,1 Die Befreiung des Petrus
+12,20 Der Tod des Herodes
+= 13,1 Die Missionsreisen des Paulus
+13,1 Die Aussendung von Barnabas und Saulus; Zypern
+13,13 Paulus in Antiochia in Pisidien
+14,1 In Ikonion, Lystra und Derbe
+14,21 Die Rückkehr nach Antiochia
+15,1 Das Apostelkonzil in Jerusalem
+15,36 Paulus und Barnabas trennen sich
+16,1 Timotheus; der Ruf nach Mazedonien
+16,11 Lydia in Philippi
+16,16 Paulus und Silas im Gefängnis von Philippi
+17,1 In Thessalonich und Beröa
+17,16 Paulus in Athen
+18,1 Paulus in Korinth
+18,18 Rückkehr nach Antiochia; Apollos
+19,1 Paulus in Ephesus
+19,21 Der Aufruhr in Ephesus
+20,1 Durch Mazedonien und Griechenland; Eutychus
+20,17 Abschied von den Ältesten aus Ephesus
+21,1 Die Reise nach Jerusalem
+= 21,17 Paulus als Gefangener
+21,17 Paulus in Jerusalem; seine Verhaftung
+21,37 Paulus verteidigt sich vor dem Volk
+22,30 Paulus vor dem Hohen Rat
+23,12 Der Mordanschlag; Paulus wird nach Cäsarea gebracht
+24,1 Paulus vor Felix
+25,1 Paulus vor Festus; Berufung auf den Kaiser
+25,13 Paulus vor Agrippa
+27,1 Die Seereise und der Schiffbruch
+28,1 Paulus auf Malta
+28,11 Paulus in Rom

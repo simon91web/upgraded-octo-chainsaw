@@ -1,0 +1,67 @@
+﻿Nr;ID;Buch;Alternativname;Abkürzung;Testament;Gruppe;Kapitel;Verse;Hauptteile;Perikopen
+1;Gen;1. Mose;Genesis;1Mo;AT;Gesetz (Pentateuch);50;1533;4;84
+2;Exod;2. Mose;Exodus;2Mo;AT;Gesetz (Pentateuch);40;1213;6;82
+3;Lev;3. Mose;Levitikus;3Mo;AT;Gesetz (Pentateuch);27;859;5;36
+4;Num;4. Mose;Numeri;4Mo;AT;Gesetz (Pentateuch);36;1288;3;59
+5;Deut;5. Mose;Deuteronomium;5Mo;AT;Gesetz (Pentateuch);34;959;5;58
+6;Josh;Josua;;Jos;AT;Geschichtsbücher;24;658;3;32
+7;Judg;Richter;;Ri;AT;Geschichtsbücher;21;618;3;29
+8;Ruth;Ruth;;Rt;AT;Geschichtsbücher;4;85;1;5
+9;1Sam;1. Samuel;;1Sam;AT;Geschichtsbücher;31;811;3;37
+10;2Sam;2. Samuel;;2Sam;AT;Geschichtsbücher;24;695;3;38
+11;1Kgs;1. Könige;;1Kö;AT;Geschichtsbücher;22;817;3;42
+12;2Kgs;2. Könige;;2Kö;AT;Geschichtsbücher;25;720;3;44
+13;1Chr;1. Chronik;;1Chr;AT;Geschichtsbücher;29;943;2;38
+14;2Chr;2. Chronik;;2Chr;AT;Geschichtsbücher;36;822;2;41
+15;Ezra;Esra;;Esr;AT;Geschichtsbücher;10;280;2;12
+16;Neh;Nehemia;;Neh;AT;Geschichtsbücher;13;406;3;16
+17;Esth;Esther;;Est;AT;Geschichtsbücher;10;167;3;13
+18;Job;Hiob;Ijob;Hi;AT;Poetische Bücher;42;1070;5;37
+19;Ps;Psalmen;;Ps;AT;Poetische Bücher;150;2527;5;171
+20;Prov;Sprüche;Sprichwörter;Spr;AT;Poetische Bücher;31;915;5;37
+21;Eccl;Prediger;Kohelet;Pred;AT;Poetische Bücher;12;222;3;18
+22;Song;Hohelied;;Hld;AT;Poetische Bücher;8;117;1;10
+23;Isa;Jesaja;;Jes;AT;Große Propheten;66;1291;7;84
+24;Jer;Jeremia;;Jer;AT;Große Propheten;52;1364;5;69
+25;Lam;Klagelieder;;Kla;AT;Große Propheten;5;154;1;5
+26;Ezek;Hesekiel;Ezechiel;Hes;AT;Große Propheten;48;1273;5;56
+27;Dan;Daniel;;Dan;AT;Große Propheten;12;357;2;13
+28;Hos;Hosea;;Hos;AT;Kleine Propheten;14;197;2;15
+29;Joel;Joel;;Joel;AT;Kleine Propheten;4;73;1;7
+30;Amos;Amos;;Am;AT;Kleine Propheten;9;146;3;12
+31;Obad;Obadja;;Ob;AT;Kleine Propheten;1;21;1;2
+32;Jonah;Jona;;Jon;AT;Kleine Propheten;4;48;1;4
+33;Mic;Micha;;Mi;AT;Kleine Propheten;7;105;3;12
+34;Nah;Nahum;;Nah;AT;Kleine Propheten;3;47;1;3
+35;Hab;Habakuk;;Hab;AT;Kleine Propheten;3;56;2;6
+36;Zeph;Zephanja;Zefanja;Zeph;AT;Kleine Propheten;3;53;1;5
+37;Hag;Haggai;;Hag;AT;Kleine Propheten;2;38;1;4
+38;Zech;Sacharja;;Sach;AT;Kleine Propheten;14;211;3;19
+39;Mal;Maleachi;;Mal;AT;Kleine Propheten;3;55;1;8
+40;Matt;Matthäus;;Mt;NT;Evangelien;28;1071;7;125
+41;Mark;Markus;;Mk;NT;Evangelien;16;678;6;71
+42;Luke;Lukas;;Lk;NT;Evangelien;24;1151;7;97
+43;John;Johannes;;Joh;NT;Evangelien;21;879;5;51
+44;Acts;Apostelgeschichte;;Apg;NT;Geschichtsbuch;28;1007;4;55
+45;Rom;Römer;;Röm;NT;Paulusbriefe;16;433;5;32
+46;1Cor;1. Korinther;;1Kor;NT;Paulusbriefe;16;437;6;25
+47;2Cor;2. Korinther;;2Kor;NT;Paulusbriefe;13;256;3;20
+48;Gal;Galater;;Gal;NT;Paulusbriefe;6;149;3;14
+49;Eph;Epheser;;Eph;NT;Paulusbriefe;6;155;2;14
+50;Phil;Philipper;;Phil;NT;Paulusbriefe;4;104;2;10
+51;Col;Kolosser;;Kol;NT;Paulusbriefe;4;95;2;7
+52;1Thess;1. Thessalonicher;;1Th;NT;Paulusbriefe;5;89;2;7
+53;2Thess;2. Thessalonicher;;2Th;NT;Paulusbriefe;3;47;1;6
+54;1Tim;1. Timotheus;;1Tim;NT;Paulusbriefe;6;113;1;10
+55;2Tim;2. Timotheus;;2Tim;NT;Paulusbriefe;4;83;1;8
+56;Titus;Titus;;Tit;NT;Paulusbriefe;3;46;1;5
+57;Phlm;Philemon;;Phim;NT;Paulusbriefe;1;25;1;3
+58;Heb;Hebräer;;Hebr;NT;Allgemeine Briefe;13;303;3;19
+59;Jas;Jakobus;;Jak;NT;Allgemeine Briefe;5;108;1;10
+60;1Pet;1. Petrus;;1Pt;NT;Allgemeine Briefe;5;105;2;12
+61;2Pet;2. Petrus;;2Pt;NT;Allgemeine Briefe;3;61;1;5
+62;1John;1. Johannes;;1Joh;NT;Allgemeine Briefe;5;105;1;10
+63;2John;2. Johannes;;2Joh;NT;Allgemeine Briefe;1;13;1;3
+64;3John;3. Johannes;;3Joh;NT;Allgemeine Briefe;1;15;1;4
+65;Jude;Judas;;Jud;NT;Allgemeine Briefe;1;25;1;4
+66;Rev;Offenbarung;Apokalypse;Offb;NT;Prophetisches Buch;22;405;7;35

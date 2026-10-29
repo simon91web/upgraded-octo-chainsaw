@@ -1,0 +1,353 @@
+# Gesetz (Pentateuch): 1.–5. Mose
+
+@Gen
+= 1,1 Die Urgeschichte
+1,1 Die Erschaffung der Welt
+2,4 Der Mensch im Garten Eden
+3,1 Der Sündenfall
+3,14 Gottes Urteil und die erste Verheißung
+4,1 Kain und Abel
+4,17 Die Nachkommen Kains
+4,25 Set und Enosch
+5,1 Von Adam bis Noah
+6,1 Die Bosheit der Menschen
+6,9 Noah baut die Arche
+7,1 Die Sintflut
+8,1 Das Ende der Flut
+8,20 Noahs Opfer und Gottes Zusage
+9,1 Der Bund mit Noah
+9,18 Noah und seine Söhne
+10,1 Die Völkertafel
+11,1 Der Turmbau zu Babel
+11,10 Von Sem bis Abram
+= 11,27 Abraham
+11,27 Terach und seine Familie
+12,1 Abrams Berufung
+12,10 Abram in Ägypten
+13,1 Abram und Lot trennen sich
+14,1 Abram rettet Lot
+14,17 Melchisedek segnet Abram
+15,1 Gottes Bund mit Abram
+16,1 Hagar und Ismael
+17,1 Die Beschneidung als Bundeszeichen
+18,1 Der Besuch der drei Männer
+18,16 Abraham bittet für Sodom
+19,1 Der Untergang von Sodom und Gomorra
+19,30 Lot und seine Töchter
+20,1 Abraham und Abimelech
+21,1 Die Geburt Isaaks
+21,8 Hagar und Ismael werden fortgeschickt
+21,22 Der Bund mit Abimelech in Beerscheba
+22,1 Die Opferung Isaaks
+22,20 Die Nachkommen Nahors
+23,1 Saras Tod und Begräbnis
+24,1 Eine Frau für Isaak
+25,1 Abrahams Nachkommen und Tod
+25,12 Die Nachkommen Ismaels
+= 25,19 Isaak und Jakob
+25,19 Esau und Jakob werden geboren
+25,27 Esau verkauft sein Erstgeburtsrecht
+26,1 Isaak in Gerar
+26,23 Gottes Zusage in Beerscheba
+27,1 Jakob erschleicht den Segen
+27,41 Jakobs Flucht zu Laban
+28,10 Jakobs Traum in Bethel
+29,1 Jakob kommt zu Laban
+29,15 Jakob heiratet Lea und Rahel
+29,31 Jakobs Söhne
+30,25 Jakob wird reich
+31,1 Jakob flieht vor Laban
+31,22 Laban verfolgt Jakob
+31,43 Der Bund zwischen Jakob und Laban
+32,2 Jakob bereitet die Begegnung mit Esau vor
+32,23 Jakobs Kampf am Jabbok
+33,1 Jakob und Esau versöhnen sich
+34,1 Dina und die Rache an Sichem
+35,1 Jakob kehrt nach Bethel zurück
+35,16 Rahels Tod und Isaaks Tod
+36,1 Die Nachkommen Esaus
+= 37,1 Josef und seine Brüder
+37,1 Josefs Träume
+37,12 Josef wird verkauft
+38,1 Juda und Tamar
+39,1 Josef im Haus Potiphars
+40,1 Josef deutet die Träume der Gefangenen
+41,1 Die Träume des Pharao
+41,37 Josef wird Herr über Ägypten
+42,1 Die erste Reise der Brüder nach Ägypten
+43,1 Die zweite Reise mit Benjamin
+44,1 Der Becher in Benjamins Sack
+45,1 Josef gibt sich zu erkennen
+46,1 Jakob zieht nach Ägypten
+46,8 Die Familie Jakobs
+46,28 Jakob und Josef sehen sich wieder
+47,1 Jakob vor dem Pharao
+47,13 Josef in der Hungersnot
+47,27 Jakobs letzter Wille
+48,1 Jakob segnet Ephraim und Manasse
+49,1 Jakobs Segen über seine Söhne
+49,29 Jakobs Tod und Begräbnis
+50,15 Josef tröstet seine Brüder
+50,22 Josefs Tod
+
+@Exod
+= 1,1 Israel in Ägypten
+1,1 Israel wird unterdrückt
+2,1 Die Geburt Moses
+2,11 Mose flieht nach Midian
+2,23 Gott hört das Seufzen Israels
+3,1 Der brennende Dornbusch
+4,1 Zeichen für Mose
+4,18 Moses Rückkehr nach Ägypten
+5,1 Mose und Aaron vor dem Pharao
+5,22 Gottes Zusage an Mose
+6,14 Das Geschlecht Moses und Aarons
+6,28 Der Auftrag an Mose und Aaron
+7,8 Aarons Stab wird zur Schlange
+7,14 Die erste Plage: Wasser wird zu Blut
+7,26 Die zweite Plage: Frösche
+8,12 Die dritte Plage: Stechmücken
+8,16 Die vierte Plage: Hundsfliegen
+9,1 Die fünfte Plage: Viehpest
+9,8 Die sechste Plage: Geschwüre
+9,13 Die siebte Plage: Hagel
+10,1 Die achte Plage: Heuschrecken
+10,21 Die neunte Plage: Finsternis
+11,1 Ankündigung der letzten Plage
+12,1 Die Einsetzung des Passah
+12,29 Der Tod der Erstgeburt und der Auszug
+12,43 Ordnung für das Passah
+13,1 Die Heiligung der Erstgeburt
+= 13,17 Vom Auszug bis zum Sinai
+13,17 Wolken- und Feuersäule
+14,1 Der Durchzug durch das Schilfmeer
+15,1 Das Lied Moses
+15,22 Das bittere Wasser von Mara
+16,1 Manna und Wachteln
+17,1 Wasser aus dem Felsen
+17,8 Der Sieg über Amalek
+18,1 Jethros Besuch und Rat
+= 19,1 Der Bund am Sinai
+19,1 Israel am Berg Sinai
+20,1 Die Zehn Gebote
+20,18 Das Volk fürchtet sich
+20,22 Vom Altar
+21,1 Rechte für Knechte
+21,12 Gesetze bei Tötung und Körperverletzung
+21,37 Gesetze über Eigentum und Ersatz
+22,15 Verschiedene Gebote
+23,1 Recht und Gerechtigkeit
+23,14 Die drei Jahresfeste
+23,20 Der Engel als Wegbereiter
+24,1 Der Bundesschluss
+24,12 Mose auf dem Berg
+= 25,1 Anweisungen für die Stiftshütte
+25,1 Die Gaben für das Heiligtum
+25,10 Die Bundeslade
+25,23 Der Schaubrottisch
+25,31 Der Leuchter
+26,1 Die Wohnung
+27,1 Der Brandopferaltar
+27,9 Der Vorhof
+27,20 Das Öl für den Leuchter
+28,1 Die Kleidung der Priester
+29,1 Die Priesterweihe
+29,38 Das tägliche Opfer
+30,1 Der Räucheraltar
+30,11 Das Sühnegeld
+30,17 Das Waschbecken
+30,22 Salböl und Räucherwerk
+31,1 Bezaleel und Oholiab
+31,12 Der Sabbat als Zeichen
+= 32,1 Bundesbruch und Erneuerung
+32,1 Das goldene Kalb
+32,30 Mose bittet für das Volk
+33,1 Gottes Gegenwart beim Volk
+33,12 Mose möchte Gottes Herrlichkeit sehen
+34,1 Die neuen Tafeln
+34,10 Die Erneuerung des Bundes
+34,29 Moses leuchtendes Angesicht
+= 35,1 Der Bau der Stiftshütte
+35,1 Sabbat und Gaben für das Heiligtum
+35,30 Die Kunsthandwerker
+36,8 Die Herstellung der Wohnung
+37,1 Bundeslade, Tisch und Leuchter
+37,25 Räucheraltar, Salböl und Räucherwerk
+38,1 Brandopferaltar, Becken und Vorhof
+38,21 Die Kosten des Heiligtums
+39,1 Die Priesterkleider
+39,32 Das Werk wird vollendet
+40,1 Die Aufrichtung der Wohnung
+40,34 Die Herrlichkeit des Herrn erfüllt die Wohnung
+
+@Lev
+= 1,1 Die Opfer
+1,1 Das Brandopfer
+2,1 Das Speisopfer
+3,1 Das Friedensopfer
+4,1 Das Sündopfer
+5,1 Sündopfer für besondere Fälle
+5,14 Das Schuldopfer
+6,1 Weisung zum Brandopfer
+6,7 Weisung zum Speisopfer
+6,17 Weisung zum Sündopfer
+7,1 Weisung zum Schuldopfer
+7,11 Weisung zum Friedensopfer
+= 8,1 Die Einsetzung der Priester
+8,1 Die Weihe Aarons und seiner Söhne
+9,1 Aarons erste Opfer
+10,1 Nadab und Abihu
+10,8 Vorschriften für die Priester
+= 11,1 Rein und unrein
+11,1 Reine und unreine Tiere
+12,1 Reinigung nach der Geburt
+13,1 Aussatz am Menschen
+13,47 Aussatz an Kleidern
+14,1 Die Reinigung vom Aussatz
+14,33 Aussatz an Häusern
+15,1 Unreinheit durch Ausflüsse
+= 16,1 Der große Versöhnungstag
+16,1 Der große Versöhnungstag
+= 17,1 Das Heiligkeitsgesetz
+17,1 Schlachten und Blut
+18,1 Verbotene geschlechtliche Beziehungen
+19,1 Ihr sollt heilig sein
+20,1 Strafen für schwere Vergehen
+21,1 Die Heiligkeit der Priester
+22,1 Der Umgang mit den heiligen Gaben
+22,17 Fehlerlose Opfertiere
+23,1 Die Feste des Herrn
+24,1 Leuchter und Schaubrote
+24,10 Die Strafe für Gotteslästerung
+25,1 Sabbatjahr und Halljahr
+26,1 Segen und Fluch
+27,1 Gelübde und Zehnten
+
+@Num
+= 1,1 Israel am Sinai
+1,1 Die Zählung des Volkes
+2,1 Die Lagerordnung
+3,1 Die Leviten
+4,1 Die Dienste der Levitenfamilien
+5,1 Reinheit im Lager
+5,11 Das Eifersuchtsopfer
+6,1 Das Nasiräergelübde
+6,22 Der aaronitische Segen
+7,1 Die Gaben der Stammesfürsten
+8,1 Die Lampen des Leuchters
+8,5 Die Weihe der Leviten
+9,1 Das zweite Passah
+9,15 Die Wolke über der Wohnung
+10,1 Die silbernen Trompeten
+= 10,11 Die Wüstenwanderung
+10,11 Der Aufbruch vom Sinai
+11,1 Das Feuer in Tabera
+11,4 Siebzig Älteste und die Wachteln
+12,1 Mirjam und Aaron gegen Mose
+13,1 Die Kundschafter
+14,1 Das Volk lehnt sich auf
+14,39 Die eigenmächtige Niederlage
+15,1 Opfervorschriften
+15,32 Der Sabbatschänder
+15,37 Quasten an den Kleidern
+16,1 Der Aufstand Korahs
+17,1 Die Räucherpfannen und die Plage
+17,16 Aarons grünender Stab
+18,1 Pflichten und Anteile der Priester und Leviten
+19,1 Das Reinigungswasser
+20,1 Wasser aus dem Felsen bei Meriba
+20,14 Edom verweigert den Durchzug
+20,22 Aarons Tod
+21,1 Der Sieg bei Horma
+21,4 Die eherne Schlange
+21,10 Der Zug nach Moab
+21,21 Der Sieg über Sihon und Og
+= 22,1 In den Ebenen Moabs
+22,1 Balak ruft Bileam
+22,21 Bileams Eselin
+22,36 Bileam bei Balak
+23,1 Bileams erster Spruch
+23,13 Bileams zweiter Spruch
+23,27 Bileams dritter Spruch
+24,14 Bileams letzte Sprüche
+25,1 Israels Abfall in Schittim
+26,1 Die zweite Zählung
+27,1 Das Erbrecht der Töchter Zelophchads
+27,12 Josua wird Moses Nachfolger
+28,1 Tägliche Opfer, Sabbat und Neumond
+28,16 Passah und Wochenfest
+29,1 Die Feste im siebten Monat
+30,2 Gelübde
+31,1 Der Krieg gegen Midian
+32,1 Ruben, Gad und Manasse östlich des Jordan
+33,1 Die Lagerplätze Israels
+33,50 Anweisungen für die Landnahme
+34,1 Die Grenzen des Landes
+35,1 Die Städte der Leviten
+35,9 Die Zufluchtsstädte
+36,1 Das Erbe der Erbtöchter
+
+@Deut
+= 1,1 Erste Rede: Rückblick auf die Wüstenzeit
+1,1 Einleitung
+1,6 Der Aufbruch vom Horeb
+1,19 Die Kundschafter und Israels Ungehorsam
+2,1 Der Zug an Edom, Moab und Ammon vorbei
+2,26 Der Sieg über Sihon
+3,1 Der Sieg über Og
+3,12 Die Verteilung des Ostjordanlandes
+3,23 Mose darf das Land nicht betreten
+4,1 Aufruf zum Gehorsam
+4,41 Zufluchtsstädte im Osten
+= 4,44 Zweite Rede: Gebote und Rechte
+4,44 Einleitung zur Gesetzesrede
+5,1 Die Zehn Gebote
+6,1 Höre, Israel
+7,1 Israel, das erwählte Volk
+8,1 Gottes Erziehung in der Wüste
+9,1 Nicht wegen deiner Gerechtigkeit
+9,7 Erinnerung an das goldene Kalb
+10,12 Was der Herr von dir fordert
+11,1 Liebe und Gehorsam
+11,26 Segen und Fluch
+12,1 Der eine Ort der Anbetung
+13,2 Warnung vor Verführung zum Götzendienst
+14,1 Reine und unreine Speisen
+14,22 Der Zehnte
+15,1 Das Erlassjahr
+15,19 Die Erstgeburt
+16,1 Die Feste
+16,18 Richter und Recht
+17,14 Der König
+18,1 Priester und Leviten
+18,9 Gegen Wahrsagerei; der kommende Prophet
+19,1 Die Zufluchtsstädte
+19,14 Grenzsteine und Zeugen
+20,1 Gesetze für den Krieg
+21,1 Sühne für einen ungeklärten Mord
+21,10 Familienrecht und weitere Gesetze
+22,1 Verschiedene Gebote
+22,13 Ehe und Keuschheit
+23,2 Wer zur Gemeinde des Herrn gehört
+23,10 Reinheit im Lager und weitere Gebote
+24,1 Ehescheidung und soziale Gebote
+25,1 Verschiedene Gesetze
+26,1 Erstlingsfrüchte und Zehnter
+26,16 Israel, Gottes Eigentumsvolk
+= 27,1 Segen und Fluch
+27,1 Die Steine auf dem Berg Ebal
+27,11 Die Fluchworte
+28,1 Segen für Gehorsam
+28,15 Fluch für Ungehorsam
+= 28,69 Dritte Rede: Der Bund in Moab
+28,69 Der Bund im Land Moab
+30,1 Umkehr und Wiederherstellung
+30,11 Leben und Tod
+= 31,1 Moses Abschied und Tod
+31,1 Josua wird Moses Nachfolger
+31,9 Das Gesetz soll vorgelesen werden
+31,14 Ankündigung des Abfalls
+31,30 Das Lied Moses
+32,48 Mose soll auf den Berg Nebo steigen
+33,1 Moses Segen über die Stämme
+34,1 Moses Tod
