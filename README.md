@@ -24,8 +24,11 @@ Stand: erste lauffähige Fassung (0.1.0). Auf dem Prüfstand getestet, noch nich
 
 Ein Yuvomi-Modul hat keinen eigenen Speicher. Darum gehören zwei Teile zusammen:
 
-1. **Modul:** den Ordner `modules/bibellese/` in den Modulordner von Yuvomi kopieren (`MODULES_DIR`,
-   im Container meist `/app/modules`) und Yuvomi neu starten.
+1. **Modul:** entweder das ZIP aus `node tools/modulzip.mjs` (liegt dann in `dist/`) unter Einstellungen ›
+   Module › Eigenes Modul hochladen – das geht nur, wenn der Betreiber `MODULES_ALLOW_WEB_INSTALL=true`
+   gesetzt hat, und das Modul ist danach aus, bis ein Admin es einschaltet. Oder den Ordner
+   `modules/bibellese/` in den Modulordner von Yuvomi kopieren (`MODULES_DIR`, im Container meist
+   `/app/modules`) und Yuvomi neu starten.
 2. **Dienst:** als zweiten Container neben Yuvomi starten und den Pfad `/api/extensions/bibellese/` per
    Reverse Proxy auf ihn leiten. Vorlage: [`deploy/docker-compose.example.yml`](deploy/docker-compose.example.yml),
    für nginx [`deploy/nginx.conf.example`](deploy/nginx.conf.example).

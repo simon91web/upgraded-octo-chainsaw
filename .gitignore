@@ -6,3 +6,4 @@ service/daten/
 deploy/data/
 deploy/bibellese-daten/
 node_modules/
+dist/
