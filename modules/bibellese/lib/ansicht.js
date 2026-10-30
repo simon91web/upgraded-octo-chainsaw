@@ -130,8 +130,9 @@ export function leerPlan(S) {
  * Zweiter Strang (Feder) und Parallelstellen (Spalten) unter der Hauptstelle, eine Stufe leiser.
  * Mit `schalter` tragen sie einen gesetzten Haken wie „Dabei“: ein Tipp nimmt die Stelle heraus,
  * sie zählt dann nicht als gelesen. `schalter(teil)` liefert die data-Attribute des Knopfs.
+ * `fest` setzt die Hauptstelle mit festem Haken davor (sie lässt sich nicht herausnehmen).
  */
-export function nebenZeilen(teile, { schalter = null, ohne = new Set() } = {}) {
+export function nebenZeilen(teile, { schalter = null, ohne = new Set(), fest = false } = {}) {
   const zeilen = [['zweit', 'feather', teile?.zweit], ['dazu', 'columns-2', teile?.dazu && `dazu ${teile.dazu}`]]
     .filter(([, , text]) => text)
     .map(([teil, icon, text]) => {
@@ -141,8 +142,26 @@ export function nebenZeilen(teile, { schalter = null, ohne = new Set() } = {}) {
       return `<button type="button" class="bl-neben__zeile bl-neben__zeile--${teil}" ${schalter(teil)} aria-pressed="${an}"
         title="${an ? 'Mitgelesen – tippen zum Herausnehmen' : 'Nicht mitgelesen – tippen zum Mitzählen'}">${inhalt}<span class="bl-haken">${ic('check')}</span></button>`;
     });
+  if (fest) zeilen.unshift(`<div class="bl-neben__zeile bl-neben__zeile--fest"><span class="bl-neben__text">${stelleHtml(teile.haupt)}</span><span class="bl-haken bl-haken--fest">${ic('check')}</span></div>`);
   return zeilen.length ? `<div class="bl-neben">${zeilen.join('')}</div>` : '';
 }
+
+/** Hat die Einheit etwas, das man beim Abhaken herausnehmen kann? */
+export const hatNeben = (teile) => Boolean(teile?.zweit || teile?.dazu);
+
+/**
+ * Die Nachfrage nach „Gelesen“, wenn die Einheit Nebenstellen hat, Nebenstellen vorausgewählt.
+ * Auf der Karte steht die Hauptstelle schon als Titel darüber, gefragt wird nur nach dem, was
+ * dazukommt; anderswo (`fest`) steht sie mit festem Haken in der Liste. Die Knöpfe „Abbrechen“
+ * und „Eintragen“ setzt der Aufrufer dorthin, wo „Gelesen“ stand.
+ */
+export function frageZeilen(S, p, teile, { fest = false } = {}) {
+  return `<div class="bl-frage__titel" id="bl-frage-${p.id}">${fest ? 'Was hast du gelesen?' : 'Auch gelesen?'}</div>
+    ${nebenZeilen(teile, { fest, ohne: S.ohne[p.id], schalter: (teil) => `data-akt="teil" data-plan="${p.id}" data-wert="${teil}"` })}`;
+}
+
+export const frageKnoepfe = (p, { klein = false } = {}) => `<button type="button" class="btn btn--ghost${klein ? ' btn--sm' : ''}" data-akt="frage-abbrechen" data-plan="${p.id}">Abbrechen</button>
+  <button type="button" class="btn btn--primary${klein ? ' btn--sm' : ''}" data-akt="frage-eintragen" data-plan="${p.id}" aria-describedby="bl-frage-${p.id}">${ic('check')}Eintragen</button>`;
 
 function heuteKarte(S, p, { primaer }) {
   const st = p.stand;
@@ -160,16 +179,18 @@ function heuteKarte(S, p, { primaer }) {
       <span class="bl-avatar__face">${esc((m.display_name || '?').slice(0, 1).toUpperCase())}</span><span class="bl-avatar__tick">${ic('check')}</span></button>`).join('')}</div></div>` : '';
   const knopf = `btn ${primaer ? 'btn--primary' : 'btn--secondary'}`;
   const teile = naechsteTexte(S, p);
+  // Nachfrage offen: nur in der Karte, solange kein Blatt darüber liegt.
+  const fragen = S.frage === p.id && !S.ui;
   return `<article class="bl-card bl-today${primaer ? '' : ' bl-today--compact'}" aria-label="${esc(p.name)}">
     <div class="bl-today__eyebrow">${ic(ART[p.art].icon)}${esc(p.name)}
       ${menuAnker(S, 'einheit', p.id, `Mehr zu ${p.name}`, 'btn btn--ghost btn--icon')}</div>
     ${gerade ? `<div class="bl-today__done"><span class="bl-ring bl-ring--done">${ic('check')}</span>${esc(gerade.text)} gelesen · ${esc(gerade.uhrzeit)}</div>` : ''}
     <div class="bl-today__ref">${stelleHtml(teile.haupt)}</div>
-    ${nebenZeilen(teile, { ohne: S.ohne[p.id], schalter: p.darfAbhaken && S.dienstAktuell ? (teil) => `data-akt="teil" data-plan="${p.id}" data-wert="${teil}"` : null })}
+    ${fragen ? frageZeilen(S, p, teile) : nebenZeilen(teile)}
     <div class="bl-today__unit bl-tabnum">Einheit ${p.naechste.nr} von ${zahl(st.anzahl)} · ${min(p.naechste.minuten)}${aufholen ? ' · zum Aufholen' : ''}</div>
     ${zielStatus(p)}
     ${dabei}
-    ${p.darfAbhaken ? `<div class="bl-today__actions"><button type="button" class="${knopf}" data-akt="gelesen" data-plan="${p.id}"${busy ? ' aria-busy="true" disabled' : ''}>${busy ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button></div>` : ''}
+    ${p.darfAbhaken ? `<div class="bl-today__actions">${fragen && !busy ? frageKnoepfe(p) : `<button type="button" class="${knopf}" data-akt="gelesen" data-plan="${p.id}"${busy ? ' aria-busy="true" disabled' : ''}>${busy ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button>`}</div>` : ''}
   </article>`;
 }
 

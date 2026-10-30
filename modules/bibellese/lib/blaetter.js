@@ -1,7 +1,10 @@
 // Blätter (Dialoge): mobil von unten, am Laptop mittig. Nie Blatt auf Blatt.
 
 import { esc, ic, stelleHtml, NBSP, zahl, min, einheiten, lesungenText, fmtDatum, kurzDatum, plusTage } from './werkzeug.js';
-import { ART, RHYTHMEN, rhythmusText, rezeptText, buchDetail, meinePlaene, nebenZeilen, stellenTexte, naechsteTexte, eintragTexte } from './ansicht.js';
+import {
+  ART, RHYTHMEN, rhythmusText, rezeptText, buchDetail, meinePlaene, nebenZeilen, stellenTexte, naechsteTexte, eintragTexte,
+  frageZeilen, frageKnoepfe,
+} from './ansicht.js';
 
 export const SCHRITTE = ['Was', 'Wo anfangen', 'Parallelen', 'Wie viel', 'Für wen'];
 const LESARTEN = [['still', 'Still', 200], ['langsam', 'Langsam', 150], ['vorlesen', 'Vorlesen', 130]];
@@ -103,7 +106,9 @@ export function einteilenVorschau(p, d) {
 }
 
 function blattGelesenAm(S, p) {
-  return `<p class="bl-lead">${stelleHtml(p ? naechsteTexte(S, p).text : '')}</p>
+  const teile = naechsteTexte(S, p);
+  const schalter = S.dienstAktuell ? (teil) => `data-akt="teil" data-plan="${p.id}" data-wert="${teil}"` : null;
+  return `<div class="bl-eintrag-stelle"><p class="bl-lead">${stelleHtml(teile.haupt)}</p>${nebenZeilen(teile, { schalter, ohne: S.ohne[p.id] })}</div>
     <div class="bl-field"><label for="bl-am">Gelesen am</label><input id="bl-am" name="am" type="date" max="${S.heute}" value="${plusTage(S.heute, -1)}"></div>
     <div class="bl-sheet__foot"><button type="button" class="btn btn--ghost" data-akt="schliessen">Abbrechen</button>
       <button type="button" class="btn btn--primary" data-akt="gelesen-am" data-plan="${p.id}">${ic('check')}Gelesen</button></div>`;
@@ -136,8 +141,10 @@ function blattAufholen(S, p) {
     satz = `<p class="bl-lead">Mit ${st.verzug === 1 ? 'einer' : 'je einer'} Einheit mehr bist du ${wann} wieder im Plan.</p>`;
   }
   const busy = S.busy === p.id;
+  const fragen = S.frage === p.id && !busy;
   const haupt = st.verzug === 0
     ? '<button type="button" class="btn btn--primary" data-akt="schliessen">Fertig</button>'
+    : fragen ? frageKnoepfe(p)
     : `<button type="button" class="btn btn--primary" data-akt="gelesen-blatt" data-plan="${p.id}"${busy ? ' aria-busy="true" disabled' : ''}>${busy ? 'Wird gespeichert …' : `${ic('check')}Gelesen`}</button>`;
   const e = d && st.verzug > 0 && p.darfAendern ? einteilenVorschau(p, d) : null;
   const dritter = e?.moeglich
@@ -146,6 +153,7 @@ function blattAufholen(S, p) {
         <span class="bl-row__meta bl-tabnum">Lesungen ${min(e.nachher)} statt ${min(e.vorher)} · Ziel bleibt ${fmtDatum(st.ziel)}</span></div>
         <button type="button" class="btn btn--secondary btn--sm" data-akt="neu-einteilen" data-plan="${p.id}">Einteilen</button></div></div>` : '';
   return `${satz}<div class="bl-inset bl-rows">${zeilen}${mehr}</div>${dritter}
+    ${fragen ? `<div class="bl-frage">${frageZeilen(S, p, naechsteTexte(S, p), { fest: true })}</div>` : ''}
     <div class="bl-sheet__foot">${p.darfAendern ? `<button type="button" class="btn btn--secondary" data-akt="blatt" data-was="ziel" data-plan="${p.id}">Ziel verschieben</button>` : ''}${haupt}</div>`;
 }
 

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kachel mit Haken</title>
+<link rel="stylesheet" href="vendor/yuvomi-tokens.css">
+<link rel="stylesheet" href="mockup.css">
+<script src="vendor/lucide.min.js"></script>
+<style>
+  /* Nur für diese Mockup-Seite. Die Kachel ist nachgebaut wie widgets/heute.js (Yuvomis Kachelrahmen). */
+  .st-stage { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 24px; padding: 28px 16px 24px; }
+  .st-col { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .st-buehne { background: var(--color-bg); border-radius: 20px; padding: 16px; box-shadow: 0 0 0 1px rgb(0 0 0 / .12), 0 24px 60px rgb(0 0 0 / .18); }
+  /* .frame misst seine Breite selbst (container), darum feste Breiten: Kachel plus Polster. */
+  [data-ort="breit"] { width: 412px; }
+  [data-ort="schmal"] { width: 332px; }
+  .st-note { max-width: 980px; margin: 0 auto; padding: 0 16px; font-size: 15px; color: var(--color-text-secondary); line-height: 1.45; }
+  .st-note b { color: var(--color-text-primary); font-weight: 600; }
+  .st-log { min-height: 24px; text-align: center; font-size: 15px; color: var(--color-text-secondary); padding: 0 16px 48px; }
+  .st-log b { color: var(--color-text-primary); font-weight: 600; }
+
+  .widget { width: 380px; }
+  .widget--schmal { width: 300px; }
+  .kz { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; }
+  .kz + .kz { border-top: 1px solid var(--color-border-subtle); }
+  .kz__kopf { display: flex; align-items: center; gap: 12px; }
+  .kz__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .widget__ref { line-height: 1.3; overflow-wrap: break-word; }
+  .kz__state { font-size: 13px; font-weight: 500; color: var(--color-success-ink); }
+  .kz__state--ziel { color: var(--color-text-secondary); }
+
+  /* Nebenzeilen wie auf der Karte, eine Stufe kleiner: Feder dunkel, Spalten grau. */
+  .kz__zeile { display: flex; align-items: flex-start; gap: 6px; width: 100%; border: 0; background: none; padding: 0; text-align: left;
+    font-size: 13px; line-height: 1.35; color: var(--color-text-secondary); overflow-wrap: break-word; border-radius: var(--radius-sm); }
+  .kz__zeile > svg:first-child { width: 13px; height: 13px; flex: none; margin-top: 2px; color: var(--color-text-secondary); }
+  .kz__zeile--zweit { color: var(--color-text-primary); font-weight: 500; }
+  .kz__text { flex: 1; min-width: 0; }
+  button.kz__zeile { padding: 7px 0; cursor: pointer; }
+  /* Haken wie auf der Karte; behält in beiden Zuständen seinen Platz. */
+  .haken { width: 20px; height: 20px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--color-success); color: var(--color-success); margin-top: -2px; }
+  .kz__zeile .haken svg { width: 12px; height: 12px; margin: 0; stroke-width: 3; color: inherit; }
+  [aria-pressed="false"] > .haken { box-shadow: inset 0 0 0 1.5px var(--color-border-control); }
+  [aria-pressed="false"] > .haken svg { visibility: hidden; }
+  button[aria-pressed="false"].kz__zeile { color: var(--color-text-tertiary); font-weight: 400; }
+  button[aria-pressed="false"].kz__zeile > svg:first-child { color: var(--color-text-tertiary); }
+  /* A: Haken an der rechten Kante, unter „Gelesen“; die Nebenzeilen laufen über die ganze Breite. */
+  .kz__neben { display: flex; flex-direction: column; margin: -4px 0 -2px; }
+  /* B: die Nachfrage klappt in der Zeile auf, kein Dialog über dem Dashboard. */
+  .kz--frage { gap: 6px; }
+  .kz__frage { font-size: 15px; font-weight: 600; margin-top: 2px; }
+  .kz__fest { display: flex; align-items: flex-start; gap: 6px; font-size: 13px; line-height: 1.35; font-weight: 600; padding: 7px 0; }
+  .kz__fest .haken { box-shadow: none; background: color-mix(in srgb, var(--color-success) var(--tint-state, 12%), transparent); }
+  .kz__fest .haken svg { width: 12px; height: 12px; stroke-width: 3; }
+  .kz__aktionen { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <header class="mk-bar" aria-label="Mockup-Steuerung">
+    <div class="mk-bar__title">
+      <strong>Kachel mit Haken</strong>
+      <span>Mockup · Bibellese · Dashboard-Kachel in zwei Breiten</span>
+    </div>
+    <div class="mk-bar__controls">
+      <div class="mk-seg" role="group" aria-label="Variante" data-mk="variante">
+        <button data-wert="a">A · Haken in der Kachel</button><button data-wert="b">B · Nachfrage nach „Gelesen“</button>
+      </div>
+      <div class="mk-seg" role="group" aria-label="Erscheinungsbild" data-mk="thema">
+        <button data-wert="light">Hell</button><button data-wert="dark">Dunkel</button>
+      </div>
+    </div>
+  </header>
+
+  <p class="st-note" id="st-note"></p>
+
+  <main class="st-stage">
+    <section class="st-col" aria-label="Kachel, breit">
+      <div class="mk-device__label">Kachel · 380 px (Handy, breite Übersicht)</div>
+      <div class="st-buehne frame" data-ort="breit"></div>
+    </section>
+    <section class="st-col" aria-label="Kachel, schmal">
+      <div class="mk-device__label">Kachel · 300 px (Laptop, vier Spalten)</div>
+      <div class="st-buehne frame" data-ort="schmal"></div>
+    </section>
+  </main>
+  <p class="st-log" id="st-log" aria-live="polite"></p>
+
+<script>
+  // Drei Pläne: beides (Psalm und Parallelstelle), nur Parallelstelle, nichts daneben.
+  const PLAENE = [
+    { name: 'Familienandacht', haupt: '1. Könige 8', zweit: 'Psalm 30', dazu: '2. Chronik 5,2–7,10', status: 'Im Plan' },
+    { name: 'Ganze Bibel', haupt: 'Esra 2', zweit: null, dazu: 'Nehemia 7,6–73', status: 'Ziel 31.12.2029', ziel: true },
+    { name: 'Neues Testament', haupt: 'Markus 4,1–34', zweit: null, dazu: null, status: 'Im Plan' },
+  ];
+  const NOTIZ = {
+    a: '<b>A · Haken in der Kachel:</b> wie auf der Karte. Feder- und Spaltenzeile tragen rechts einen gesetzten Haken; ein Tipp nimmt die Stelle heraus, „Gelesen“ zählt dann nur den Rest. Ein Tipp für den Normalfall.',
+    b: '<b>B · Nachfrage nach „Gelesen“:</b> Die Kachel bleibt ruhig. Hat die Einheit Nebenstellen, klappt nach dem Tipp in der Zeile „Was hast du gelesen?“ auf, alles vorausgewählt, dann „Eintragen“. Ohne Nebenstellen (Markus) trägt der Tipp sofort ein. Bei Plänen mit Psalm jeden Tag ein Tipp mehr.',
+  };
+  const S = { variante: 'a', thema: 'light', aus: new Set(), frage: null, log: '' };
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const ic = (n) => `<i data-lucide="${n}" aria-hidden="true"></i>`;
+  const st = (t) => esc(t).replace(/ /g, '&nbsp;').replace(/–/g, '–&#8288;');
+  const an = (i, teil) => !S.aus.has(`${i}:${teil}`);
+  const haken = `<span class="haken">${ic('check')}</span>`;
+
+  // Eine Nebenzeile; mit Haken als Schalter, sonst als Text.
+  function zeile(p, i, teil, mitHaken) {
+    const text = teil === 'zweit' ? p.zweit : p.dazu && `dazu ${p.dazu}`;
+    if (!text) return '';
+    const inhalt = `${ic(teil === 'zweit' ? 'feather' : 'columns-2')}<span class="kz__text">${st(text)}</span>`;
+    if (!mitHaken) return `<div class="kz__zeile kz__zeile--${teil}">${inhalt}</div>`;
+    const ja = an(i, teil);
+    return `<button class="kz__zeile kz__zeile--${teil}" data-teil="${i}:${teil}" aria-pressed="${ja}"
+      title="${ja ? 'Mitgelesen – tippen zum Herausnehmen' : 'Nicht mitgelesen – tippen zum Mitzählen'}">${inhalt}${haken}</button>`;
+  }
+
+  function reihe(p, i) {
+    const status = `<span class="kz__state${p.ziel ? ' kz__state--ziel' : ''}">${p.status}</span>`;
+    if (S.variante === 'b' && S.frage === i) {
+      return `<div class="kz kz--frage"><span class="footnote">${esc(p.name)}</span>
+        <span class="kz__frage">Was hast du gelesen?</span>
+        <div>
+          <div class="kz__fest"><span class="kz__text">${st(p.haupt)}</span><span class="haken">${ic('check')}</span></div>
+          ${zeile(p, i, 'zweit', true)}${zeile(p, i, 'dazu', true)}
+        </div>
+        <div class="kz__aktionen"><button class="btn btn--ghost btn--sm" data-akt="abbrechen">Abbrechen</button>
+          <button class="btn btn--primary btn--sm" data-akt="eintragen" data-plan="${i}">${ic('check')}Eintragen</button></div></div>`;
+    }
+    const mitHaken = S.variante === 'a';
+    const neben = zeile(p, i, 'zweit', mitHaken) + zeile(p, i, 'dazu', mitHaken);
+    return `<div class="kz">
+      <div class="kz__kopf"><div class="kz__main"><span class="footnote">${esc(p.name)}</span><span class="widget__ref">${st(p.haupt)}</span></div>
+        <button class="btn btn--secondary btn--sm" data-akt="gelesen" data-plan="${i}">${ic('check')}Gelesen</button></div>
+      ${neben ? `<div class="kz__neben">${neben}</div>` : ''}
+      ${status}</div>`;
+  }
+
+  const kachel = (schmal) => `<div class="widget${schmal ? ' widget--schmal' : ''}">
+    <div class="widget__head"><span class="seal">${ic('book-open')}</span><b>Bibellese</b><span class="widget__meta">Alle</span></div>
+    ${PLAENE.map(reihe).join('')}</div>`;
+
+  function eintragen(i) {
+    const p = PLAENE[i];
+    const gelesen = [p.haupt, p.zweit && an(i, 'zweit') && p.zweit, p.dazu && an(i, 'dazu') && `dazu ${p.dazu}`].filter(Boolean);
+    const aus = [p.zweit && !an(i, 'zweit') && p.zweit, p.dazu && !an(i, 'dazu') && p.dazu].filter(Boolean);
+    S.log = `Gemeldet: <b>${esc(gelesen.join(' · '))} gelesen</b>${aus.length ? ` · im Logbuch „Ausgelassen: ${esc(aus.join(' · '))}“` : ''}`;
+    for (const t of ['zweit', 'dazu']) S.aus.delete(`${i}:${t}`);
+    S.frage = null;
+  }
+
+  function zeichne() {
+    document.documentElement.dataset.theme = S.thema;
+    for (const seg of document.querySelectorAll('[data-mk]')) {
+      for (const b of seg.querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.wert === S[seg.dataset.mk]));
+    }
+    document.getElementById('st-note').innerHTML = NOTIZ[S.variante];
+    document.querySelector('[data-ort="breit"]').innerHTML = kachel(false);
+    document.querySelector('[data-ort="schmal"]').innerHTML = kachel(true);
+    document.getElementById('st-log').innerHTML = S.log;
+    lucide.createIcons({ icons: lucide.icons });
+  }
+
+  document.addEventListener('click', (ev) => {
+    const teil = ev.target.closest('[data-teil]');
+    if (teil) {
+      const k = teil.dataset.teil;
+      if (S.aus.has(k)) S.aus.delete(k); else S.aus.add(k);
+      return zeichne();
+    }
+    const akt = ev.target.closest('[data-akt]');
+    if (akt) {
+      const i = Number(akt.dataset.plan);
+      const p = PLAENE[i];
+      if (akt.dataset.akt === 'gelesen') {
+        // B fragt nur, wenn es etwas zu fragen gibt.
+        if (S.variante === 'b' && (p.zweit || p.dazu)) S.frage = i; else eintragen(i);
+      } else if (akt.dataset.akt === 'eintragen') eintragen(i);
+      else if (akt.dataset.akt === 'abbrechen') { S.frage = null; S.aus.clear(); }
+      return zeichne();
+    }
+    const b = ev.target.closest('[data-mk] button');
+    if (!b) return;
+    S[b.closest('[data-mk]').dataset.mk] = b.dataset.wert;
+    S.frage = null; S.aus.clear(); S.log = '';
+    zeichne();
+  });
+  zeichne();
+</script>
+</body>
+</html>

@@ -8,7 +8,7 @@ import { showToast } from '/utils/toast-show.js';
 import { dienst, ladeBibelDaten, DienstFehler } from './lib/dienst.js';
 import { esc, ic, plusTage, uhrzeitJetzt } from './lib/werkzeug.js';
 import {
-  reiter, menu, menuAnker, heute, plaene, fortschritt, logbuch, statistikTab, naechsteTexte, gelesenText, eintragTexte, stellenTexte,
+  reiter, menu, menuAnker, heute, plaene, fortschritt, logbuch, statistikTab, naechsteTexte, gelesenText, eintragTexte, stellenTexte, hatNeben,
 } from './lib/ansicht.js';
 import { blatt, neuerAssistent, rezeptAus, nameVorschlag, zielVorschau, SCHRITTE } from './lib/blaetter.js';
 
@@ -24,8 +24,10 @@ export async function render(container, { signal } = {}) {
     fortschrittAlle: null, fortschrittFilter: null, planDetail: {}, einstellungen: null,
     monat: null, tagWahl: null, buch: null, ui: null, busy: null, gerade: {}, saved: null,
     dabei: new Set(), assistent: null, breit: true, fehler: null, bereit: false,
-    // Je Plan die Teile, die vor „Gelesen“ herausgenommen sind: Set('zweit', 'dazu').
+    // Je Plan die Teile, die beim Abhaken herausgenommen sind: Set('zweit', 'dazu').
     ohne: {},
+    // Plan, bei dem nach „Gelesen“ die Nachfrage „Was hast du gelesen?“ offen ist.
+    frage: null,
   };
 
   // Kopf einmal bauen: der FAB dockt am Laptop in seine Aktionsleiste, ein Neuzeichnen würde ihn verlieren.
@@ -186,7 +188,6 @@ export async function render(container, { signal } = {}) {
         try {
           await dienst.lesungLoeschen(r.lesung);
           S.gerade[p.id] = vorher;
-          if (ohne.size) S.ohne[p.id] = ohne;
           await nachAenderung();
           zeichne();
         } catch (err) { meldeFehler(err); zeichne(); }
@@ -283,15 +284,34 @@ export async function render(container, { signal } = {}) {
         zeichne();
         return;
       }
-      case 'gelesen': S.ui = null; await abhaken(planId); return;
-      case 'gelesen-blatt': await abhaken(planId); return;
+      case 'gelesen':
+      case 'gelesen-blatt': {
+        // Mit Nebenstellen erst fragen, was gelesen wurde (alles vorausgewählt); sonst gleich eintragen.
+        if (akt === 'gelesen') S.ui = null;
+        const p = S.plaene.find((x) => x.id === Number(planId));
+        if (p && S.dienstAktuell && hatNeben(naechsteTexte(S, p))) {
+          S.frage = p.id;
+          S.ohne[p.id] = new Set();
+          zeichne();
+          wurzel.querySelector('[data-akt="frage-eintragen"]')?.focus();
+          return;
+        }
+        await abhaken(planId);
+        return;
+      }
+      case 'frage-eintragen': S.frage = null; await abhaken(planId); return;
+      case 'frage-abbrechen': S.frage = null; delete S.ohne[planId]; zeichne(); return;
       case 'gelesen-am': {
         const am = wurzel.querySelector('#bl-am')?.value || plusTage(S.heute, -1);
         S.ui = null;
         await abhaken(planId, am);
         return;
       }
-      case 'blatt': await oeffneBlatt(was, planId); return;
+      case 'blatt':
+        // „Gelesen am …“ beginnt mit allen Stellen ausgewählt.
+        if (was === 'gelesenAm' && planId) { S.ohne[planId] = new Set(); S.frage = null; }
+        await oeffneBlatt(was, planId);
+        return;
       case 'schliessen': S.ui = null; S.assistent = null; zeichne(); return;
       case 'eintragen': {
         const p = S.plaene.find((x) => x.id === S.filter);
@@ -463,7 +483,7 @@ export async function render(container, { signal } = {}) {
   };
   document.addEventListener('click', klick, { signal });
   document.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape' && S.ui) { S.ui = null; S.assistent = null; zeichne(); }
+    if (ev.key === 'Escape' && S.ui) { S.ui = null; S.assistent = null; zeichne(); } else if (ev.key === 'Escape' && S.frage) { delete S.ohne[S.frage]; S.frage = null; zeichne(); }
   }, { signal });
 
   // Formularfelder: „Ziel verschieben“ zeigt seine Vorschau am Ort (der Fokus bleibt im Feld),

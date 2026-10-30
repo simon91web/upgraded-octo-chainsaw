@@ -114,11 +114,13 @@ Keine Push-Nachricht wegen Verzug. Er steht nur in der Karte „Heute“ und in 
    Verzug besteht, steht die nächste Einheit nach dem Abhaken als „zum Aufholen“ da.
 2. **Rückgängig.** Nach dem Abhaken 5 s lang im Toast, danach im Logbuch am Eintrag. Nichts geht verloren.
    **Teilweise gelesen.** Unter der Hauptstelle stehen zweiter Strang (Feder) und Parallelstellen
-   (Spalten) mit gesetztem Haken. Ein Tipp nimmt sie vor „Gelesen“ heraus; Herausgenommenes zählt nicht im
-   Fortschritt und steht im Logbuch als „Ausgelassen“, dort auch nachträglich änderbar. Die Hauptstelle
-   lässt sich nicht herausnehmen, das Lesezeichen rückt wie immer weiter. Die Kachel zählt immer alles.
+   (Spalten). Hat die Einheit solche Nebenstellen, fragt „Gelesen“ nach – auf der Karte „Auch gelesen?“,
+   in der Kachel „Was hast du gelesen?“ –, alles vorausgewählt, dann „Eintragen“; ohne Nebenstellen trägt
+   der Tipp sofort ein. „Gelesen am …“ und das Logbuch-Blatt tragen die Haken gleich im Formular.
+   Herausgenommenes zählt nicht im Fortschritt und steht im Logbuch als „Ausgelassen“, dort nachträglich
+   änderbar. Die Hauptstelle lässt sich nicht herausnehmen, das Lesezeichen rückt wie immer weiter.
    Eine Parallelstelle kommt im Plan nur einmal vor; Ausgelassenes bleibt deshalb offen, bis es frei
-   eingetragen wird (Mockup: `mockup/stellen.html`).
+   eingetragen wird (Mockups: `mockup/stellen.html`, `mockup/kachel-haken.html` Variante B).
 3. **Anderer Tag.** „Gelesen am …“ im Menü der Einheit, für „gestern vergessen einzutragen“.
 4. **Aufholen** ist kein eigener Modus, man liest einfach mehr. Das Blatt „Aufholen“ zeigt, was es
    kostet („Mit je einer Einheit mehr bist du am Sa., 31.10. wieder im Plan“). Es listet die Einheiten

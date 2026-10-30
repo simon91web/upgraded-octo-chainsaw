@@ -142,6 +142,14 @@ button.bl-neben__zeile { cursor: pointer; }
 .bl-eintrag-stelle { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
 .bl-eintrag-stelle .bl-neben { margin-top: 0; }
 .bl-eintrag-stelle .bl-lead { margin: 0; font-weight: 600; }
+/* Nachfrage nach „Gelesen“: Hauptstelle mit festem Haken, Nebenstellen vorausgewählt. */
+.bl-frage__titel { font-size: 15px; font-weight: 600; margin-top: -4px; }
+.bl-frage__titel + .bl-neben { margin-top: -6px; }
+.bl-neben__zeile--fest { color: var(--color-text-primary); font-weight: 600; padding: 6px 0; font-size: 15px; }
+.bl-haken--fest { box-shadow: none; background: color-mix(in srgb, var(--color-success) var(--tint-state, 12%), transparent); }
+.bl-frage { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+.bl-frage .bl-frage__titel { margin-top: 0; }
+.bl-frage .bl-neben { margin-top: 0; }
 .bl-today__meta { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 15px; color: var(--color-text-secondary); }
 .bl-today__fix { display: flex; flex-wrap: wrap; gap: 4px; margin: -8px 0 -4px -14px; }
 .bl-today__dabei { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 2px; }
